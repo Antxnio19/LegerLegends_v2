@@ -1,0 +1,89 @@
+body {
+    background-color: #3399FF;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.login-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 350px;
+    min-height: 400px; /* Adds minimum height to the container */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Aligns content to the top */
+    padding-top: 40px; /* Adds top padding to prevent logo cutoff */
+}
+
+.login-logo img {
+    width: 250px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    margin-bottom: 15px;
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="date"], select {
+    width: 90%;
+    padding: 8px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 95%;
+    padding: 10px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #003d80;
+}
+
+.login-links {
+    margin-top: 10px;
+}
+
+.login-links a {
+    color: #0056b3;
+    text-decoration: none;
+    display: inline-block;
+    margin: 5px 0;
+}
+
+.login-links a:hover {
+    text-decoration: underline;
+}
+
+#passwordRequirements {
+    text-align: left;
+    margin: 10px 0;
+}
+
+#passwordRequirements p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.invalid {
+    color: red;
+}
+
+.valid {
+    color: green;
+}
