@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New User</title>
+    <link rel="stylesheet" href="./administrator_stylesheet.css">
+    <link rel="stylesheet" href="./create_new_user_stylesheet.css">
+</head>
+<body>
+    <nav>
+        <div class="welcome">
+            <img src="profile.png" alt="Picture" class="picture">
+            <h1>Ledger Ledgend Administrator</h1>
+        </div>
+        <!-- Profile and logout section -->
+        <div class="user-profile">
+            <img src="pfp.png" alt="User Picture" class="profile-pic">
+            <span class="username">Jtrejo0924</span>
+            <a href="./logout.html" class="logout-btn">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Navigation Bar -->
+    <div class="main-bar">
+        <a href="./administrator_home.html" class="nav-link">Home</a>
+        <a href="./it_ticket.html" class="nav-link">IT Ticket</a>
+
+        <!-- User Management dropdown -->
+        <div class="dropdown">
+            <button class="dropbtn">User Management</button>
+            <div class="dropdown-content">
+                <a href="./create_new_user_admin.html">Create User</a>
+                <a href="./user_roaster.html">View Users</a>
+                <a href="./Manage_Users.html">Account Approval</a>
+            </div>
+        </div>
+
+        <!-- Reports dropdown -->
+        <div class="dropdown">
+            <button class="dropbtn">Reports</button>
+            <div class="dropdown-content">
+                <a href="#">User Report</a>
+                <a href="./Expired_Passwords_Log.html">Expired Passwords Report</a>
+                <a href="#">Login Attempts Report</a>
+            </div>
+        </div>
+
+        <!-- Notifications dropdown -->
+        <div class="dropdown">
+            <button class="dropbtn">Notifications</button>
+            <div class="dropdown-content">
+                <a href="">Password Expiration Alerts</a>
+            </div>
+        </div>
+
+        <!-- Email Management dropdown -->
+        <div class="dropdown">
+            <button class="dropbtn">Email Management</button>
+            <div class="dropdown-content">
+                <a href="">Send Email</a>
+            </div>
+        </div>
+
+        <!-- Settings dropdown -->
+        <div class="dropdown">
+            <button class="dropbtn">Settings</button>
+            <div class="dropdown-content">
+                <a href="#">System Settings</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="container">
+            <h2>Create New User</h2>
+            <form id="createUserForm">
+                <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
+                <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+                <input type="date" id="dob" name="dob" required min="1920-01-01" max="2024-12-31">
+                <input type="text" id="address" name="address" placeholder="Address" required>
+
+                <!-- Username and Password Fields -->
+                <input type="text" id="username" name="username" placeholder="Create Username" required>
+                <input type="password" id="password" name="password" placeholder="Create Password" required>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+
+                <!-- Password Requirements -->
+                <div id="passwordRequirements">
+                    <p id="lengthRequirement" class="invalid">Minimum 8 characters</p>
+                    <p id="letterRequirement" class="invalid">Starts with a letter</p>
+                    <p id="numberRequirement" class="invalid">Contains a number</p>
+                    <p id="specialRequirement" class="invalid">Contains a special character</p>
+                </div>
+
+                <!-- Security Question -->
+                <select id="securityQuestion" name="securityQuestion" required>
+                    <option value="" disabled selected>Select a Security Question</option>
+                    <option value="q1">What was your first pet's name?</option>
+                    <option value="q2">What is your mother's maiden name?</option>
+                    <option value="q3">What was the make of your first car?</option>
+                    <option value="q4">What is your favorite book?</option>
+                    <option value="q5">What city were you born in?</option>
+                </select>
+                <input type="text" id="securityAnswer" name="securityAnswer" placeholder="Answer" required>
+
+                <button type="submit">Submit Request</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="New_Password.js"></script>
+</body>
+</html>

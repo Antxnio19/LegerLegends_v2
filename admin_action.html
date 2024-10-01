@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./administrator_stylesheet.css">
+    <link rel="stylesheet" href="./admin_action_stylesheet.css">
+
+    <title>Account Administrative Action</title>
+</head>
+<body>
+    <nav>
+        <div class="welcome">
+            <img src="profile.png" alt="Picture" class="picture">
+            <h1>Welcome Administrator!</h1>
+        </div>
+        <ul>
+            <li><a href="./administrator_home.html">Home</a></li>
+            <li><a href="./it_ticket.html">IT Ticket</a></li>
+            <li><a class="active" href="./logout.html">Logout</a></li>
+        </ul>
+    </nav>
+
+
+    <div class="admin-action-main">
+        <div class="admin-action-container">
+            <h2>Search User by User ID</h2>
+            <form id="searchForm" onsubmit="return searchUser(event)">
+                <input type="text" id="userId" name="userId" placeholder="Enter User ID" required>
+                <button type="submit">Search</button>
+            </form>
+
+            <div id="userInfo" class="user-info" style="display: none;">
+                <h3>User Information</h3>
+                <p><strong>First Name:</strong> <span id="firstName"></span></p>
+                <p><strong>Last Name:</strong> <span id="lastName"></span></p>
+                <p><strong>Address:</strong> <span id="address"></span></p>
+                <p><strong>Date of Birth:</strong> <span id="dob"></span></p>
+                <p><strong>Position:</strong> <span id="position"></span></p>
+                <button onclick="resetPassword()">Reset Password</button><br><br>
+                <button onclick="suspendUser()">Suspend User Access</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function searchUser(event) {
+            event.preventDefault();
+            const userId = document.getElementById('userId').value;
+
+            // Simulate an API call to get user data
+            const userData = await fetchUserData(userId);
+
+            if (userData) {
+                document.getElementById('firstName').innerText = userData.firstName;
+                document.getElementById('lastName').innerText = userData.lastName;
+                document.getElementById('address').innerText = userData.address;
+                document.getElementById('dob').innerText = userData.dob;
+                document.getElementById('position').innerText = userData.position;
+                document.getElementById('userInfo').style.display = 'block';
+            } else {
+                alert('User not found!');
+            }
+        }
+
+        async function fetchUserData(userId) {
+            // Mock user data for demonstration purposes
+            const mockDatabase = {
+                '1': { firstName: 'John', lastName: 'Doe', address: '123 Main St', dob: '1990-01-01', position: 'Administrator' },
+                '2': { firstName: 'Jane', lastName: 'Smith', address: '456 Elm St', dob: '1985-05-15', position: 'User' }
+            };
+            return mockDatabase[userId] || null; // Return user data or null if not found
+        }
+
+        function resetPassword() {
+            alert('Password reset link has been sent to the user\'s email.');
+        }
+
+        function suspendUser() {
+            alert('User access has been suspended.');
+        }
+    </script>
+</body>
+</html>
