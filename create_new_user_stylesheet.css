@@ -1,0 +1,88 @@
+:root {
+    --background-color: #2C2F33; /* Dark grey background */
+    --container-background: #23272A; /* Slightly darker grey */
+    --input-border: #33C3B3; /* Teal color for input borders */
+    --button-color: #33C3B3; /* Teal for buttons */
+    --button-hover-color: #29A695; /* Darker teal for hover state */
+    --link-color: #33C3B3; /* Teal for links */
+    --text-color: white; /* White text */
+    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Slightly darker shadow */
+    --border-radius: 5px; /* Softer rounded corners */
+}
+
+/* Main container styling for Create User */
+.main {
+    background-color: var(--background-color);
+    font-family: 'Whitney', 'Helvetica Neue', 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    background-color: var(--container-background);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    min-height: 500px;
+    margin: 0 auto;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="date"], select {
+    width: 90%;
+    padding: 8px;
+    margin: 8px 0;
+    border: 1px solid var(--input-border);
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #2C2F33;
+    color: white;
+}
+
+button {
+    width: 95%;
+    padding: 10px;
+    background-color: var(--button-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--button-hover-color);
+}
+
+#passwordRequirements {
+    text-align: left;
+    margin: 10px 0;
+}
+
+#passwordRequirements p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+.invalid {
+    color: #F04747; /* Discord-like red for invalid */
+}
+
+.valid {
+    color: #43B581; /* Discord-like green for valid */
+}
+
+.username-generated {
+    color: #43B581;
+    font-weight: bold;
+}

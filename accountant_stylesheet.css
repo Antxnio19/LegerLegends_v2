@@ -1,0 +1,77 @@
+:root {
+    --background-color: #2C2F33; /* Dark grey background */
+    --navbar-background: #23272A; /* Darker grey for navbar */
+    --link-color: #33C3B3; /* Teal for links */
+    --link-hover-background: #1F2933; /* Dark grey for hover */
+    --dropdown-background: #2C2F33; /* Dark dropdown background */
+    --dropdown-hover-background: #3A3F47; /* Slightly lighter grey for hover */
+    --text-color: white; /* White text for contrast */
+    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Darker shadow */
+    --border-radius: 5px; /* Softer border radius */
+}
+
+body {
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    color: var(--text-color); /* Set default text color to white */
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.welcome {
+    display: flex;
+    align-items: center;
+}
+
+.picture {
+    width: 100px;
+    height: auto;
+    margin-right: 10px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    display: inline-block;
+    background-color: var(--navbar-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 10px;
+}
+
+li a {
+    display: inline-block;
+    color: var(--link-color); /* Teal link color */
+    text-align: left;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+li a:hover {
+    background-color: var(--link-hover-background); /* Dark grey hover background */
+}
+
+/* Dropdown menu styles */
+.dropdown {
+    background-color: var(--dropdown-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.dropdown li:hover {
+    background-color: var(--dropdown-hover-background); /* Slightly lighter grey hover */
+}

@@ -1,0 +1,196 @@
+:root {
+    --background-color: #2C2F33; /* Dark grey background */
+    --navbar-background: #23272A; /* Darker grey for navbar */
+    --link-color: #33C3B3; /* Teal for links */
+    --link-hover-background: #1F2933; /* Darker grey for link hover */
+    --dropdown-background: #2C2F33; /* Dark grey for dropdown */
+    --dropdown-hover-background: #3A3F47; /* Slightly lighter grey for dropdown hover */
+    --text-color: white; /* White text for contrast */
+    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Darker shadow */
+    --border-radius: 5px; /* Softer border radius */
+}
+
+body {
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--navbar-background);
+}
+
+.welcome {
+    display: flex;
+    align-items: center;
+}
+
+.picture {
+    width: 100px;
+    height: auto;
+    margin-right: 10px;
+}
+
+/* User profile section */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.username {
+    font-size: 16px;
+    color: var(--text-color);
+    margin-right: 10px;
+}
+
+.logout-btn {
+    padding: 10px;
+    background-color: var(--link-color);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+}
+
+.logout-btn:hover {
+    background-color: var(--link-hover-background);
+    color: white; /* Keep text white on hover */
+}
+
+/* Main bar for navigation */
+.main-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--navbar-background);
+    padding: 10px;
+    box-shadow: var(--box-shadow);
+}
+
+.nav-link {
+    display: inline-block;
+    padding: 10px;
+    background-color: var(--navbar-background);
+    color: var(--link-color);
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin: 0 10px;
+}
+
+.nav-link:hover {
+    background-color: var(--link-hover-background);
+    color: white; /* Change text color to white on hover */
+}
+
+/* Dropdown menus */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.dropbtn {
+    background-color: var(--navbar-background);
+    color: var(--link-color);
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--dropdown-background);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.dropdown-content a {
+    color: var(--text-color);
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--dropdown-hover-background);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* IT Ticket Page Styles */
+.main-content {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: var(--navbar-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.form-title {
+    text-align: center;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.ticket-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.ticket-form label {
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+
+.ticket-form input,
+.ticket-form textarea,
+.ticket-form select {
+    width: calc(100% - 22px); /* Full width with padding */
+    padding: 10px;
+    border: 1px solid var(--link-color); /* Teal border */
+    border-radius: var(--border-radius);
+    margin-bottom: 15px;
+    background-color: #444; /* Darker background for inputs */
+    color: white; /* White text for inputs */
+}
+
+.ticket-form input:focus,
+.ticket-form textarea:focus,
+.ticket-form select:focus {
+    border-color: var(--link-hover-background);
+    outline: none;
+}
+
+.submit-btn {
+    background-color: var(--link-color); /* Teal submit button */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: var(--link-hover-background); /* Darker grey on hover */
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information Table</title>
+    <link rel="stylesheet" href="./user_roaster_stylesheet.css">
+</head>
+<body>
+    <nav>
+        <div class="welcome">
+            <img src="profile.png" alt="Picture" class="picture">
+            <h1>Ledger Ledgend Administrator</h1>
+        </div>
+        <!-- Profile and logout section -->
+        <div class="user-profile">
+            <img src="pfp.png" alt="User Picture" class="profile-pic">
+            <span class="username">Jtrejo0924</span>
+            <a href="./logout.html" class="logout-btn">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Navigation Bar -->
+    <div class="main-bar">
+        <a href="./administrator_home.html" class="nav-link">Home</a>
+        <a href="./it_ticket.html" class="nav-link">IT Ticket</a>
+        <div class="dropdown">
+            <button class="dropbtn">User Management</button>
+            <div class="dropdown-content">
+                <a href="./create_new_user_admin.html">Create User</a>
+                <a href="./user_roaster.html">View Users</a>
+                <a href="./Manage_Users.html">Account Approval</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Reports</button>
+            <div class="dropdown-content">
+                <a href="#">User Report</a>
+                <a href="./Expired_Passwords_Log.html">Expired Passwords Report</a>
+                <a href="#">Login Attempts Report</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Notifications</button>
+            <div class="dropdown-content">
+                <a href="#">Password Expiration Alerts</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Email Management</button>
+            <div class="dropdown-content">
+                <a href="#">Send Email</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Settings</button>
+            <div class="dropdown-content">
+                <a href="#">System Settings</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content area for table -->
+    <div class="main-content">
+        <table>
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Address</th>
+                    <th>Date of Birth</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Date Created</th>
+                    <th>Password</th>
+                    <th>Position</th>
+                    <th>Password Expiry Duration (Days)</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                    <td>123 Main St, Anytown, USA</td>
+                    <td>1990-01-01</td>
+                    <td>john.doe@example.com</td>
+                    <td>johndoe</td>
+                    <td>2023-01-15</td>
+                    <td>password123</td>
+                    <td>Administrator</td>
+                    <td>90</td>
+                    <td><button class="update-button" onclick="updateUser('John')">Update</button></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Jane</td>
+                    <td>Smith</td>
+                    <td>456 Elm St, Othertown, USA</td>
+                    <td>1985-05-15</td>
+                    <td>jane.smith@example.com</td>
+                    <td>janesmith</td>
+                    <td>2023-02-20</td>
+                    <td>securePass456</td>
+                    <td>User</td>
+                    <td>90</td>
+                    <td><button class="update-button" onclick="updateUser('Jane')">Update</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function updateUser(userName) {
+            window.location.href = `update_users_info.html?user=${encodeURIComponent(userName)}`;
+        }
+    </script>
+</body>
+</html>

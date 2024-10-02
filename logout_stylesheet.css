@@ -1,0 +1,42 @@
+:root {
+    --background-color: #2C2F33; /* Dark grey background */
+    --navbar-background: #23272A; /* Darker grey for navbar */
+    --link-color: #33C3B3; /* Teal for links */
+    --link-hover-background: #1F2933; /* Darker grey for link hover */
+    --text-color: white; /* White text for contrast */
+    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Darker shadow */
+    --border-radius: 5px; /* Softer border radius */
+}
+
+.logout-message {
+    background-color: var(--navbar-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 20px;
+    text-align: center;
+    max-width: 400px;
+    margin: auto;
+    margin-top: 100px; /* Center vertically */
+}
+
+.logout-message h1 {
+    color: var(--text-color);
+}
+
+.logout-message p {
+    color: var(--text-color);
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 15px;
+    background-color: var(--link-color);
+    color: white;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+}
+
+.back-link:hover {
+    background-color: var(--link-hover-background);
+}

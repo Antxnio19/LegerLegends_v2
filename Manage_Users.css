@@ -1,0 +1,78 @@
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid var(--text-color);
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: var(--link-color); /* Teal header */
+    color: white; /* White text for contrast */
+}
+
+tr:nth-child(even) {
+    background-color: #2A2D30; /* Darker grey for even rows */
+}
+
+tr:hover {
+    background-color: var(--link-hover-background); /* Darker grey on hover */
+    color: white; /* White text on hover for visibility */
+}
+
+/* Modal Styling */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.7); /* Dark overlay with transparency */
+    padding-top: 60px; /* Space from top */
+}
+
+.modal-content {
+    background-color: #23272A; /* Dark grey modal background */
+    margin: 5% auto; /* 5% from the top and centered */
+    padding: 20px; /* Padding inside modal */
+    border: 1px solid #888; /* Light grey border */
+    width: 80%; /* 80% width */
+    max-width: 400px; /* Max width */
+    border-radius: var(--border-radius); /* Rounded corners */
+    box-shadow: var(--box-shadow); /* Box shadow for depth */
+}
+
+.close-btn {
+    color: #aaa; /* Light grey close button */
+    float: right; /* Float right */
+    font-size: 28px; /* Larger font */
+    font-weight: bold; /* Bold text */
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: white; /* Change to white on hover/focus */
+    text-decoration: none; /* No underline */
+    cursor: pointer; /* Pointer cursor */
+}
+
+.modal button {
+    background-color: var(--link-color); /* Teal button */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: var(--border-radius); /* Rounded corners */
+    padding: 10px 20px; /* Padding */
+    cursor: pointer; /* Pointer cursor */
+    font-size: 16px; /* Font size */
+}
+
+.modal button:hover {
+    background-color: #33C3B3; /* Slightly lighter teal on hover */
+}
