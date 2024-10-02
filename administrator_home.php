@@ -72,7 +72,7 @@ $username = $_SESSION['username'];
         <div class="dropdown">
             <button class="dropbtn">Email Management</button>
             <div class="dropdown-content">
-                <a href="">Send Email</a>
+            <a href="./Email.php">Email Users</a>
             </div>
         </div>
 

@@ -92,7 +92,7 @@ mysqli_close($conn);
         <div class="dropdown">
             <button class="dropbtn">Email Management</button>
             <div class="dropdown-content">
-                <a href="./Email.html">Send Email</a>
+                <a href="./Email.php">Send Email</a>
             </div>
         </div>
 

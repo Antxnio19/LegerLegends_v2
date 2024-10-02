@@ -1,0 +1,191 @@
+:root {
+    --background-color: #2C2F33; /* Dark grey background */
+    --navbar-background: #23272A; /* Darker grey for navbar */
+    --link-color: #33C3B3; /* Teal for links */
+    --link-hover-background: #1F2933; /* Darker grey for link hover */
+    --dropdown-background: #2C2F33; /* Dark grey for dropdown */
+    --dropdown-hover-background: #3A3F47; /* Slightly lighter grey for dropdown hover */
+    --userList-background: #3A3F47; /* Adjusted user list background */
+    --text-color: white; /* White text for contrast */
+    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Darker shadow */
+    --border-radius: 5px; /* Softer border radius */
+}
+
+body {
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--navbar-background);
+    box-shadow: var(--box-shadow);
+}
+
+.welcome {
+    display: flex;
+    align-items: center;
+}
+
+.picture {
+    width: 100px;
+    height: auto;
+    margin-right: 10px;
+}
+
+/* User profile section */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.username {
+    font-size: 16px;
+    color: var(--text-color); /* White text for username */
+    margin-right: 10px;
+}
+
+.logout-btn {
+    padding: 10px;
+    background-color: var(--link-color); /* Teal button */
+    color: white;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+}
+
+.logout-btn:hover {
+    background-color: var(--link-hover-background); /* Darker grey on hover */
+    color: white; /* Keep text white on hover */
+}
+
+/* Main bar for navigation */
+.main-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--navbar-background);
+    padding: 10px;
+    box-shadow: var(--box-shadow);
+}
+
+.nav-link {
+    display: inline-block;
+    padding: 10px;
+    background-color: var(--navbar-background); /* Dark grey for link background */
+    color: var(--text-color); /* White text color for tabs/buttons */
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin: 0 10px;
+}
+
+.nav-link:hover {
+    background-color: var(--link-hover-background); /* Darker grey on hover */
+    color: white; /* Keep text white on hover */
+}
+
+/* Dropdown menus */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.dropbtn {
+    background-color: var(--navbar-background); /* Dark grey button */
+    color: var(--link-color); /* Teal text color */
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--dropdown-background); /* Dark grey dropdown background */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.dropdown-content a {
+    color: var(--text-color); /* White text for dropdown items */
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--dropdown-hover-background); /* Lighter grey on hover */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block; /* Show dropdown on hover */
+}
+
+/* Table Styling */
+.main-content {
+    padding: 20px;
+}
+
+.emailForm {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white; /* White background for the table */
+}
+
+th, td {
+    border: 1px solid var(--text-color); /* White border */
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: var(--link-color); /* Teal header */
+    color: white; /* White text in header */
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light grey for even rows */
+}
+
+tr:nth-child(odd) {
+    background-color: #e0e0e0; /* Slightly darker light grey for odd rows */
+}
+
+tr:hover {
+    background-color: var(--link-hover-background); /* Darker grey on hover */
+    color: black; /* Black text on hover */
+}
+
+/* Black text for table data */
+td {
+    color: black; /* Black text in table cells */
+}
+
+/* Additional styles for headings and labels */
+h2, h3, label {
+    color: var(--text-color); /* White text for headings and labels */
+}
