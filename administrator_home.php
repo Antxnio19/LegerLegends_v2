@@ -9,6 +9,7 @@ if (!isset($_SESSION['username'])) {
 
 // Store the username from the session
 $username = $_SESSION['username'];
+$userId = $_SESSION['Id'];
 ?>
 
 <!DOCTYPE html>

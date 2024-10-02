@@ -10,8 +10,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Create the table if it does not exist
-$table_sql = "CREATE TABLE IF NOT EXISTS Table1 (
+// Create the EmployeeAccounts table if it does not exist --> formerly Table1
+$table_sql = "CREATE TABLE IF NOT EXISTS EmployeeAccounts (
     Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     UserTypeId CHAR(10) NOT NULL,
     Username VARCHAR(50) NOT NULL UNIQUE,
@@ -50,7 +50,7 @@ $security_answer = $_POST['security_answer'];
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 // Prepare the SQL statement for insertion, including IsActive set to FALSE
-$in = $conn->prepare("INSERT INTO Table1 (UserTypeId, Username, Password, EmailAddress, DateOfBirth, FirstName, LastName, Address, SecurityQuestions, SecurityAnswers, IsActive) 
+$in = $conn->prepare("INSERT INTO EmployeeAccounts (UserTypeId, Username, Password, EmailAddress, DateOfBirth, FirstName, LastName, Address, SecurityQuestions, SecurityAnswers, IsActive) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 // Bind parameters

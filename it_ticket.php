@@ -1,3 +1,17 @@
+<?php
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php'); // Redirect to login page if not logged in
+    exit();
+}
+
+// Store the username from the session
+$username = $_SESSION['username'];
+$userId = $_SESSION['Id'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,15 +31,15 @@
         <!-- Profile and logout section -->
         <div class="user-profile">
             <img src="pfp.png" alt="User Picture" class="profile-pic">
-            <span class="username">Jtrejo0924</span>
-            <a href="./logout.html" class="logout-btn">Logout</a>
+            <span class="username"><?php echo htmlspecialchars($username); ?></span> <!-- Display the dynamic username here -->
+            <a href="./logout.php" class="logout-btn">Logout</a>
         </div>
     </nav>
 
     <!-- Navigation Bar -->
     <div class="main-bar">
-        <a href="./administrator_home.html" class="nav-link">Home</a>
-        <a href="./it_ticket.html" class="nav-link">IT Ticket</a>
+        <a href="./administrator_home.php" class="nav-link">Home</a>
+        <a href="./it_ticket.php" class="nav-link">IT Ticket</a>
 
         <!-- User Management dropdown -->
         <div class="dropdown">
@@ -74,23 +88,24 @@
 
     <div class="main-content">
         <h2 class="form-title">Submit an IT Ticket</h2>
-        <form class="ticket-form">
+        <form class="ticket-form" action="http://localhost:8888/LegerLegends_v2/LegerLegends_v2/it_ticket_submit.php" method="POST">
+            <input type="hidden" name="userId" value="<?php echo isset($_SESSION['Id']) ? htmlspecialchars($_SESSION['Id']) : ''; ?>">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
-
+    
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
-
+    
             <label for="issue">Issue Description:</label>
             <textarea id="issue" name="issue" rows="4" required></textarea>
-
+    
             <label for="priority">Priority:</label>
             <select id="priority" name="priority">
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
                 <option value="high">High</option>
             </select>
-
+    
             <button type="submit" class="submit-btn">Submit Ticket</button>
         </form>
     </div>
