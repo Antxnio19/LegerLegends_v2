@@ -62,7 +62,7 @@ mysqli_close($conn);
 
     <div class="main-bar">
         <a href="./administrator_home.html" class="nav-link">Home</a>
-        <a href="./it_ticket.html" class="nav-link">IT Ticket</a>
+        <a href="./it_ticket.php" class="nav-link">IT Ticket</a>
 
         <div class="dropdown">
             <button class="dropbtn">User Management</button>

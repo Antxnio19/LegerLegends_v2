@@ -47,7 +47,7 @@ VALUES
 ('1', 'janedoe', '$2y$10$PbtJ8UH9jWnvU62qXHG48.qHzbrFvq1JY7KdBSbl9FgLpMSv0rfey', 'janedoe@example.com', '1992-02-02', 'Jane', 'Doe', '124 Main St'),
 ('2', 'alexsmith', '$2y$10$fpkTbB1k.mSQaEDmWiXNReSpS1fh2URaiy2Y5igHos2aHI3eFS/N6', 'alexsmith@example.com', '1994-03-03', 'Alex', 'Smith', '125 Main St'),
 ('2', 'maryjohnson', '$2y$10$gX6gbVy3/IrAg82LTlNJMOSYnKM4Y8AU/K1pYMf6/bb6lnXbxrjge', 'maryjohnson@example.com', '1996-04-04', 'Mary', 'Johnson', '126 Main St'),
-('3', 'davidbrown', '$2y$10$oMBBc9fdYJHKkKiuzoIB../FI43m.tDKu98CI97af2XUSinxPFn7a', 'davidbrown@example.com', '1998-05-05', 'David', 'Brown', '127 Main St');
+('3', 'davidbrown', '$2y$10$oMBBc9fdYJHKkKiuzoIB../FI43m.tDKu98CI97af2XUSinxPFn7a', 'davidbrown@example.com', '1998-05-05', 'David', 'Brown', '127 Main St'),
 ('3', 'michaelwhite', '$2y$10$SKXO3TzwiR2A6CkkaaHUcetqi4S5mOFc/h.dIafbIiYBh0an4HeCm', 'michaelwhite@example.com', '1995-06-06', 'Michael', 'White', '128 Main St'),
 ('3', 'sarahconnor', '$2y$10$gX6gbVy3/IrAg82LTlNJMOSYnKM4Y8AU/K1pYMf6/bb6lnXbxrjge', 'sarahconnor@example.com', '1997-07-07', 'Sarah', 'Connor', '129 Main St'),
 ('4', 'robertgreen', '$2y$10$oMBBc9fdYJHKkKiuzoIB../FI43m.tDKu98CI97af2XUSinxPFn7a', 'robertgreen@example.com', '1999-08-08', 'Robert', 'Green', '130 Main St'),

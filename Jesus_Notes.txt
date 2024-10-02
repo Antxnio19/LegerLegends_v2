@@ -1,5 +1,5 @@
 1. Once you have the server running if you want to rework the Hashed Password access them via LocalHost
-    --> http://localhost:8888/LegerLegends_v2/LegerLegends_v2/Login_Logout_Feature/HashedPasswords.php
+    --> http://localhost:8888/LegerLegends_v2/LegerLegends_v2/HashedPasswords.php
 
 2. <link rel="stylesheet" href="../styles.css">
     --> ./ same folder

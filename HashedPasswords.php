@@ -8,7 +8,8 @@ $passwords = [
     'password2',
     'password3',
     'password4',
-    'password5'
+    'password5',
+    
 ];
 
 $hashedPasswords = array_map('hashPassword', $passwords);
@@ -18,3 +19,6 @@ foreach ($hashedPasswords as $index => $hashedPassword) {
 }
 ?>
 
+
+<!-- Go here to see hashed password
+    http://localhost:8888/LegerLegends_v2/LegerLegends_v2/HashedPasswords.php -->
