@@ -45,8 +45,8 @@ $userId = $_SESSION['Id'];
         <div class="dropdown">
             <button class="dropbtn">User Management</button>
             <div class="dropdown-content">
-                <a href="./create_new_user_admin.html">Create User</a>
-                <a href="./user_roaster.html">View Users</a>
+                <a href="./create_new_user_admin.php">Create User</a>
+                <a href="./user_roaster.php">View Users</a>
                 <a href="./Manage_Users.html">Account Approval</a>
             </div>
         </div>

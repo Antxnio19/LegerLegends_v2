@@ -1,6 +1,7 @@
-<?php
-session_start();
 
+<?php
+// Start session
+session_start();
 // Check if the user is logged in
 if (!isset($_SESSION['username'])) {
     header('Location: login.php'); // Redirect to login page if not logged in
@@ -10,6 +11,27 @@ if (!isset($_SESSION['username'])) {
 // Store the username from the session
 $username = $_SESSION['username'];
 $userId = $_SESSION['Id'];
+
+// Create connection
+$conn = mysqli_connect("localhost", "root", "root", "accounting_db");
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Get user ID from URL
+$userId = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+// Query to select user data
+$sql = "SELECT * FROM EmployeeAccounts WHERE Id = $userId";
+$result = $conn->query($sql);
+
+if ($result->num_rows == 0) {
+    die("User not found.");
+}
+
+$user = $result->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -17,12 +39,12 @@ $userId = $_SESSION['Id'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./administrator_stylesheet.css"> 
-    <link rel="icon" type="image/png" href="profile.png">
-    <title>Ledger Legend Administrator Page</title>
+    <link rel="stylesheet" href="./administrator_stylesheet.css">
+    <title>Update User</title>
 </head>
 <body>
-    <nav>
+
+<nav>
         <div class="welcome">
             <img src="profile.png" alt="Picture" class="picture">
             <h1 class="title">Ledger Legend Administrator</h1> 
@@ -47,7 +69,7 @@ $userId = $_SESSION['Id'];
             <div class="dropdown-content">
                 <a href="./create_new_user_admin.php" >Create User</a>
                 <a href="./user_roster.php" >View Users</a>
-                <a href="./Manage_Users.html" >Account Approval</a>
+                <a href="./Manage_Users.php" >Account Approval</a>
             </div>
         </div>
 
@@ -86,8 +108,37 @@ $userId = $_SESSION['Id'];
         </div>
     </div>
 
-    <div class="main-content">
-        <!-- Content area -->
-    </div>
+    <h1>Update User Information</h1>
+    <form  action="http://localhost:8888/LegerLegends_v2/LegerLegends_v2/update_user_submit.php" method="POST">
+        <input type="hidden" name="id" value="<?php echo $user['Id']; ?>">
+        
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user['Username']); ?>" required><br><br>
+
+        <label for="email">Email Address:</label><br>
+        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['EmailAddress']); ?>" required><br><br>
+
+        <label for="firstName">First Name:</label><br>
+        <input type="text" id="firstName" name="firstName" value="<?php echo htmlspecialchars($user['FirstName']); ?>" required><br><br>
+
+        <label for="lastName">Last Name:</label><br>
+        <input type="text" id="lastName" name="lastName" value="<?php echo htmlspecialchars($user['LastName']); ?>" required><br><br>
+
+        <label for="isActive">Account Status:</label><br>
+        <select id="isActive" name="isActive">
+            <option value="1" <?php echo ($user['IsActive'] ? 'selected' : ''); ?>>Activate</option>
+            <option value="0" <?php echo (!$user['IsActive'] ? 'selected' : ''); ?>>Deactivate</option>
+        </select><br><br>
+
+        <label for="lockoutUntil">Lockout Until:</label><br>
+        <input type="date" id="lockoutUntil" name="lockoutUntil" value="<?php echo $user['LockoutUntil'] ? date('Y-m-d', strtotime($user['LockoutUntil'])) : ''; ?>"><br><br>
+
+        <input type="submit" value="Update User">
+    </form>
 </body>
 </html>
+
+<?php
+// Close the connection
+$conn->close();
+?>
