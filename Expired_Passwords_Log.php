@@ -61,27 +61,31 @@ mysqli_close($conn);
     </nav>
 
     <div class="main-bar">
-        <a href="./administrator_home.html" class="nav-link">Home</a>
+        <!-- Home and IT Ticket as separate clickable links -->
+        <a href="./administrator_home.php" class="nav-link">Home</a>
         <a href="./it_ticket.php" class="nav-link">IT Ticket</a>
 
+        <!-- User Management dropdown -->
         <div class="dropdown">
             <button class="dropbtn">User Management</button>
             <div class="dropdown-content">
-                <a href="./create_new_user_admin.html">Create User</a>
-                <a href="./user_roaster.html">View Users</a>
-                <a href="./Manage_Users.html">Account Approval</a>
+                <a href="./create_new_user_admin.php">Create User</a>
+                <a href="./user_roster.php">View Users</a>
+                <a href="./Manage_Users.php">Account Approval</a>
             </div>
         </div>
 
+        <!-- Reports dropdown -->
         <div class="dropdown">
             <button class="dropbtn">Reports</button>
             <div class="dropdown-content">
                 <a href="#">User Report</a>
-                <a href="#">Expired Passwords Report</a>
+                <a href="./Expired_Passwords_Log.php">Expired Passwords Report</a>
                 <a href="#">Login Attempts Report</a>
             </div>
         </div>
 
+        <!-- Notifications dropdown -->
         <div class="dropdown">
             <button class="dropbtn">Notifications</button>
             <div class="dropdown-content">
@@ -89,13 +93,15 @@ mysqli_close($conn);
             </div>
         </div>
 
+        <!-- Email Management dropdown -->
         <div class="dropdown">
             <button class="dropbtn">Email Management</button>
             <div class="dropdown-content">
-                <a href="./Email.html">Send Email</a>
+            <a href="./Email.php">Email Users</a>
             </div>
         </div>
 
+        <!-- Settings dropdown -->
         <div class="dropdown">
             <button class="dropbtn">Settings</button>
             <div class="dropdown-content">

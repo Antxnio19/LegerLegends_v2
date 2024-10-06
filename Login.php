@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     // Check if the user exists, is active, and is not locked out
-    $sql = "SELECT Id, Password, FailedAttempts, LockoutUntil, UserTypeId, IsActive FROM EmployeeAccounts WHERE Username = ?";
+    $sql = "SELECT Password, FailedAttempts, LockoutUntil, UserTypeId, IsActive FROM Table1 WHERE Username = ?";
     $stmt = $conn->prepare($sql);
     if ($stmt) { // Ensure $stmt was created successfully
         $stmt->bind_param('s', $username);
@@ -30,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($result->num_rows > 0) {
             $user = $result->fetch_assoc();
-            $userId = $user['Id']; // Fetch the user ID
             $hashedPassword = $user['Password'];
             $failedAttempts = $user['FailedAttempts'];
             $lockoutUntil = $user['LockoutUntil'];
@@ -48,30 +47,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Verify password
             elseif (password_verify($password, $hashedPassword)) {
                 // Reset failed attempts after a successful login
-                $sql = "UPDATE EmployeeAccounts SET FailedAttempts = 0, LockoutUntil = NULL WHERE Username = ?";
+                $sql = "UPDATE Table1 SET FailedAttempts = 0, LockoutUntil = NULL WHERE Username = ?";
                 $stmt = $conn->prepare($sql);
                 if ($stmt) { // Ensure $stmt was created successfully
                     $stmt->bind_param('s', $username);
                     $stmt->execute();
                 }
 
-                // Store the username and userId in session for later use
+                // Store the username in session for later use
                 $_SESSION['username'] = $username;
-                $_SESSION['Id'] = $userId; 
 
                 // Redirect to the specific home page based on user type
                 switch ($userTypeId) {
-                    case '1':
-                        header('Location: Administrator_home.php');
-                        break;
-                    case '2':
+                    case 'Accountant':
                         header('Location: Accountant_home.php');
                         break;
-                    case '3':
-                        header('Location: Manager_home.php');
+                    case 'Manager':
+                        header('Location: manager_home.php');
                         break;
-                    case '4':
-                        header('Location: login.html');
+                    case 'Admin':
+                        header('Location: Administrator_home.php');
                         break;
                     default:
                         $error_message = "Invalid user type.";
@@ -82,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $failedAttempts++;
                 $lockoutUntil = ($failedAttempts >= 3) ? date('Y-m-d H:i:s', strtotime('+1 day')) : NULL;
 
-                $sql = "UPDATE EmployeeAccounts SET FailedAttempts = ?, LockoutUntil = ? WHERE Username = ?";
+                $sql = "UPDATE Table1 SET FailedAttempts = ?, LockoutUntil = ? WHERE Username = ?";
                 $stmt = $conn->prepare($sql);
                 if ($stmt) { // Ensure $stmt was created successfully
                     $stmt->bind_param('iss', $failedAttempts, $lockoutUntil, $username);
@@ -141,4 +136,3 @@ $conn->close();
     </div>
 </body>
 </html>
-

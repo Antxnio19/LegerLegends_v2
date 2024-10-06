@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update User Information</title>
+    <link rel="stylesheet" href="./administrator_stylesheet.css">
+    <link rel="stylesheet" href="./update_user_form_stylesheet.css">
+
+    
+</head>
+<body>
+
+    <nav>
+        <div class="welcome">
+            <img src="profile.png" alt="Picture" class="picture">
+            <h1>Welcome Administrator!</h1>
+        </div>
+        <ul>
+            <li><a href="./administrator_home.html">Home</a></li>
+            <li><a href="./it_ticket.html">IT Ticket</a></li>
+            <li><a class="active" href="./logout.html">Logout</a></li>
+        </ul>
+    </nav>
+    
+    <div class="update-main">
+        <div class="update-container">
+            <h2>Update User Information</h2>
+            <form id="updateForm">
+                <input type="text" id="firstName" name="firstName" placeholder="First Name" required> <br><br>
+                <input type="text" id="lastName" name="lastName" placeholder="Last Name" required><br><br>
+                <input type="text" id="address" name="address" placeholder="Address" required><br><br>
+                <input type="date" id="dob" name="dob" required><br><br>
+                <input type="password" id="password" name="password" placeholder="New Password" required><br><br>
+                <input type="text" id="position" name="position" placeholder="Position" required><br><br>
+                <input type="number" id="expiryPassword" name="expiryPassword" placeholder="Password Expiry" required><br><br>
+                <button type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- TODO Placeholder function we need to add Primary Keys to our Database and retrieve users using them -->
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                user: params.get('user')
+            };
+        }
+        window.onload = function() {
+            const { user } = getQueryParams();
+            if (user) {
+                document.getElementById('firstName').value = user;
+            }
+        };
+    </script>
+</body>
+</html>
