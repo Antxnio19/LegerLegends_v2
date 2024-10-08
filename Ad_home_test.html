@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./ad_home_test.css"> 
+    <link rel="icon" type="image/png" href="profile.png">
+    <title>Ledger Ledgend Administrator Page</title>
+</head>
+<body>
+    <nav>
+        <div class="welcome">
+            <img src="profile.png" alt="Picture" class="picture">
+            <h1>Ledger Ledgend Administrator</h1>
+        </div>
+        <!-- Profile and logout section -->
+        <div class="user-profile">
+            <img src="pfp.png" alt="User Picture" class="profile-pic">
+            <span class="username">Jtrejo0924</span>
+            <a href="./logout.html" class="logout-btn">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Navigation Bar -->
+    <div class="main-bar">
+        <!-- Home and IT Ticket as separate clickable links -->
+        <a href="./administrator_home.html" class="nav-link">Home</a>
+        <a href="./it_ticket.html" class="nav-link">IT Ticket</a>
+
+        <!-- User Management dropdown -->
+        <div class="dropdown">
+            <button class="dropbtn">User Management</button>
+            <div class="dropdown-content">
+                <a href="./create_new_user.html">Create User</a>
+                <a href="./user_roaster.html">View Users</a>
+                <a href="./.html">Account Approval</a>
+            </div>
+        </div>
+
+        <!-- Reports dropdown -->
+        <div class="dropdown">
+            <button class="dropbtn">Reports</button>
+            <div class="dropdown-content">
+                <a href="#">User Report</a>
+                <a href="#">Expired Passwords Report</a>
+                <a href="#">Login Attempts Report</a>
+            </div>
+        </div>
+
+        <!-- Notifications dropdown -->
+        <div class="dropdown">
+            <button class="dropbtn">Notifications</button>
+            <div class="dropdown-content">
+                <a href="">Password Expiration Alerts</a>
+            </div>
+        </div>
+
+        <!-- Email Management dropdown -->
+        <div class="dropdown">
+            <button class="dropbtn">Email Management</button>
+            <div class="dropdown-content">
+                <a href="">Send Email</a>
+            </div>
+        </div>
+
+        <!-- Settings dropdown -->
+        <div class="dropdown">
+            <button class="dropbtn">Settings</button>
+            <div class="dropdown-content">
+                <a href="#">System Settings</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <!-- Content area -->
+    </div>
+</body>
+</html>
