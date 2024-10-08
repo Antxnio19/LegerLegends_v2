@@ -51,6 +51,14 @@ $userId = $_SESSION['Id'];
             </div>
         </div>
 
+        <div class="dropdown">
+            <button class="dropbtn nav-link">Client Account Management</button>
+            <div class="dropdown-content">
+                <a href="./create_client_account_admin.php" >Create Account</a>
+                <a href="./view_all_client_accounts.php" >View All Accounts</a>
+            </div>
+        </div>
+
         <!-- Reports dropdown -->
         <div class="dropdown">
             <button class="dropbtn">Reports</button>

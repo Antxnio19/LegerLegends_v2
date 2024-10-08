@@ -32,7 +32,10 @@ $userId = $_SESSION['Id'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./administrator_stylesheet.css">
+    <link rel="stylesheet" href="./administrator_stylesheet.css"> 
+    <link rel="stylesheet" href="./it_ticket_stylesheet.css">
+
+   
     <title>User Information Table</title>
     
 </head>
@@ -60,6 +63,14 @@ $userId = $_SESSION['Id'];
                 <a href="./Manage_Users.php">Account Approval</a>
             </div>
         </div>
+        <div class="dropdown">
+            <button class="dropbtn nav-link">Client Account Management</button>
+            <div class="dropdown-content">
+                <a href="./create_client_account_admin.php" >Create Account</a>
+                <a href="./view_all_client_accounts.php" >View All Accounts</a>
+            </div>
+        </div>
+        
         <div class="dropdown">
             <button class="dropbtn">Reports</button>
             <div class="dropdown-content">

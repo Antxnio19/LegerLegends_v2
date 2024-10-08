@@ -1,5 +1,5 @@
 <?php
-session_start();
+session_start(); // Start the session
 
 // Check if the user is logged in
 if (!isset($_SESSION['username'])) {
@@ -10,6 +10,23 @@ if (!isset($_SESSION['username'])) {
 // Store the username from the session
 $username = $_SESSION['username'];
 $userId = $_SESSION['Id'];
+
+// Database connection
+$servername = "localhost";
+$dbUsername = "root"; // Replace with your database username
+$dbPassword = "root"; // Replace with your database password
+$dbname = "accounting_db"; // Replace with your database name
+
+$conn = new mysqli($servername, $dbUsername, $dbPassword, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Query to select all accounts
+$sql = "SELECT * FROM Client_Accounts";
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -19,12 +36,12 @@ $userId = $_SESSION['Id'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./administrator_stylesheet.css"> 
     <link rel="stylesheet" href="./it_ticket_stylesheet.css">
- 
-    <link rel="icon" type="image/png" href="profile.png">
-    <title>Ledger Legend Administrator Page</title>
+
+
+    <title>All Accounts</title>
 </head>
 <body>
-    <nav>
+<nav>
         <div class="welcome">
             <img src="profile.png" alt="Picture" class="picture">
             <h1 class="title">Ledger Legend Administrator</h1> 
@@ -97,7 +114,55 @@ $userId = $_SESSION['Id'];
     </div>
 
     <div class="main-content">
-        <!-- Content area -->
+        <h1>All Accounts</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Account Name</th>
+                    <th>Account Number</th>
+                    <th>Description</th>
+                    <th>Normal Side</th>
+                    <th>Category</th>
+                    <th>Subcategory</th>
+                    <th>Initial Balance</th>
+                    <th>User ID</th>
+                    <th>Order</th>
+                    <th>Statement</th>
+                    <th>Comment</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if ($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
+                        echo '<tr>
+                                <td>' . $row['id'] . '</td>
+                                <td>' . htmlspecialchars($row['account_name']) . '</td>
+                                <td>' . htmlspecialchars($row['account_number']) . '</td>
+                                <td>' . htmlspecialchars($row['account_description']) . '</td>
+                                <td>' . htmlspecialchars($row['normal_side']) . '</td>
+                                <td>' . htmlspecialchars($row['account_category']) . '</td>
+                                <td>' . htmlspecialchars($row['account_subcategory']) . '</td>
+                                <td>' . number_format($row['initial_balance'], 2) . '</td>
+                                <td>' . $row['user_id'] . '</td>
+                                <td>' . htmlspecialchars($row['account_order']) . '</td>
+                                <td>' . htmlspecialchars($row['statement']) . '</td>
+                                <td>' . htmlspecialchars($row['comment']) . '</td>
+                                <td><button class="update-button" onclick="window.location.href=\'edit_client_account.php?id=' . $row['id'] . '\'">Edit</button></td>
+                            </tr>';
+                    }
+                } else {
+                    echo '<tr><td colspan="13">No accounts found</td></tr>';
+                }
+                ?>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>
+
+<?php
+$conn->close();
+?>

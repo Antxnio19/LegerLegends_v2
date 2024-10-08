@@ -93,3 +93,50 @@ CREATE TABLE IT_TicketsTable (
     CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (UserId) REFERENCES EmployeeAccounts(Id)  -- Optional foreign key constraint
 );
+
+-- Create a table to store client accounts
+CREATE TABLE Client_Accounts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    account_name VARCHAR(100) NOT NULL,
+    account_number VARCHAR(20) NOT NULL,
+    account_description TEXT,
+    normal_side ENUM('debit', 'credit') NOT NULL,
+    account_category VARCHAR(50),
+    account_subcategory VARCHAR(50),
+    initial_balance DECIMAL(10, 2),
+    debit DECIMAL(10, 2) DEFAULT 0,
+    credit DECIMAL(10, 2) DEFAULT 0,
+    balance DECIMAL(10, 2),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    modified_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Track modification time
+    ModifiedBy VARCHAR(255), -- Field to track who modified the record
+    user_id INT,
+    account_order VARCHAR(10),
+    statement ENUM('IS', 'BS', 'RE'),
+    comment TEXT,
+    active BOOLEAN DEFAULT TRUE
+);
+
+
+-- Insert sample data into Client_Accounts
+INSERT INTO Client_Accounts (
+    account_name, 
+    account_number, 
+    account_description, 
+    normal_side, 
+    account_category, 
+    account_subcategory, 
+    initial_balance, 
+    debit, 
+    credit, 
+    balance, 
+    user_id, 
+    account_order, 
+    statement, 
+    comment
+) VALUES
+('Cash', '1001', 'Cash account for daily transactions', 'debit', 'Asset', 'Current Assets', 5000.00, 0.00, 0.00, 5000.00, 1, '01', 'BS', 'Main cash account'),
+('Accounts Receivable', '1002', 'Money owed by customers', 'debit', 'Asset', 'Current Assets', 3000.00, 0.00, 0.00, 3000.00, 1, '02', 'BS', 'Customer payments pending'),
+('Inventory', '1003', 'Goods available for sale', 'debit', 'Asset', 'Current Assets', 8000.00, 0.00, 0.00, 8000.00, 1, '03', 'BS', 'Stock of products'),
+('Accounts Payable', '2001', 'Money owed to suppliers', 'credit', 'Liability', 'Current Liabilities', 2000.00, 0.00, 0.00, 2000.00, 1, '04', 'BS', 'Outstanding supplier invoices'),
+('Owner Equity', '3001', 'Owners investment in the business', 'credit', 'Equity', 'Owner Equity', 10000.00, 0.00, 0.00, 10000.00, 1, '05', 'RE', 'Capital investment by owner');
