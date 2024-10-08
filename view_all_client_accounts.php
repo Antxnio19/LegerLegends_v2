@@ -150,7 +150,8 @@ $result = $conn->query($sql);
                                 <td>' . htmlspecialchars($row['account_order']) . '</td>
                                 <td>' . htmlspecialchars($row['statement']) . '</td>
                                 <td>' . htmlspecialchars($row['comment']) . '</td>
-                                <td><button class="update-button" onclick="window.location.href=\'edit_client_account.php?id=' . $row['id'] . '\'">Edit</button></td>
+                                <td><button class="update-button" onclick="window.location.href=\'edit_client_account.php?id=' . $row['id'] . '\'">Edit</button><br><br>
+                                <button class="view-button" onclick="window.location.href=\'view_client_account.php?id=' . $row['id'] . '\'">View</button></td>
                             </tr>';
                     }
                 } else {

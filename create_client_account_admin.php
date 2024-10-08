@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 balance,
                 created_at,
                 modified_at,
-                modified_by,
+                ModifiedBy,
                 user_id,
                 account_order,
                 statement,
