@@ -113,7 +113,7 @@ $result = $conn->query($sql);
         </div>
     </div>
 
-    <div class="main-content">
+    <div class="main">
         <h1>All Accounts</h1>
         <table>
             <thead>

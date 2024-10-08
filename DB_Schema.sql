@@ -34,11 +34,11 @@ CREATE TABLE EmployeeAccounts (
    IsActive BOOLEAN DEFAULT 0
 );
 
--- Hashed password for user 1 and user 6: $2y$10$SKXO3TzwiR2A6CkkaaHUcetqi4S5mOFc/h.dIafbIiYBh0an4HeCm
--- Hashed password for user 2 and user 7: $2y$10$PbtJ8UH9jWnvU62qXHG48.qHzbrFvq1JY7KdBSbl9FgLpMSv0rfey
--- Hashed password for user 3 and user 8: $2y$10$fpkTbB1k.mSQaEDmWiXNReSpS1fh2URaiy2Y5igHos2aHI3eFS/N6
--- Hashed password for user 4 and user 9: $2y$10$gX6gbVy3/IrAg82LTlNJMOSYnKM4Y8AU/K1pYMf6/bb6lnXbxrjge
--- Hashed password for user 5 and user 10: $2y$10$oMBBc9fdYJHKkKiuzoIB../FI43m.tDKu98CI97af2XUSinxPFn7a
+-- Hashed password1 for user 1 and user 6: $2y$10$SKXO3TzwiR2A6CkkaaHUcetqi4S5mOFc/h.dIafbIiYBh0an4HeCm
+-- Hashed password2 for user 2 and user 7: $2y$10$PbtJ8UH9jWnvU62qXHG48.qHzbrFvq1JY7KdBSbl9FgLpMSv0rfey
+-- Hashed password3 for user 3 and user 8: $2y$10$fpkTbB1k.mSQaEDmWiXNReSpS1fh2URaiy2Y5igHos2aHI3eFS/N6
+-- Hashed password4 for user 4 and user 9: $2y$10$gX6gbVy3/IrAg82LTlNJMOSYnKM4Y8AU/K1pYMf6/bb6lnXbxrjge
+-- Hashed password5 for user 5 and user 10: $2y$10$oMBBc9fdYJHKkKiuzoIB../FI43m.tDKu98CI97af2XUSinxPFn7a
 
 -- Insert sample users into EmployeeAccounts formerly Table1
 INSERT INTO EmployeeAccounts (UserTypeId, Username, Password, EmailAddress, DateOfBirth, FirstName, LastName, Address)
