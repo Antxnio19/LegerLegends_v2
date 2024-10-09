@@ -2,6 +2,7 @@
 session_start(); // Start the session at the very beginning
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+include './event_logger.php';
 
 // Create connection
 $conn = mysqli_connect("localhost", "root", "root", "accounting_db");
