@@ -1,23 +1,131 @@
 <?php
-// eventlogs.php
+session_start();
 
-// Database connection setup (modify with your actual database credentials)
-$servername = "localhost"; // Change if necessary
-$username = "root"; // Change to your database username
-$password = "root"; // Change to your database password
-$dbname = "accounting_db"; // Change to your database name
+// Check if the user is logged in
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php'); // Redirect to login page if not logged in
+    exit();
+}
+
+// Store the username from the session
+$username = $_SESSION['username'];
+
+// Database connection (replace with your actual connection details)
+$host = 'localhost'; // Database host
+$user = 'root'; // Database username
+$pass = 'root'; // Database password
+$db = 'accounting_db'; // Database name
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = mysqli_connect($host, $user, $pass, $db);
 
 // Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
 }
 
 // Query to fetch event logs
-$sql = "SELECT * FROM event_logs"; // Change to your actual table name
+$sql = "SELECT * FROM user_eventlog"; // Corrected table name
 $result = $conn->query($sql);
 
-// Include the HTML file for rendering
-include 'eventlogs.html';
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./administrator_stylesheet.css">
+    <title>User Event Log</title>
+</head>
+<body>
+    <nav>
+        <div class="welcome">
+            <img src="profile.png" alt="Picture" class="picture">
+            <h1>Ledger Legend Administrator</h1>
+        </div>
+        <div class="user-profile">
+            <img src="pfp.png" alt="User Picture" class="profile-pic">
+            <span class="username"><?php echo htmlspecialchars($username); ?></span> <!-- Display the dynamic username here -->
+            <a href="./logout.php" class="logout-btn">Logout</a>
+        </div>
+    </nav>
+
+    <div class="main-bar">
+        <a href="./administrator_home.php" class="nav-link">Home</a>
+        <a href="./it_ticket.php" class="nav-link">IT Ticket</a>
+        <div class="dropdown">
+            <button class="dropbtn">User Management</button>
+            <div class="dropdown-content">
+                <a href="./create_new_user_admin.php">Create User</a>
+                <a href="./user_roster.php">View Users</a>
+                <a href="./Manage_Users.php">Account Approval</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Reports</button>
+            <div class="dropdown-content">
+                <a href="#">User Report</a>
+                <a href="./Expired_Passwords_Log.php">Expired Passwords Report</a>
+                <a href="#">Login Attempts Report</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Notifications</button>
+            <div class="dropdown-content">
+                <a href="#">Password Expiration Alerts</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Email Management</button>
+            <div class="dropdown-content">
+                <a href="#">Send Email</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Settings</button>
+            <div class="dropdown-content">
+                <a href="#">System Settings</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <table>
+            <thead>
+                <tr>
+                    <th>UUID</th>
+                    <th>UserID</th>
+                    <th>UserAcctType</th>
+                    <th>Time of Change</th>
+                    <th>Acct Affected</th>
+                    <th>Before Change</th>
+                    <th>After Change</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if ($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
+                        echo '<tr>
+                                <td>' . htmlspecialchars($row['AutoID']) . '</td>
+                                <td>' . htmlspecialchars($row['UserID']) . '</td>
+                                <td>' . htmlspecialchars($row['UserAcctType']) . '</td>
+                                <td>' . htmlspecialchars($row['DateANDTime']) . '</td>
+                                <td>' . htmlspecialchars($row['AcctAffected']) . '</td>
+                                <td>' . htmlspecialchars($row['BeforeAffected']) . '</td>
+                                <td>' . htmlspecialchars($row['AfterAffected']) . '</td>
+                                <td>' . htmlspecialchars($row['STATUS']) . '</td>
+                            </tr>';
+                    }
+                } else {
+                    echo '<tr><td colspan="8">No events found</td></tr>';
+                }
+                // Close the connection
+                $conn->close();
+                ?>
+            </tbody>
+        </table>    
+    </div>
+</body>
+</html>
