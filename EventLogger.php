@@ -1,5 +1,5 @@
 <?php
-function eventLogger($userId, $userAcctType, $acctAffected, $status, $beforeAffected = null, $afterAffected = null) {
+function eventLogger($userId, $userAcctType, $acctAffected, $status, $beforeAffected, $afterAffected) {
     // Establish connection
     $conn = new mysqli('localhost', 'root', 'root', 'accounting_db');
     
