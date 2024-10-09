@@ -1,0 +1,117 @@
+/* Filter Section Styles */
+.filter-container {
+    width: 250px; /* Maintain width for the filter box */
+    background-color: var(--dropdown-background); /* Dark grey background matching the theme */
+    padding: 15px; /* Padding inside the filter box */
+    border-radius: var(--border-radius); /* Rounded corners */
+    box-shadow: var(--box-shadow); /* Subtle shadow for depth */
+    color: var(--text-color); /* White text color */
+    margin-left: 20px; /* Space between search bar and filter */
+}
+
+.filter-container h2 {
+    font-size: 10px; /* Smaller font size */
+    margin-bottom: 10px; /* Space below header */
+    color: var(--text-color); /* Ensure header text is white */
+}
+
+.filter-row {
+    display: flex; /* Use flexbox for rows */
+    justify-content: space-between; /* Space inputs evenly */
+    margin-bottom: 10px; /* Space between filter rows */
+}
+
+.filter-container input[type="text"],
+.filter-container input[type="number"] {
+    width: calc(50% - 10px); /* Half width of the inputs with margin adjustment */
+    padding: 8px; /* Smaller padding */
+    border: none;
+    border-radius: var(--border-radius); /* Rounded corners */
+    background-color: var(--navbar-background); /* Dark grey for inputs */
+    color: var(--text-color); /* White text color */
+}
+
+
+.filter-container input[type="text"]:nth-child(even),
+.filter-container input[type="number"]:nth-child(even) {
+    margin-left: 10px; /* Margin for the second input in a row */
+}
+
+.filter-container button {
+    width: 100%; /* Full width of the button */
+    padding: 10px; /* Padding inside buttons */
+    margin-top: 10px; /* Space above buttons */
+    background-color: var(--link-color); /* Teal button for filter submit */
+    color: white; /* White text */
+    border: none;
+    border-radius: var(--border-radius); /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition on hover */
+}
+
+.filter-container button:hover {
+    background-color: var(--link-hover-background); /* Darker grey on hover */
+}
+
+/* Flexbox layout for inputs */
+.filter-row {
+    display: flex; /* Use flexbox for rows */
+    justify-content: space-between; /* Space inputs evenly */
+}
+
+
+/* Search Bar Styles */
+.search-bar-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto; /* Center horizontally */
+}
+
+.search-bar {
+    width: 400px; /* Set width for the search bar */
+    padding: 12px; /* Padding inside the search bar */
+    border: none;
+    border-radius: var(--border-radius); /* Rounded corners */
+    background-color: var(--navbar-background); /* Dark grey background */
+    color: var(--text-color); /* White text color */
+    font-size: 16px; /* Adjust font size */
+    box-shadow: var(--box-shadow); /* Add shadow for depth */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.search-bar:focus {
+    outline: none; /* Remove default outline */
+    background-color: var(--dropdown-hover-background); /* Slightly lighter background on focus */
+}
+
+.search-button {
+    padding: 12px 20px; /* Padding for the button */
+    margin-left: 10px; /* Space between the input and button */
+    background-color: var(--link-color); /* Teal background */
+    color: white; /* White text */
+    border: none;
+    border-radius: var(--border-radius); /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.search-button:hover {
+    background-color: var(--link-hover-background); /* Darker background on hover */
+}
+
+.reset-button {
+    padding: 12px 20px;
+    margin-left: 10px; /* Space between the reset and search button */
+    background-color: var(--navbar-background); /* Dark grey background */
+    color: var(--text-color); /* White text */
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.reset-button:hover {
+    background-color: var(--link-hover-background); /* Darker grey on hover */
+}

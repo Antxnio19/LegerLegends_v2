@@ -3,6 +3,8 @@ session_start(); // Start the session at the very beginning
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+include './EventLogger.php';
+
 // Create connection
 $conn = mysqli_connect("localhost", "root", "root", "accounting_db");
 
@@ -21,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     // Check if the user exists, is active, and is not locked out
-    $sql = "SELECT Id, Password, FailedAttempts, LockoutUntil, UserTypeId, IsActive FROM EmployeeAccounts WHERE Username = ?";
+    $sql = "SELECT Password, FailedAttempts, LockoutUntil, UserTypeId, IsActive FROM Table1 WHERE Username = ?";
     $stmt = $conn->prepare($sql);
     if ($stmt) { // Ensure $stmt was created successfully
         $stmt->bind_param('s', $username);
@@ -30,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($result->num_rows > 0) {
             $user = $result->fetch_assoc();
-            $userId = $user['Id']; // Fetch the user ID
             $hashedPassword = $user['Password'];
             $failedAttempts = $user['FailedAttempts'];
             $lockoutUntil = $user['LockoutUntil'];
@@ -48,27 +49,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Verify password
             elseif (password_verify($password, $hashedPassword)) {
                 // Reset failed attempts after a successful login
-                $sql = "UPDATE EmployeeAccounts SET FailedAttempts = 0, LockoutUntil = NULL WHERE Username = ?";
+                $sql = "UPDATE Table1 SET FailedAttempts = 0, LockoutUntil = NULL WHERE Username = ?";
                 $stmt = $conn->prepare($sql);
                 if ($stmt) { // Ensure $stmt was created successfully
                     $stmt->bind_param('s', $username);
                     $stmt->execute();
                 }
 
-                // Store the username and userId in session for later use
+                // Store the username in session for later use
                 $_SESSION['username'] = $username;
                 $_SESSION['Id'] = $userId; 
 
                 // Redirect to the specific home page based on user type
+                
+                
                 switch ($userTypeId) {
-                    case '1':
+                    case 'Admin':
                         header('Location: Administrator_home.php');
+						$_SESSION['userTypeId'] = 'Admin';
+						// Log successful login
+						eventLogger($userId, $userTypeId, null, null, null, "Login Success");
                         break;
-                    case '2':
+                    case 'Accountant':
                         header('Location: Accountant_home.php');
+						$_SESSION['userTypeId'] = 'Accountant';
+						// Log
+						eventLogger($userId, $userTypeId, null, null, null, "Login Success");
                         break;
-                    case '3':
+                    case 'Manager':
                         header('Location: Manager_home.php');
+						$_SESSION['userTypeId'] = 'Manager';
+						// Log
+						eventLogger($userId, $userTypeId, null, null, null, "Login Success");
                         break;
                     case '4':
                         header('Location: login.html');
@@ -77,12 +89,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $error_message = "Invalid user type.";
                 }
             } 
+            
             else {
                 // Increment failed attempts
                 $failedAttempts++;
                 $lockoutUntil = ($failedAttempts >= 3) ? date('Y-m-d H:i:s', strtotime('+1 day')) : NULL;
 
-                $sql = "UPDATE EmployeeAccounts SET FailedAttempts = ?, LockoutUntil = ? WHERE Username = ?";
+                $sql = "UPDATE Table1 SET FailedAttempts = ?, LockoutUntil = ? WHERE Username = ?";
                 $stmt = $conn->prepare($sql);
                 if ($stmt) { // Ensure $stmt was created successfully
                     $stmt->bind_param('iss', $failedAttempts, $lockoutUntil, $username);
@@ -141,4 +154,3 @@ $conn->close();
     </div>
 </body>
 </html>
-

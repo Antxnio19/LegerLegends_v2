@@ -1,37 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['username'])) {
-    header('Location: login.php');
-    exit();
-}
-
-$username = $_SESSION['username'];
-$host = 'localhost';
-$user = 'root';
-$pass = 'root';
-$db = 'accounting_db';
-$conn = mysqli_connect($host, $user, $pass, $db);
-
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-if (isset($_GET['user_id'])) {
-    $user_id = intval($_GET['user_id']);
-    $stmt = $conn->prepare("SELECT * FROM Table1 WHERE Id = ?");
-    $stmt->bind_param("i", $user_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-    } else {
-        die("No user found with the specified ID.");
-    }
-} else {
-    die("No user ID specified.");
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,12 +10,12 @@ if (isset($_GET['user_id'])) {
     <nav>
         <div class="welcome">
             <img src="profile.png" alt="Picture" class="picture">
-            <h1 style="color: white;">Ledger Legends Administrator</h1>
+            <h1>Ledger Ledgend Administrator</h1>
         </div>
         <div class="user-profile">
             <img src="pfp.png" alt="User Picture" class="profile-pic">
-            <span class="username"><?php echo htmlspecialchars($username); ?></span>
-            <a href="./logout.php" class="logout-btn">Logout</a>
+            <span class="username">Jtrejo0924</span>
+            <a href="./logout.html" class="logout-btn">Logout</a>
         </div>
     </nav>
 
@@ -113,49 +79,44 @@ if (isset($_GET['user_id'])) {
 
     <div class="main-content">
         <div class="form-container">
-            <h2 style="color: white;">Update User Information</h2>
+            <h2>Update User Information</h2>
             <form action="./submit_update.php" method="post">
-                <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['Id']); ?>">
-                <p style="color: white;">User ID: <?php echo htmlspecialchars($user['Id']); ?></p>
+                <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>"> <!-- Hidden field for user ID -->
+                <p>User ID: <?php echo $user['id']; ?></p> <!-- Debugging line to see user ID -->
 
                 <label for="first-name">First Name:</label>
-                <input type="text" id="first-name" name="first-name" value="<?php echo htmlspecialchars($user['FirstName'] ?? ''); ?>" required><br>
+                <input type="text" id="first-name" name="first-name" value="<?php echo htmlspecialchars($user['first_name']); ?>"><br>
 
                 <label for="last-name">Last Name:</label>
-                <input type="text" id="last-name" name="last-name" value="<?php echo htmlspecialchars($user['LastName'] ?? ''); ?>" required><br>
+                <input type="text" id="last-name" name="last-name" value="<?php echo htmlspecialchars($user['last_name']); ?>"><br>
 
                 <label for="address">Address:</label>
-                <input type="text" id="address" name="address" value="<?php echo htmlspecialchars($user['Address'] ?? ''); ?>" required><br>
+                <input type="text" id="address" name="address" value="<?php echo htmlspecialchars($user['address']); ?>"><br>
 
                 <label for="dob">Date of Birth:</label>
-                <input type="date" id="dob" name="dob" value="<?php echo htmlspecialchars($user['DateOfBirth'] ?? ''); ?>" required><br>
+                <input type="date" id="dob" name="dob" value="<?php echo htmlspecialchars($user['dob']); ?>"><br>
 
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['EmailAddress'] ?? ''); ?>" required><br>
+                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>"><br>
 
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user['Username'] ?? ''); ?>" required><br>
+                <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user['username']); ?>"><br>
+
+                <label for="date-created">Date Created:</label>
+                <input type="date" id="date-created" name="date-created" value="<?php echo htmlspecialchars($user['date_created']); ?>" readonly><br>
 
                 <label for="password">Password:</label>
-                <input type="text" id="password" name="password" value="<?php echo htmlspecialchars($user['Password'] ?? ''); ?>" required><br>
+                <input type="password" id="password" name="password" value="<?php echo htmlspecialchars($user['password']); ?>"><br>
 
-                <label for="user-type-id">Position:</label>
-                <input type="text" id="user-type-id" name="user-type-id" value="<?php echo htmlspecialchars($user['UserTypeId'] ?? ''); ?>" required><br>
+                <label for="position">Position:</label>
+                <input type="text" id="position" name="position" value="<?php echo htmlspecialchars($user['position']); ?>"><br>
 
                 <label for="expiry-duration">Password Expiry Duration (Days):</label>
-                <input type="number" id="expiry-duration" name="expiry-duration" value="<?php echo htmlspecialchars($user['ExpiryDuration'] ?? ''); ?>" required><br>
+                <input type="number" id="expiry-duration" name="expiry-duration" value="<?php echo htmlspecialchars($user['expiry_duration']); ?>"><br>
 
                 <button type="submit" class="submit-button">Submit</button>
             </form>
         </div>
     </div>
-
-    <script>
-        // Add JavaScript here if needed
-    </script>
 </body>
 </html>
-
-<?php
-$conn->close();
-?>

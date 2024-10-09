@@ -1,54 +1,51 @@
 <?php
 session_start();
+
+// Check if the user is logged in
 if (!isset($_SESSION['username'])) {
-    header('Location: login.php');
+    header('Location: login.php'); // Redirect to login page if not logged in
     exit();
 }
 
+// Store the username from the session
 $username = $_SESSION['username'];
-$host = 'localhost';
-$user = 'root';
-$pass = 'root';
-$db = 'accounting_db';
+
+// Database connection (replace with your actual connection details)
+$host = 'localhost'; // Database host
+$user = 'root'; // Database username
+$pass = 'root'; // Database password
+$db = 'accounting_db'; // Database name
+
+// Create connection
 $conn = mysqli_connect($host, $user, $pass, $db);
 
+// Check connection
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-if (isset($_GET['user_id'])) {
-    $user_id = intval($_GET['user_id']);
-    $stmt = $conn->prepare("SELECT * FROM Table1 WHERE Id = ?");
-    $stmt->bind_param("i", $user_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-    } else {
-        die("No user found with the specified ID.");
-    }
-} else {
-    die("No user ID specified.");
-}
+// Query to fetch event logs
+$sql = "SELECT * FROM user_eventlog"; // Corrected table name
+$result = $conn->query($sql);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update User Information</title>
-    <link rel="stylesheet" href="./user_roaster_stylesheet.css">
+    <link rel="stylesheet" href="./administrator_stylesheet.css">
+    <title>User Event Log</title>
 </head>
 <body>
     <nav>
         <div class="welcome">
             <img src="profile.png" alt="Picture" class="picture">
-            <h1 style="color: white;">Ledger Legends Administrator</h1>
+            <h1 style="color: white;">Ledger Legend Administrator</h1>
         </div>
         <div class="user-profile">
             <img src="pfp.png" alt="User Picture" class="profile-pic">
-            <span class="username"><?php echo htmlspecialchars($username); ?></span>
+            <span class="username"><?php echo htmlspecialchars($username); ?></span> <!-- Display the dynamic username here -->
             <a href="./logout.php" class="logout-btn">Logout</a>
         </div>
     </nav>
@@ -112,50 +109,42 @@ if (isset($_GET['user_id'])) {
     </div>
 
     <div class="main-content">
-        <div class="form-container">
-            <h2 style="color: white;">Update User Information</h2>
-            <form action="./submit_update.php" method="post">
-                <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['Id']); ?>">
-                <p style="color: white;">User ID: <?php echo htmlspecialchars($user['Id']); ?></p>
-
-                <label for="first-name">First Name:</label>
-                <input type="text" id="first-name" name="first-name" value="<?php echo htmlspecialchars($user['FirstName'] ?? ''); ?>" required><br>
-
-                <label for="last-name">Last Name:</label>
-                <input type="text" id="last-name" name="last-name" value="<?php echo htmlspecialchars($user['LastName'] ?? ''); ?>" required><br>
-
-                <label for="address">Address:</label>
-                <input type="text" id="address" name="address" value="<?php echo htmlspecialchars($user['Address'] ?? ''); ?>" required><br>
-
-                <label for="dob">Date of Birth:</label>
-                <input type="date" id="dob" name="dob" value="<?php echo htmlspecialchars($user['DateOfBirth'] ?? ''); ?>" required><br>
-
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['EmailAddress'] ?? ''); ?>" required><br>
-
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user['Username'] ?? ''); ?>" required><br>
-
-                <label for="password">Password:</label>
-                <input type="text" id="password" name="password" value="<?php echo htmlspecialchars($user['Password'] ?? ''); ?>" required><br>
-
-                <label for="user-type-id">Position:</label>
-                <input type="text" id="user-type-id" name="user-type-id" value="<?php echo htmlspecialchars($user['UserTypeId'] ?? ''); ?>" required><br>
-
-                <label for="expiry-duration">Password Expiry Duration (Days):</label>
-                <input type="number" id="expiry-duration" name="expiry-duration" value="<?php echo htmlspecialchars($user['ExpiryDuration'] ?? ''); ?>" required><br>
-
-                <button type="submit" class="submit-button">Submit</button>
-            </form>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>UUID</th>
+                    <th>UserID</th>
+                    <th>UserAcctType</th>
+                    <th>Time of Change</th>
+                    <th>Acct Affected</th>
+                    <th>Before Change</th>
+                    <th>After Change</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if ($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
+                        echo '<tr>
+                                <td>' . htmlspecialchars($row['AutoID']) . '</td>
+                                <td>' . htmlspecialchars($row['UserID']) . '</td>
+                                <td>' . htmlspecialchars($row['UserAcctType']) . '</td>
+                                <td>' . htmlspecialchars($row['DateANDTime']) . '</td>
+                                <td>' . htmlspecialchars($row['AcctAffected']) . '</td>
+                                <td>' . htmlspecialchars($row['BeforeAffected']) . '</td>
+                                <td>' . htmlspecialchars($row['AfterAffected']) . '</td>
+                                <td>' . htmlspecialchars($row['STATUS']) . '</td>
+                            </tr>';
+                    }
+                } else {
+                    echo '<tr><td colspan="8">No events found</td></tr>';
+                }
+                // Close the connection
+                $conn->close();
+                ?>
+            </tbody>
+        </table>    
     </div>
-
-    <script>
-        // Add JavaScript here if needed
-    </script>
 </body>
 </html>
-
-<?php
-$conn->close();
-?>

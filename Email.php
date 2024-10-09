@@ -1,0 +1,248 @@
+<?php
+session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Check if the user is logged in
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php'); // Redirect to login page if not logged in
+    exit();
+}
+
+// Store the username from the session
+$username = $_SESSION['username'];
+
+// Initialize a variable to hold the message
+$message = "";
+
+// Handle form submission to send email
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $userEmail = filter_var($_POST['userEmail'], FILTER_VALIDATE_EMAIL);
+    $userMessage = trim($_POST['userMessage']);
+
+    if (!$userEmail || empty($userMessage)) {
+        $message = "Please fill out all fields.";
+    } else {
+        $subject = "Message from Ledger Legend Accountant";
+
+        // SendGrid API key
+        $apiKey = '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';
+
+        // Prepare the email data
+        $data = [
+            "personalizations" => [[
+                "to" => [[
+                    "email" => $userEmail,
+                ]],
+                "subject" => $subject,
+            ]],
+            "from" => [
+                "email" => "bportie1@students.kennesaw.edu", // Your verified email
+                "name" => "Ledger Legends" // Your name
+            ],
+            "content" => [[
+                "type" => "text/plain",
+                "value" => $userMessage
+            ]],
+        ];
+
+        // Initialize cURL
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://api.sendgrid.com/v3/mail/send");
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "Authorization: Bearer $apiKey",
+            "Content-Type: application/json",
+        ]);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+        // Send the email
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        // Check for success or failure and set the message
+        if ($httpCode == 202) {
+            $message = "Email sent successfully!";
+        } else {
+            $message = "Failed to send email.";
+        }
+    }
+}
+
+// Create connection to the database
+$conn = mysqli_connect("localhost", "root", "root", "accounting_db");
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch users from the database
+$sql = "SELECT Username, FirstName, LastName, EmailAddress, DateOfBirth FROM Table1 WHERE IsActive = 1"; // Ensure to fetch only active users
+$result = $conn->query($sql);
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./Email.css">
+    <link rel="icon" type="image/png" href="profile.png">
+    <title>Email</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .directEmail {
+            margin-top: 20px;
+        }
+        .message {
+            color: green;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="welcome">
+            <img src="profile.png" alt="Picture" class="picture">
+            <h1 style="color: white;">Ledger Legend Accountant</h1>
+        </div>
+        <div class="user-profile">
+            <img src="pfp.png" alt="User Picture" class="profile-pic">
+            <span class="username"><?php echo htmlspecialchars($username); ?></span>
+            <a href="./logout.php" class="logout-btn">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Navigation Bar -->
+    <div class="main-bar">
+        <!-- Home and IT Ticket as separate clickable links -->
+        <a href="./administrator_home.php" class="nav-link">Home</a>
+        <a href="./it_ticket.php" class="nav-link">IT Ticket</a>
+
+        <!-- User Management dropdown -->
+        <div class="dropdown">
+            <button class="dropbtn nav-link">User Management</button>
+            <div class="dropdown-content">
+                <a href="./create_new_user_admin.php">Create User</a>
+                <a href="./user_roster.php">View Users</a>
+                <a href="./Manage_Users.php">Account Approval</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn nav-link">Client Account Management</button>
+            <div class="dropdown-content">
+                <a href="./create_client_account_admin.php" >Create Account</a>
+                <a href="./view_all_client_accounts.php" >Chart of Accounts</a>
+                <a href="./View_some_accounts.php" >Accounts</a>
+                <a href="./" >Deactivate Accounts</a>
+            </div>
+        </div>
+
+        <!-- Reports dropdown -->
+        <div class="dropdown">
+            <button class="dropbtn nav-link">Reports</button>
+            <div class="dropdown-content">
+                <a href="./Expired_Passwords_Log.php">Expired Passwords Report</a>
+                <a href="#">Event logs</a>
+            </div>
+        </div>
+
+        <!-- Notifications dropdown -->
+        <div class="dropdown">
+            <button class="dropbtn nav-link">Notifications</button>
+            <div class="dropdown-content">
+                <a href="">Password Expiration Alerts</a>
+            </div>
+        </div>
+
+        <!-- Email Management dropdown -->
+        <div class="dropdown">
+            <button class="dropbtn nav-link">Email Management</button>
+            <div class="dropdown-content">
+            <a href="./Email.php">Email Users</a>
+            </div>
+        </div>
+
+        <!-- Settings dropdown -->
+        <div class="dropdown">
+            <button class="dropbtn nav-link">Settings</button>
+            <div class="dropdown-content">
+                <a href="#">System Settings</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h2 align="center">Recent Users</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email Address</th>
+                    <th>Date of Birth</th>
+                </tr>
+            </thead>
+            <tbody id="userList">
+                <?php
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr class='user-item' data-email='" . htmlspecialchars($row['EmailAddress']) . "'>";
+                        echo "<td>" . htmlspecialchars($row['Username']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['FirstName']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['LastName']) . "</td>";
+                        echo "<td><a href='mailto:" . htmlspecialchars($row['EmailAddress']) . "'>" . htmlspecialchars($row['EmailAddress']) . "</a></td>";
+                        echo "<td>" . htmlspecialchars($row['DateOfBirth']) . "</td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='5'>No users found.</td></tr>";
+                }
+                $conn->close();
+                ?>
+            </tbody>
+        </table>
+
+        <div class="directEmail">
+            <h3>Enter a user's email</h3>
+            <form id="emailForm" method="POST" action="">
+                <label for="userEmail">User Email:</label><br>
+                <input type="email" id="userEmail" name="userEmail" required><br><br>
+                <label for="userMessage">Message:</label><br>
+                <textarea id="userMessage" name="userMessage" rows="4" cols="50" required></textarea><br><br>
+                <input type="submit" value="Send Email">
+            </form>
+
+            <!-- Display the success/failure message here -->
+            <?php if (!empty($message)): ?>
+                <div class="message"><?php echo $message; ?></div>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <script>
+        // Inserts the selected user into the email field
+        document.querySelectorAll('.user-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const userEmail = this.getAttribute('data-email');
+                document.getElementById('userEmail').value = userEmail;
+            });
+        });
+    </script>
+</body>
+</html>
