@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         break;
                     case '2':
                         header('Location: Accountant_home.php');
-						$_SESSION['userTypeId'] = 'Accountant';
+						$_SESSION['userTypeId' = 'Accountant';
 						// Log
 						eventLogger($userId, $userTypeId, null, null, null, "Login Success");
                         break;
