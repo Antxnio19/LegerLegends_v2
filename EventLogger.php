@@ -9,7 +9,7 @@ function eventLogger($userId, $userAcctType, $acctAffected, $beforeAffected, $af
  
  
  //Param Binding
-    $in = $conn->prepare("INSERT INTO user_eventlog (AutoID, UserID, UserAcctType, AcctAffected, BeforeAffected, AfterAffected, Status) 
+    $in = $conn->prepare("INSERT INTO user_eventlog (AutoID, UserID, UserAcctType, AcctAffected, BeforeAffected, AfterAffected, Status, DateANDTime) 
                             VALUES (UUID(), ?, ?, ?, ?, ?, ?, NOW())");
 							
     // Bind parameters
