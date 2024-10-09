@@ -1,7 +1,7 @@
 <?php
 function eventLogger($userId, $userAcctType, $acctAffected, $beforeAffected, $afterAffected, $status) {
     // Establish connection
-    $conn = new mysqli('localhost', 'root', 'root', 'accounting_db');
+    $conn = new mysqli('localhost', 'root', 'root', 'accounting_db', 8889);
     
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
@@ -9,11 +9,11 @@ function eventLogger($userId, $userAcctType, $acctAffected, $beforeAffected, $af
  
  
  //Param Binding
-    $in = $conn->prepare("INSERT INTO user_eventlog (AutoID, UserID, UserAcctType, AcctAffected, BeforeAffected, AfterAffected, Status, DateANDTime) 
+    $in = $conn->prepare("INSERT INTO user_eventlog (AutoID, UserID, UserAcctType, AcctAffected, BeforeAffected, AfterAffected, Status) 
                             VALUES (UUID(), ?, ?, ?, ?, ?, ?, NOW())");
 							
     // Bind parameters
-    $in->bind_param('ssssss', $userId,  $userAcctType, $acctAffected, $beforeAffected, $afterAffected, $status, $DateTime);
+    $in->bind_param('ssssss', $userId,  $userAcctType, $acctAffected, $beforeAffected, $afterAffected, $status);
 
 
     // Execute the statement
