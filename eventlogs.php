@@ -41,7 +41,7 @@ $result = $conn->query($sql);
     <nav>
         <div class="welcome">
             <img src="profile.png" alt="Picture" class="picture">
-            <h1>Ledger Legend Administrator</h1>
+            <h1 style="color: white;">Ledger Legend Administrator</h1>
         </div>
         <div class="user-profile">
             <img src="pfp.png" alt="User Picture" class="profile-pic">
@@ -50,39 +50,60 @@ $result = $conn->query($sql);
         </div>
     </nav>
 
+    <!-- Navigation Bar -->
     <div class="main-bar">
+        <!-- Home and IT Ticket as separate clickable links -->
         <a href="./administrator_home.php" class="nav-link">Home</a>
         <a href="./it_ticket.php" class="nav-link">IT Ticket</a>
+
+        <!-- User Management dropdown -->
         <div class="dropdown">
-            <button class="dropbtn">User Management</button>
+            <button class="dropbtn nav-link">User Management</button>
             <div class="dropdown-content">
                 <a href="./create_new_user_admin.php">Create User</a>
                 <a href="./user_roster.php">View Users</a>
                 <a href="./Manage_Users.php">Account Approval</a>
             </div>
         </div>
+
         <div class="dropdown">
-            <button class="dropbtn">Reports</button>
+            <button class="dropbtn nav-link">Client Account Management</button>
             <div class="dropdown-content">
-                <a href="#">User Report</a>
+                <a href="./create_client_account_admin.php" >Create Account</a>
+                <a href="./view_all_client_accounts.php" >Chart of Accounts</a>
+                <a href="./View_some_accounts.php" >Accounts</a>
+                <a href="./" >Deactivate Accounts</a>
+            </div>
+        </div>
+
+        <!-- Reports dropdown -->
+        <div class="dropdown">
+            <button class="dropbtn nav-link">Reports</button>
+            <div class="dropdown-content">
                 <a href="./Expired_Passwords_Log.php">Expired Passwords Report</a>
-                <a href="#">Login Attempts Report</a>
+                <a href="#">Event logs</a>
             </div>
         </div>
+
+        <!-- Notifications dropdown -->
         <div class="dropdown">
-            <button class="dropbtn">Notifications</button>
+            <button class="dropbtn nav-link">Notifications</button>
             <div class="dropdown-content">
-                <a href="#">Password Expiration Alerts</a>
+                <a href="">Password Expiration Alerts</a>
             </div>
         </div>
+
+        <!-- Email Management dropdown -->
         <div class="dropdown">
-            <button class="dropbtn">Email Management</button>
+            <button class="dropbtn nav-link">Email Management</button>
             <div class="dropdown-content">
-                <a href="#">Send Email</a>
+            <a href="./Email.php">Email Users</a>
             </div>
         </div>
+
+        <!-- Settings dropdown -->
         <div class="dropdown">
-            <button class="dropbtn">Settings</button>
+            <button class="dropbtn nav-link">Settings</button>
             <div class="dropdown-content">
                 <a href="#">System Settings</a>
             </div>
@@ -127,5 +148,8 @@ $result = $conn->query($sql);
             </tbody>
         </table>    
     </div>
+</body>
+</html>
+
 </body>
 </html>
