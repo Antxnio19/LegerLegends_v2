@@ -43,66 +43,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        // Fetch the password
+        // Fetch the password (note: passwords should not be unhashed, this is for example purposes)
         $row = $result->fetch_assoc();
         $password = $row['Password'];
-        $userId = $row['Id'];
 
-        // SendGrid API key
-        $apiKey = 'YOUR_SENDGRID_API_KEY'; // Ensure this is kept secure
+        // Send email
+        $to = $email;
+        $subject = "Your Password Recovery";
+        $message = "Your password is: " . $password;
+        $headers = "From: noreply@example.com";
 
-        // Prepare the email data for SendGrid
-        $data = [
-            "personalizations" => [[
-                "to" => [[
-                    "email" => $email,
-                ]],
-                "subject" => "Your Password Recovery",
-            ]],
-            "from" => [
-                "email" => "bportie1@students.kennesaw.edu", // Your verified email
-                "name" => "Ledger Legends" // Your name
-            ],
-            "content" => [[
-                "type" => "text/plain",
-                "value" => "Your password is: " . $password
-            ]],
-        ];
-
-        // Initialize cURL
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://api.sendgrid.com/v3/mail/send");
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            "Authorization: Bearer $apiKey",
-            "Content-Type: application/json",
-        ]);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-
-        // Send the email
-        $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-
-        // Check if the email was sent successfully
-        if ($httpCode == 202) {
-            // Email sent successfully
+        if (mail($to, $subject, $message, $headers)) {
             $success_message = "Password has been sent to your email.";
-
-            // Log the successful forgotten password attempt
-            eventLogger($userId, "N/A", "Successful forgotten password attempt");
+			eventLogger($userId, $userTypeId, $username, "N/A", "N/A" "Login Success");
         } else {
-            // Failed to send email
-            $error_message = "Failed to send email.";
+            $error_message = "Error sending email.";
         }
     } else {
-        // No matching records found
         $error_message = "No matching records found. Please check your details and try again.";
-        
-        // Log the failed password recovery attempt
-        eventLogger(null, "N/A", "Failed forgotten password attempt - No matching records found");
     }
+
+    // Close the statement
+    $stmt->close();
+}
+
+// Close the connection
+$conn->close();
+?>
 
     // Close the statement
     $stmt->close();

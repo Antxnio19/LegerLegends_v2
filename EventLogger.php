@@ -1,5 +1,5 @@
 <?php
-function eventLogger($userId, $eventType, $message) {
+function eventLogger($userId, $userAcctType, $acctAffected, $status, $beforeAffected = null, $afterAffected = null) {
     // Establish connection
     $conn = new mysqli('localhost', 'root', 'root', 'accounting_db');
     
@@ -8,15 +8,15 @@ function eventLogger($userId, $eventType, $message) {
     }
 
     // Prepare SQL statement for inserting event log
-    $stmt = $conn->prepare("INSERT INTO user_eventlog (Auto_ID, UserID, UserAcctType, AcctAffected, STATUS, CreatedDate) 
-                            VALUES (UUID(), ?, ?, ?, ?, NOW())");
+    $stmt = $conn->prepare("INSERT INTO user_eventlog (AutoID, UserID, UserAcctType, AcctAffected, BeforeAffected, AfterAffected, STATUS, DateANDTime) 
+                            VALUES (UUID(), ?, ?, ?, ?, ?, ?, NOW())");
     
     if (!$stmt) {
         die("Prepare failed: " . $conn->error);
     }
 
     // Bind the parameters
-    $stmt->bind_param('isss', $userId, $eventType, $userId, $message); 
+    $stmt->bind_param('isssss', $userId, $userAcctType, $acctAffected, $beforeAffected, $afterAffected, $status); 
 
     // Execute the statement
     if ($stmt->execute()) {
