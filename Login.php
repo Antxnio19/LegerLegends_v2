@@ -62,19 +62,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Redirect to the specific home page based on user type
                 switch ($userTypeId) {
-                    case '1':
+                    case 'Admin':
                         header('Location: Administrator_home.php');
 						$_SESSION['userTypeId'] = 'Admin';
 						// Log successful login
 						eventLogger($userId, $userTypeId, null, null, null, "Login Success");
                         break;
-                    case '2':
+                    case 'Accountant':
                         header('Location: Accountant_home.php');
-						$_SESSION['userTypeId' = 'Accountant';
+						$_SESSION['userTypeId'] = 'Accountant';
 						// Log
 						eventLogger($userId, $userTypeId, null, null, null, "Login Success");
                         break;
-                    case '3':
+                    case 'Manager':
                         header('Location: Manager_home.php');
 						$_SESSION['userTypeId'] = 'Manager';
 						// Log
