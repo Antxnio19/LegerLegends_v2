@@ -113,8 +113,9 @@ CREATE TABLE Client_Accounts (
     user_id INT,
     account_order VARCHAR(10),
     statement ENUM('IS', 'BS', 'RE'),
-    comment TEXT,
-    active BOOLEAN DEFAULT TRUE
+    IsActive BOOLEAN DEFAULT 1,
+    comment TEXT
+
 );
 
 

@@ -27,7 +27,9 @@ $initial_balance = floatval($_POST['initial_balance']);
 $user_id = intval($_POST['user_id']);
 $account_order = mysqli_real_escape_string($conn, $_POST['account_order']);
 $statement = mysqli_real_escape_string($conn, $_POST['statement']);
+$isActive = intval($_POST['isActive']);
 $comment = mysqli_real_escape_string($conn, $_POST['comment']);
+
 
 // Get the current user's username for ModifiedBy
 $modifiedBy = $_SESSION['username']; // Assuming you set the username in the session
@@ -44,13 +46,14 @@ $sql = "UPDATE Client_Accounts SET
             user_id = $user_id,
             account_order = '$account_order',
             statement = '$statement',
+            IsActive = '$isActive',
             comment = '$comment',
             ModifiedBy = '$modifiedBy'
         WHERE id = $accountId";
 
 if ($conn->query($sql) === TRUE) {
     // If update is successful, redirect
-    echo '<!DOCTYPE html>
+    echo '<!DOCTYPE html
     <html lang="en">
     <head>
         <meta charset="UTF-8">

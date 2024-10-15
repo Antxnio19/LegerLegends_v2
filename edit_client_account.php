@@ -23,6 +23,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+$username = $_SESSION['username'];
 
 // Handle form submission for updating an account
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_account'])) {
@@ -36,7 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_account'])) {
     $initial_balance = $_POST['initial_balance'];
     $user_id = $_POST['user_id'];
     $account_order = $_POST['account_order'];
-    $statement = $_POST['statement'];
+    $statement = $_POST['statement'];   
+    $isActive = $_POST['isActive'];
     $comment = $_POST['comment'];
 
     $sql = "UPDATE Client_Accounts SET 
@@ -49,8 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_account'])) {
                 initial_balance='$initial_balance', 
                 user_id='$user_id', 
                 account_order='$account_order', 
-                statement='$statement', 
-                comment='$comment'
+                statement='$statement',
+                IsActive = '$isActive',
+                comment='$comment',
             WHERE id='$id'";
 
     if ($conn->query($sql) === TRUE) {
@@ -175,12 +178,36 @@ if (isset($_GET['id'])) {
             <option value="debit" <?php echo ($account['normal_side'] == 'debit') ? 'selected' : ''; ?>>Debit</option>
             <option value="credit" <?php echo ($account['normal_side'] == 'credit') ? 'selected' : ''; ?>>Credit</option>
         </select><br>
-        
+
         <label>Account Category:</label><br>
-        <input type="text" name="account_category" value="<?php echo $account['account_category']; ?>"><br>
-        
+        <select name="account_category" required>
+            <option value="" disabled>Select Account Category</option>
+            <option value="Asset" <?php if ($account['account_category'] == 'Asset') echo 'selected'; ?>>Asset</option>
+            <option value="Equity" <?php if ($account['account_category'] == 'Equity') echo 'selected'; ?>>Equity</option>
+            <option value="Expense" <?php if ($account['account_category'] == 'Expense') echo 'selected'; ?>>Expense</option>
+            <option value="Revenue" <?php if ($account['account_category'] == 'Revenue') echo 'selected'; ?>>Revenue</option>
+            <option value="Liability" <?php if ($account['account_category'] == 'Liability') echo 'selected'; ?>>Liability</option>
+        </select><br>
+
         <label>Account Subcategory:</label><br>
-        <input type="text" name="account_subcategory" value="<?php echo $account['account_subcategory']; ?>"><br>
+        <select name="account_subcategory" required>
+            <option value="" disabled>Select Account Subcategory</option>
+
+            <option value="Current Assets" <?php if ($account['account_subcategory'] == 'Current Assets') echo 'selected'; ?>>Current Assets</option>
+            <option value="Fixed Assets" <?php if ($account['account_subcategory'] == 'Fixed Assets') echo 'selected'; ?>>Fixed Assets</option>
+            <option value="Intangible Assets" <?php if ($account['account_subcategory'] == 'Intangible Assets') echo 'selected'; ?>>Intangible Assets</option>
+            <option value="Current Liabilities" <?php if ($account['account_subcategory'] == 'Current Liabilities') echo 'selected'; ?>>Current Liabilities</option>
+            <option value="Long-Term Liabilities" <?php if ($account['account_subcategory'] == 'Long-Term Liabilities') echo 'selected'; ?>>Long-Term Liabilities</option>
+            <option value="Owner's Equity" <?php if ($account['account_subcategory'] == "Owner's Equity") echo 'selected'; ?>>Owner's Equity</option>
+            <option value="Shareholder Equity" <?php if ($account['account_subcategory'] == 'Shareholder Equity') echo 'selected'; ?>>Shareholder Equity</option>
+            <option value="Sales Revenue" <?php if ($account['account_subcategory'] == 'Sales Revenue') echo 'selected'; ?>>Sales Revenue</option>
+            <option value="Service Revenue" <?php if ($account['account_subcategory'] == 'Service Revenue') echo 'selected'; ?>>Service Revenue</option>
+            <option value="Operating Expense" <?php if ($account['account_subcategory'] == 'Operating Expense') echo 'selected'; ?>>Operating Expense</option>
+            <option value="Cost of Goods Sold" <?php if ($account['account_subcategory'] == 'Cost of Goods Sold') echo 'selected'; ?>>Cost of Goods Sold</option>
+            <option value="Depreciation Expense" <?php if ($account['account_subcategory'] == 'Depreciation Expense') echo 'selected'; ?>>Depreciation Expense</option>
+        </select><br>
+        
+
         
         <label>Initial Balance:</label><br>
         <input type="number" step="0.01" name="initial_balance" value="<?php echo $account['initial_balance']; ?>" required><br>
@@ -197,6 +224,12 @@ if (isset($_GET['id'])) {
             <option value="BS" <?php echo ($account['statement'] == 'BS') ? 'selected' : ''; ?>>Balance Sheet</option>
             <option value="RE" <?php echo ($account['statement'] == 'RE') ? 'selected' : ''; ?>>Retained Earnings</option>
         </select><br>
+        <label>Account Status:</label><br>
+        <select id="isActive" name="isActive" required>
+            <option value="1" <?php echo ($account['IsActive']  ? 'selected' : ''); ?>>Active</option>
+            <option value="0" <?php echo ($account['IsActive']  ? 'selected' : ''); ?>>Deactivate</option>
+        </select><br>
+        
         
         <label>Comment:</label><br>
         <textarea name="comment"><?php echo $account['comment']; ?></textarea><br>
