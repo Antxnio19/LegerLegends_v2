@@ -250,7 +250,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="number" step="0.01" name="debit" placeholder="Debit" required>
                 <input type="number" step="0.01" name="credit" placeholder="Credit" required>
                 <textarea name="comment" placeholder="Comment"></textarea><br><br>
-                <button class="Source_Documents" style="width: 200px; height: 30px;">Source Documents</button>
+                <button type ="button" class="Source_Documents" style="width: 200px; height: 30px;">Source Documents</button>
                 <button type="button" onclick="clearInputs()" style="width: 200px; height: 30px;">Clear Inputs</button>
                 
                 <button type="submit" style="width: 200px; height: 30px;">Create Journal Entry</button>
