@@ -179,14 +179,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h2>Create New Journal Entry for Account ID: <?php echo htmlspecialchars($account_id); ?></h2>
             <form method="POST" action="">
                 
-                <select name="account_type" required>
+                <select name="account_type" style="width: 200px; height: 30px;" required>
                     <option value="">Select Account Type</option>
                     <option value="Adjusting">Adjusting</option>
                     <option value="Regular">Regular</option>
                 </select>
 
                 <label for="account">Account:</label>
-                <select name="account" id="account" required>
+                <select name="account" id="account" style="width: 200px; height: 30px;" required>
                     <option value="">Select Account</option>
                     <option value="Cash">Cash</option>
                     <option value="Accounts Receivable">Accounts Receivable</option>
@@ -217,7 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <div style="margin-left: 20px;"> <!-- Indent for the second label -->
                     <label for="account_indented">Account:</label>
-                    <select name="account_indented" id="account_indented" required>
+                    <select name="account_indented" id="account_indented" style="width: 200px; height: 30px;" required>
                         <option value="">Select Account</option>
                         <option value="Cash">Cash</option>
                         <option value="Accounts Receivable">Accounts Receivable</option>
@@ -252,7 +252,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <textarea name="comment" placeholder="Comment"></textarea><br><br>
                 <button class="Source_Documents" style="width: 200px; height: 30px;">Source Documents</button>
                 <button type="button" onclick="clearInputs()" style="width: 200px; height: 30px;">Clear Inputs</button>
-                <button type="submit">Create Journal Entry</button>
+                
+                <button type="submit" style="width: 200px; height: 30px;">Create Journal Entry</button>
+                <button type="button" onclick="window.location.href='./view_all_journal_entries.php'" style="width: 200px; height: 30px;">Cancel</button>
+                </form>
+              
             </form>
         <?php elseif ($account_id): ?>
             <p>No account found with ID: <?php echo htmlspecialchars($account_id); ?></p>
