@@ -88,8 +88,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create New Journal Entry</title>
     <link rel="stylesheet" href="./styles.css"> 
+    <script>
+        function clearInputs() {
+            document.getElementsByName('account_type')[0].selectedIndex = 0; // Reset select
+            document.getElementsByName('account')[0].selectedIndex = 0; // Reset select
+            document.getElementsByName('account_indented')[0].selectedIndex = 0; // Reset select
+            document.getElementsByName('debit')[0].value = ''; // Clear input
+            document.getElementsByName('credit')[0].value = ''; // Clear input
+            document.getElementsByName('comment')[0].value = ''; // Clear textarea
+        }
+    </script>
 </head>
 <body>
+
 
 <nav>
     <div class="welcome">
@@ -240,7 +251,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="number" step="0.01" name="credit" placeholder="Credit" required>
                 <textarea name="comment" placeholder="Comment"></textarea><br><br>
                 <button class="Source_Documents" style="width: 200px; height: 30px;">Source Documents</button>
-
+                <button type="button" onclick="clearInputs()" style="width: 200px; height: 30px;">Clear Inputs</button>
                 <button type="submit">Create Journal Entry</button>
             </form>
         <?php elseif ($account_id): ?>
