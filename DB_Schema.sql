@@ -141,3 +141,38 @@ INSERT INTO Client_Accounts (
 ('Inventory', '1003', 'Goods available for sale', 'debit', 'Asset', 'Current Assets', 8000.00, 0.00, 0.00, 8000.00, 1, '03', 'BS', 'Stock of products'),
 ('Accounts Payable', '2001', 'Money owed to suppliers', 'credit', 'Liability', 'Current Liabilities', 2000.00, 0.00, 0.00, 2000.00, 1, '04', 'BS', 'Outstanding supplier invoices'),
 ('Owner Equity', '3001', 'Owners investment in the business', 'credit', 'Equity', 'Owner Equity', 10000.00, 0.00, 0.00, 10000.00, 1, '05', 'RE', 'Capital investment by owner');
+
+
+Create Table Journal_Entries(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    account_type VARCHAR(10) NOT NULL,
+    account_description TEXT, 
+    debit DECIMAL(10, 2) DEFAULT 0,
+    credit DECIMAL(10, 2) DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ModifiedBy VARCHAR(255),
+    -- 1 means Journal Entry is Approved, 0 means Journal Entry is pending approval
+    IsApproved BOOLEAN DEFAULT 1,
+    comment TEXT
+);
+
+INSERT INTO Journal_Entries (
+    account_type, 
+    account_description,
+    debit, 
+    credit, 
+    created_at, 
+    ModifiedBy, 
+    IsApproved, 
+    comment
+    ) VALUES
+('Expense', 'Office Supplies', 150.00, 0.00, '2023-09-15 10:30:00', 'John Doe', 1, 'Purchase of stationery'),
+('Revenue', 'Service Income', 0.00, 500.00, '2023-09-16 11:00:00', 'Jane Smith', 1, 'Payment for consulting'),
+('Expense', 'Utilities', 75.50, 0.00, '2023-09-17 12:15:00', 'Alex Johnson', 1, 'Monthly electricity bill'),
+('Asset', 'Computer Equipment', 1200.00, 0.00, '2023-09-18 09:45:00', 'Mary Lee', 1, 'New laptop purchase'),
+('Liability', 'Loan Payable', 0.00, 300.00, '2023-09-19 14:20:00', 'David Brown', 1, 'Loan repayment'),
+('Expense', 'Travel Expenses', 450.00, 0.00, '2023-09-20 16:00:00', 'Sarah White', 0, 'Business trip to NYC'),
+('Revenue', 'Product Sales', 0.00, 700.00, '2023-09-21 13:30:00', 'Tom Green', 1, 'Sale of merchandise'),
+('Expense', 'Marketing', 300.00, 0.00, '2023-09-22 15:10:00', 'Emily Clark', 1, 'Advertising campaign'),
+('Asset', 'Furniture', 800.00, 0.00, '2023-09-23 08:50:00', 'Chris Martin', 1, 'New office furniture'),
+('Revenue', 'Subscription Income', 0.00, 250.00, '2023-09-24 10:05:00', 'Jessica Adams', 1, 'Monthly subscription fees');

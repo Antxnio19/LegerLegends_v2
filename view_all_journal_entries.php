@@ -24,8 +24,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+
 // Query to select all accounts
-$sql = "SELECT * FROM Client_Accounts";
+$sql = "SELECT * FROM Journal_Entries";
 $result = $conn->query($sql);
 ?>
 
@@ -115,23 +116,30 @@ $result = $conn->query($sql);
     </div>
 
     <div class="main">
-        <h1>All Accounts</h1>
+        <h1>All Journal Entries</h1><br><br>
+        <button> <a href="./add_journal_entry.php"> Add Journal Entry </a></button>
+
+        <div class="button-container" style="float: right;">
+        <button onclick="filterEntries('all')">All</button>
+        <button onclick="filterEntries('approved')">Approved</button>
+        <button onclick="filterEntries('pending')">Pending</button>
+        <button onclick="filterEntries('rejected')">Rejected</button>
+    </div>
+
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Account Name</th>
-                    <th>Account Number</th>
-                    <th>Description</th>
-                    <th>Normal Side</th>
-                    <th>Category</th>
-                    <th>Subcategory</th>
-                    <th>Initial Balance</th>
-                    <th>User ID</th>
-                    <th>Order</th>
-                    <th>Statement</th>
+                    <th>Account Type</th>
+                    <th>Account Description</th>
+                    <th>Debit</th>
+                    <th>Credit</th>
+                    <th>Created On</th>
+                    <!-- CREATED BY = MODIFEDBY IN DB SCHEMA -->
+                    <th>Created By</th>  
+                    <th>Status</th>
                     <th>Comment</th>
-                    <th>Action</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -140,19 +148,15 @@ $result = $conn->query($sql);
                     while($row = $result->fetch_assoc()) {
                         echo '<tr>
                                 <td>' . $row['id'] . '</td>
-                                <td>' . htmlspecialchars($row['account_name']) . '</td>
-                                <td>' . htmlspecialchars($row['account_number']) . '</td>
+                                <td>' . htmlspecialchars($row['account_type']) . '</td>
                                 <td>' . htmlspecialchars($row['account_description']) . '</td>
-                                <td>' . htmlspecialchars($row['normal_side']) . '</td>
-                                <td>' . htmlspecialchars($row['account_category']) . '</td>
-                                <td>' . htmlspecialchars($row['account_subcategory']) . '</td>
-                                <td>' . number_format($row['initial_balance'], 2) . '</td>
-                                <td>' . $row['user_id'] . '</td>
-                                <td>' . htmlspecialchars($row['account_order']) . '</td>
-                                <td>' . htmlspecialchars($row['statement']) . '</td>
+                                <td>' . htmlspecialchars($row['debit']) . '</td>
+                                <td>' . htmlspecialchars($row['credit']) . '</td>
+                                <td>' . htmlspecialchars($row['created_at']) . '</td>
+                                <td>' . htmlspecialchars($row['ModifiedBy']) . '</td>
+                                <td>' . htmlspecialchars($row['IsApproved']) . '</td>
                                 <td>' . htmlspecialchars($row['comment']) . '</td>
-                                <td><button class="update-button" onclick="window.location.href=\'edit_client_account.php?id=' . $row['id'] . '\'">Edit</button><br><br>
-                                <button class="view-button" onclick="window.location.href=\'view_client_account.php?id=' . $row['id'] . '\'">View</button></td>
+                                
                             </tr>';
                     }
                 } else {

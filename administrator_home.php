@@ -58,6 +58,7 @@ $userId = $_SESSION['Id'];
             <div class="dropdown-content">
                 <a href="./create_client_account_admin.php" >Create Account</a>
                 <a href="./view_all_client_accounts.php" >View All Accounts</a>
+                <a href="./view_all_journal_entries.php" >View Journal Entries</a>
             </div>
         </div>
 
