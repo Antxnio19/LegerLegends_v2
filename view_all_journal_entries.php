@@ -1,0 +1,141 @@
+<?php
+// Simulating that the user is logged in and is a manager
+$username = "test_manager"; // Simulated username
+$userId = 1; // Simulated user ID
+$isManager = 1; // Simulate that the user is a manager (1 = true)
+
+// Database connection
+$servername = "localhost";
+$dbUsername = "root"; 
+$dbPassword = ""; 
+$dbname = "ledgerledgends";
+$conn = new mysqli($servername, $dbUsername, $dbPassword, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Filter and search parameters
+$statusFilter = isset($_GET['status']) ? $_GET['status'] : 'all';
+$dateFrom = isset($_GET['date_from']) ? $_GET['date_from'] : '';
+$dateTo = isset($_GET['date_to']) ? $_GET['date_to'] : '';
+$searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
+
+// Query to fetch journal entries based on the selected filter and search
+$sql = "SELECT * FROM Journal_Entries WHERE 1=1";
+
+// Status filter
+if ($statusFilter !== 'all') {
+    $sql .= " AND IsApproved = '$statusFilter'";
+}
+
+// Date filter
+if (!empty($dateFrom) && !empty($dateTo)) {
+    $sql .= " AND created_at BETWEEN '$dateFrom' AND '$dateTo'";
+}
+
+// Search by account name, amount, or date
+if (!empty($searchTerm)) {
+    $sql .= " AND (account_type LIKE '%$searchTerm%' OR debit LIKE '%$searchTerm%' OR credit LIKE '%$searchTerm%' OR created_at LIKE '%$searchTerm%')";
+}
+
+$result = $conn->query($sql);
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./administrator_stylesheet.css"> 
+    <link rel="stylesheet" href="./it_ticket_stylesheet.css">
+    <title>View Journal Entries</title>
+</head>
+<body>
+
+<div class="main">
+    <h1>All Journal Entries</h1>
+    <br><br>
+    <button><a href="./add_journal_entry.php">Add Journal Entry</a></button>
+
+    <div class="filters">
+        <!-- Filter buttons for status -->
+        <form method="GET">
+            <label for="status">Filter by Status:</label>
+            <select name="status" id="status">
+                <option value="all">All</option>
+                <option value="approved">Approved</option>
+                <option value="pending">Pending</option>
+                <option value="rejected">Rejected</option>
+            </select>
+            
+            <!-- Date filters -->
+            <label for="date_from">From:</label>
+            <input type="date" name="date_from" value="<?php echo $dateFrom; ?>">
+            <label for="date_to">To:</label>
+            <input type="date" name="date_to" value="<?php echo $dateTo; ?>">
+            
+            <!-- Search -->
+            <input type="text" name="search" placeholder="Search by account name, amount, or date" value="<?php echo $searchTerm; ?>">
+
+            <button type="submit">Apply Filters</button>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Account Type</th>
+                <th>Account Description</th>
+                <th>Debit</th>
+                <th>Credit</th>
+                <th>Created On</th>
+                <th>Created By</th>
+                <th>Status</th>
+                <th>Comment</th>
+                <?php if ($isManager) { echo "<th>Action</th>"; } ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    echo '<tr>
+                            <td>' . $row['id'] . '</td>
+                            <td>' . htmlspecialchars($row['account_type']) . '</td>
+                            <td>' . htmlspecialchars($row['account_description']) . '</td>
+                            <td>' . htmlspecialchars($row['debit']) . '</td>
+                            <td>' . htmlspecialchars($row['credit']) . '</td>
+                            <td>' . htmlspecialchars($row['created_at']) . '</td>
+                            <td>' . htmlspecialchars($row['ModifiedBy']) . '</td>
+                            <td>' . htmlspecialchars($row['IsApproved']) . '</td>
+                            <td>' . htmlspecialchars($row['comment']) . '</td>';
+
+                    // Show action buttons for managers (approve/reject with comment)
+                    if ($isManager && $row['IsApproved'] == 'pending') {
+                        echo '<td>
+                                <form method="POST" action="approve_reject_entry.php">
+                                    <input type="hidden" name="entry_id" value="' . $row['id'] . '">
+                                    <button type="submit" name="action" value="approve">Approve</button>
+                                    <button type="submit" name="action" value="reject">Reject</button>
+                                    <input type="text" name="comment" placeholder="Reason for rejection">
+                                </form>
+                              </td>';
+                    }
+                    echo '</tr>';
+                }
+            } else {
+                echo '<tr><td colspan="10">No journal entries found</td></tr>';
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
+
+<?php
+$conn->close();
+?>
