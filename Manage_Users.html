@@ -10,9 +10,8 @@
     <nav>
         <div class="welcome">
             <img src="profile.png" alt="Picture" class="picture">
-            <h1>Ledger Ledgend Administrator</h1>
+            <h1>Ledger Legend Administrator</h1>
         </div>
-        <!-- Profile and logout section -->
         <div class="user-profile">
             <img src="pfp.png" alt="User Picture" class="profile-pic">
             <span class="username">Jtrejo0924</span>
@@ -20,7 +19,6 @@
         </div>
     </nav>
 
-    <!-- Navigation Bar -->
     <div class="main-bar">
         <a href="./administrator_home.html" class="nav-link">Home</a>
         <a href="./it_ticket.html" class="nav-link">IT Ticket</a>
@@ -28,7 +26,7 @@
             <button class="dropbtn">User Management</button>
             <div class="dropdown-content">
                 <a href="./create_new_user_admin.html">Create User</a>
-                <a href="./user_roaster.html">View Users</a>
+                <a href="./user_roster.html">View Users</a>
                 <a href="./Manage_Users.html">Account Approval</a>
             </div>
         </div>
@@ -60,7 +58,6 @@
         </div>
     </div>
 
-    <!-- Main content area for user management -->
     <div class="main-content">
         <h2>Manage Users</h2>
         <table id="user-table">
@@ -76,32 +73,85 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Example rows (you can dynamically generate these rows with a server-side script) -->
+                <?php
+                // Include the database connection file
+                include 'db_connection.php';
+                $conn = new mysqli($servername, $username, $password, $dbname);
+                $sql = "SELECT * FROM users";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                $active = $row['active'] ? 'Yes' : 'No';
+                echo "
                 <tr>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>johndoe</td>
-                    <td>password123</td>
-                    <td class="status">No</td>
-                    <td><input type="checkbox" class="approve-check"></td>
-                    <td><button class="suspend-btn">Suspend</button></td>
-                </tr>
-                <!-- Add more rows as needed -->
+                    <td>{$row['first_name']}</td>
+                    <td>{$row['last_name']}</td>
+                    <td>{$row['username']}</td>
+                    <td>{$row['password']}</td>
+                    <td class='active-status'>$active</td>
+                    <td><input type='checkbox' class='approve-check' data-id='{$row[' id']}' ".($row['approved'] ? 'checked' : '')."></td>
+                    <td><button class='suspend-btn' data-id='{$row[' id']}'>Suspend</button></td>
+                </tr>";
+                }
+                } else {
+                echo "
+                <tr><td colspan='7'>No users found.</td></tr>";
+                }
+
+                $conn->close();
+                ?>
             </tbody>
         </table>
+    </div>
 
-        <!-- Suspend User Modal -->
-        <div id="suspend-modal" class="modal" style="display: none;">
-            <div class="modal-content">
-                <span class="close-btn">&times;</span>
-                <h3>Suspend User</h3>
-                <label for="suspend-duration">Suspend for (days):</label>
-                <input type="number" id="suspend-duration" min="1">
-                <button id="confirm-suspend">Suspend</button>
-            </div>
+    <!-- Suspend User Modal -->
+    <div id="suspend-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>Suspend User</h3>
+            <label for="suspend-duration">Suspend for (days):</label>
+            <input type="number" id="suspend-duration" min="1">
+            <button id="confirm-suspend">Suspend</button>
         </div>
     </div>
 
-    <script src="./Manager_Users.js"></script>
+    <script>
+        document.querySelectorAll('.approve-check').forEach(check => {
+            check.addEventListener('change', function () {
+                const userId = this.getAttribute('data-id');
+                const isChecked = this.checked ? 1 : 0;
+                fetch(`update_user_status.php?id=${userId}&approved=${isChecked}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const statusCell = this.closest('tr').querySelector('.active-status');
+                            statusCell.textContent = isChecked ? 'Yes' : 'No';
+                        }
+                    });
+            });
+        });
+
+        document.querySelectorAll('.suspend-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const userId = this.getAttribute('data-id');
+                const duration = prompt("Enter suspension duration in days:");
+                if (duration) {
+                    fetch(`suspend_user.php?id=${userId}&days=${duration}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert("User suspended successfully.");
+                                // Update the active status in the table
+                                const statusCell = this.closest('tr').querySelector('.active-status');
+                                statusCell.textContent = 'No';
+                            }
+                        });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
+
+

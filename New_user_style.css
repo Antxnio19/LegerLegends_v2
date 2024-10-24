@@ -1,0 +1,167 @@
+:root {
+    --background-color: #2C2F33; /* Dark grey background */
+    --navbar-background: #23272A; /* Darker grey for navbar */
+    --link-color: #73B2FF; /* Teal for links */
+    --link-hover-background: #1F2933; /* Dark grey for hover */
+    --dropdown-background: #2C2F33; /* Dark dropdown background */
+    --dropdown-hover-background: #3A3F47; /* Slightly lighter grey for hover */
+    --text-color: white; /* White text for contrast */
+    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Darker shadow */
+    --border-radius: 5px; /* Softer border radius */
+}
+
+body {
+    background-color: var(--background-color);
+    font-family: 'Whitney', 'Helvetica Neue', 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: var(--text-color); /* Set default text color to white */
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--navbar-background);
+    width: 100%;
+    box-shadow: var(--box-shadow);
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+
+nav ul li {
+    display: inline-block;
+    background-color: var(--navbar-background);
+    border-radius: var(--border-radius);
+    padding: 10px;
+    box-shadow: var(--box-shadow);
+}
+
+nav ul li a {
+    color: var(--link-color);
+    text-decoration: none;
+    padding: 10px;
+    border-radius: var(--border-radius);
+}
+
+nav ul li a:hover {
+    background-color: var(--link-hover-background);
+}
+
+.container {
+    background-color: var(--navbar-background);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.container img {
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="date"],
+select {
+    width: 90%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid var(--link-color);
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+button {
+    width: 95%;
+    padding: 10px;
+    background-color: var(--link-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #599cee; /* Darker teal */
+}
+
+.login-links {
+    margin-top: 20px;
+    color: var(--link-color);
+}
+
+.login-links a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.login-links a:hover {
+    text-decoration: underline;
+}
+
+#passwordRequirements {
+    text-align: left;
+    margin-top: 10px;
+    color: var(--text-color);
+}
+
+#passwordRequirements p {
+    margin: 5px 0;
+    font-size: 12px;
+}
+
+.invalid {
+    color: #F04747;
+}
+
+.valid {
+    color: #43B581;
+}
+
+.username-generated {
+    color: #73B2FF;
+    font-weight: bold;
+}
+
+/* Additional styling for form spacing */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input, select {
+    margin-bottom: 15px;
+}
+
+footer {
+    margin-top: 20px;
+}
+

@@ -1,7 +1,7 @@
 :root {
-    --background-color: #3399FF; /* Bright blue */
+    --background-color: #73B2FF; /* Bright blue */
     --navbar-background: #23272A; /* Dark grey for navbar */
-    --link-color: #00BFFF; /* Bright teal */
+    --link-color: #73B2FF; /* Bright teal */
     --link-hover-background: #3A3F43; /* Darker grey for hover effect */
     --dropdown-background: #f9f9f9; /* Light background for dropdowns */
     --dropdown-hover-background: #ddd; /* Light grey for dropdown hover */

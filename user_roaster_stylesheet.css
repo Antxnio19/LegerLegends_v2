@@ -1,0 +1,283 @@
+:root {
+    --background-color: #2C2F33; /* Dark grey background */
+    --navbar-background: #23272A; /* Darker grey for navbar */
+    --link-color: #73B2FF; /* Teal for links */
+    --link-hover-background: #1F2933; /* Darker grey for link hover */
+    --dropdown-background: #2C2F33; /* Dark grey for dropdown */
+    --dropdown-hover-background: #3A3F47; /* Slightly lighter grey for dropdown hover */
+    --text-color: white; /* White text for contrast */
+    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Darker shadow */
+    --border-radius: 5px; /* Softer border radius */
+}
+
+/* Global Styles */
+body {
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--navbar-background);
+}
+
+.welcome {
+    display: flex;
+    align-items: center;
+}
+
+.picture {
+    width: 100px;
+    height: auto;
+    margin-right: 10px;
+}
+
+/* User profile section */
+body {
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--navbar-background);
+}
+
+.welcome {
+    display: flex;
+    align-items: center;
+}
+
+.picture {
+    width: 100px;
+    height: auto;
+    margin-right: 10px;
+}
+
+/* User profile section */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.username {
+    font-size: 16px;
+    color: var(--text-color); /* White text for username */
+    margin-right: 10px;
+}
+
+.logout-btn {
+    padding: 10px;
+    background-color: var(--link-color); /* Teal button */
+    color: white; /* White text for logout button */
+    text-decoration: none;
+    border-radius: var(--border-radius);
+}
+
+.logout-btn:hover {
+    background-color: var(--link-hover-background); /* Darker grey on hover */
+    color: white; /* Keep text white on hover */
+}
+
+/* Main bar for navigation */
+.main-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--navbar-background);
+    padding: 10px;
+    box-shadow: var(--box-shadow);
+    gap: 3px; /* Smaller gap between buttons */
+}
+
+.nav-link {
+    display: inline-block;
+    padding: 8px; /* Adjust padding if needed */
+    background-color: var(--navbar-background);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin: 0 3px; /* Reduced margin between links */
+}
+
+.nav-link:hover {
+    background-color: var(--link-hover-background); /* Darker grey on hover */
+    color: white; /* Change text color to white on hover */
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin: 0 3px; /* Reduced margin between dropdowns */
+}
+
+.dropbtn {
+    background-color: var(--navbar-background); /* Dark grey button */
+    color: white; /* Change text color to white for dropdown button */
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--dropdown-background); /* Dark grey dropdown background */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.dropdown-content a {
+    color: var(--text-color); /* White text for dropdown items */
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--dropdown-hover-background); /* Lighter grey on hover */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block; /* Show dropdown on hover */
+}
+
+/* Additional Styles for Titles and Tabs */
+.title {
+    color: White; /* Ensure title is white */
+    font-size: 24px; /* Adjust as necessary */
+    margin-bottom: 10px; /* Space below title */
+}
+
+.tab-label {
+    color: var(--text-color); /* Ensure tab labels are white */
+    padding: 5px 10px; /* Space inside tab labels */
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; 
+    background-color: white; /* White background for the table */
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow-x: auto; /* Enable horizontal scroll if needed */
+    table-layout: auto; /* Allow automatic layout for smaller columns */
+}
+
+th, td {
+    padding: 10px; /* Reduced padding for smaller table */
+    text-align: left; 
+    border-bottom: 1px solid lightgrey; 
+    font-size: 12px; /* Smaller font size */
+}
+
+th {
+    background-color: #f0f0f0; 
+    color: #333; 
+    font-weight: bold; 
+}
+
+tr:hover {
+    background-color: #f9f9f9; 
+}
+
+/* Update Button Styles */
+.update-button {
+    padding: 6px 10px; 
+    background-color: var(--link-color); 
+    color: white; 
+    border: none; 
+    border-radius: var(--border-radius); 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+    font-size: 12px; /* Smaller font size for buttons */
+}
+
+.update-button:hover {
+    background-color: darken(var(--link-color), 10%); /* Darken on hover */
+}
+
+/* Form Styles */
+.form-container {
+    background-color: var(--navbar-background); /* Darker grey for form background */
+    padding: 20px; 
+    margin: 20px auto; 
+    width: 80%; 
+    max-width: 600px; 
+    border-radius: var(--border-radius); 
+    box-shadow: var(--box-shadow);
+}
+
+form {
+    display: flex; 
+    flex-direction: column; 
+}
+
+form label {
+    margin-top: 10px; 
+    font-weight: bold; 
+    color: var(--text-color); /* White text for labels */
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="date"],
+form input[type="number"],
+form input[type="password"] {
+    padding: 10px; 
+    margin-top: 5px; 
+    margin-bottom: 15px; 
+    border: 1px solid #ddd; 
+    border-radius: var(--border-radius); 
+    width: 100%; 
+    box-sizing: border-box; 
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="date"]:focus,
+form input[type="number"]:focus,
+form input[type="password"]:focus {
+    border-color: var(--link-color); 
+    outline: none; 
+}
+
+form .submit-button {
+    background-color: var(--link-color); 
+    color: #fff; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: var(--border-radius); 
+    cursor: pointer; 
+    font-size: 16px; 
+    margin-top: 10px; 
+}
+
+form .submit-button:hover {
+    background-color: darken(var(--link-color), 10%); /* Darken on hover */
+}
