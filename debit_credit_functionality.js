@@ -141,8 +141,8 @@
             const selectedValue = this.value;
             if (selectedValue) {
                 // Remove the selected value from all other select elements
-                const allSelects = document.querySelectorAll('select[name="account_credit_select[]"]');
-                allSelects.forEach(select => {
+                const all_credit_Selects = document.querySelectorAll('select[name="account_credit_select[]"]');
+                all_credit_Selects.forEach(select => {
                     if (select !== this) {
                         // Remove the selected option from other selects
                         Array.from(select.options).forEach(option => {
@@ -155,7 +155,7 @@
             }
 
             // Reset other dropdowns to include all accounts again
-            allSelects.forEach(select => {
+            all_credit_Selects.forEach(select => {
                 if (select !== this) {
                     resetSelectOptions(select);
                 }
