@@ -1,8 +1,6 @@
 <?php
-// Simulating that the user is logged in and is a manager
-$username = "test_manager"; // Simulated username
-$userId = 1; // Simulated user ID
-$isManager = 1; // Simulate that the user is a manager (1 = true)
+// Simulate that the user is a manager without requiring a login
+$isManager = true; // Bypass login for testing purposes
 
 // Database connection
 $servername = "localhost";
@@ -51,6 +49,25 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="./administrator_stylesheet.css"> 
     <link rel="stylesheet" href="./it_ticket_stylesheet.css">
     <title>View Journal Entries</title>
+    <style>
+        /* Style the Approve and Reject buttons */
+        .approve-btn, .reject-btn {
+            padding: 5px 10px;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        .approve-btn {
+            background-color: green;
+        }
+        .reject-btn {
+            background-color: red;
+        }
+        /* Indentation for journal entries */
+        .journal-entry {
+            margin-left: 20px;
+        }
+    </style>
 </head>
 <body>
 
@@ -60,23 +77,20 @@ $result = $conn->query($sql);
     <button><a href="./add_journal_entry.php">Add Journal Entry</a></button>
 
     <div class="filters">
-        <!-- Filter buttons for status -->
         <form method="GET">
             <label for="status">Filter by Status:</label>
             <select name="status" id="status">
                 <option value="all">All</option>
-                <option value="approved">Approved</option>
-                <option value="pending">Pending</option>
-                <option value="rejected">Rejected</option>
+                <option value="approved" <?php if ($statusFilter === 'approved') echo 'selected'; ?>>Approved</option>
+                <option value="pending" <?php if ($statusFilter === 'pending') echo 'selected'; ?>>Pending</option>
+                <option value="rejected" <?php if ($statusFilter === 'rejected') echo 'selected'; ?>>Rejected</option>
             </select>
             
-            <!-- Date filters -->
             <label for="date_from">From:</label>
             <input type="date" name="date_from" value="<?php echo $dateFrom; ?>">
             <label for="date_to">To:</label>
             <input type="date" name="date_to" value="<?php echo $dateTo; ?>">
             
-            <!-- Search -->
             <input type="text" name="search" placeholder="Search by account name, amount, or date" value="<?php echo $searchTerm; ?>">
 
             <button type="submit">Apply Filters</button>
@@ -104,8 +118,8 @@ $result = $conn->query($sql);
                 while($row = $result->fetch_assoc()) {
                     echo '<tr>
                             <td>' . $row['id'] . '</td>
-                            <td>' . htmlspecialchars($row['account_type']) . '</td>
-                            <td>' . htmlspecialchars($row['account_description']) . '</td>
+                            <td class="journal-entry">' . htmlspecialchars($row['account_type']) . '</td>
+                            <td class="journal-entry">' . htmlspecialchars($row['account_description']) . '</td>
                             <td>' . htmlspecialchars($row['debit']) . '</td>
                             <td>' . htmlspecialchars($row['credit']) . '</td>
                             <td>' . htmlspecialchars($row['created_at']) . '</td>
@@ -118,11 +132,13 @@ $result = $conn->query($sql);
                         echo '<td>
                                 <form method="POST" action="approve_reject_entry.php">
                                     <input type="hidden" name="entry_id" value="' . $row['id'] . '">
-                                    <button type="submit" name="action" value="approve">Approve</button>
-                                    <button type="submit" name="action" value="reject">Reject</button>
+                                    <button type="submit" name="action" value="approve" class="approve-btn">Approve</button>
+                                    <button type="submit" name="action" value="reject" class="reject-btn">Reject</button>
                                     <input type="text" name="comment" placeholder="Reason for rejection">
                                 </form>
                               </td>';
+                    } else {
+                        echo '<td>N/A</td>';
                     }
                     echo '</tr>';
                 }
