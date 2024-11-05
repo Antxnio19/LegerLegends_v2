@@ -171,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h2>Search for Account</h2>
         <form method="GET" action="">
             <input type="number" name="account_id" placeholder="Enter Account ID" required>
-            <button type="submit">Search</button>
+            <button type="submit"style="margin-top: 10px; width: 200px; height: 30px;" >Search</button>
         </form>
 
         <?php if ($account): ?>
@@ -184,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
                 <div id="debit-container">
-                    <input type="number" step="0.01" name="debit[]" placeholder="Debit" required>
+                    <!-- <input type="number" step="0.01" name="debit[]" placeholder="Debit" required>
                     <select name="account_debit_select[]" required>
                     <option value="">Select Account</option>
                     <option value="Cash">Cash</option>
@@ -211,14 +211,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <option value="Electricity Expense">Electricity Expense</option>
                     <option value="Utilities Expense">Utilities Expense</option>
                     <option value="Insurance Expense">Insurance Expense</option>
-                    <option value="Depreciation Expense">Depreciation Expense</option> 
-                    </select>
+                    <option value="Depreciation Expense">Depreciation Expense</option>
+                    </select> -->
                 </div>
-                <button type="button" onclick="addDebitField()" style="margin-top: 10px;">Add Debit</button>
-               
+                <button type="button" onclick="addDebitField()" style="margin-top: 10px; width: 200px; height: 30px;">Add Debit</button>
+                <button type="button" onclick="removeDebitField()" style="margin-top: 10px; width: 200px; height: 30px;">Remove Debit</button>
 
                 <div id="credit-container">
-                    <input type="number" step="0.01" name="credit[]" placeholder="Credit" required>
+                    <!-- <input type="number" step="0.01" name="credit[]" placeholder="Credit" required>
                     <select name="account_credit_select[]" required>
                     <option value="">Select Account</option>
                     <option value="Cash">Cash</option>
@@ -246,20 +246,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <option value="Utilities Expense">Utilities Expense</option>
                     <option value="Insurance Expense">Insurance Expense</option>
                     <option value="Depreciation Expense">Depreciation Expense</option> 
-                    </select>
+                    </select> -->
                 </div>
-                <button type="button" onclick="addCreditField()" style="margin-top: 10px;">Add Credit</button>
-
+                <button type="button" onclick="addCreditField()" style="margin-top: 10px; width: 200px; height: 30px;">Add Credit</button>
+                <button type="button" onclick="removeCreditField()" style="margin-top: 10px; width: 200px; height: 30px;">Remove Credit</button>
+                
                 <textarea name="comment" placeholder="Comment"></textarea><br><br>
-                <button type="submit" style="width: 200px; height: 30px;">Create Journal Entry</button>
-                <button type="button" onclick="window.location.href='./view_all_journal_entries.php'" style="width: 200px; height: 30px;">Cancel</button>
+                <button type="submit" style="margin-top: 10px; width: 200px; height: 30px;">Create Journal Entry</button>
+                <button type="button" onclick="window.location.href='./view_all_journal_entries.php'" style="margin-top: 10px; width: 200px; height: 30px;">Cancel</button>
             </form>
         <?php elseif ($account_id): ?>
+
             <p>No account found with ID: <?php echo htmlspecialchars($account_id); ?></p>
         <?php endif; ?>
     </div>
 </div>
-
+ 
 <script src="debit_credit_functionality.js"></script>
 </body>
 </html>

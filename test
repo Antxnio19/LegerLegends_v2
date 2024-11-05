@@ -32,14 +32,6 @@
     function addDebitField() {
         const container = document.getElementById('debit-container');
         const newDebitDiv = document.createElement('div');
-        newDebitDiv.className = 'debit-entry';
-        newCreditDiv.className = 'credit-entry';
-
-
-
-        const accountSelect = document.createElement('select');
-        accountSelect.name = 'account_debit_select[]';
-        accountSelect.required = true;
 
         const newInput = document.createElement('input');
         newInput.type = 'number';
@@ -47,6 +39,10 @@
         newInput.placeholder = 'Debit';
         newInput.step = '0.01';
         newInput.required = true;
+
+        const accountSelect = document.createElement('select');
+        accountSelect.name = 'account_debit_select[]';
+        accountSelect.required = true;
 
         // Create a default option
         const defaultOption = document.createElement('option');
@@ -81,7 +77,7 @@
             }
 
             // Reset other dropdowns to include all accounts again
-            all_debit_Selects.forEach(select => {
+            allSelects.forEach(select => {
                 if (select !== this) {
                     resetSelectOptions(select);
                 }
@@ -92,27 +88,10 @@
         newDebitDiv.appendChild(accountSelect);
         container.appendChild(newDebitDiv);
     }
-   
-    function removeDebitField() {
-        const container = document.getElementById('debit-container');
-        const debitEntries = container.getElementsByClassName('debit-entry');
-        if (debitEntries.length > 0) {
-            container.removeChild(debitEntries[debitEntries.length - 1]);
-        } else {
-            alert("No debit fields to remove.");
-        }
-    }
-    
 
     function addCreditField() {
         const container = document.getElementById('credit-container');
         const newCreditDiv = document.createElement('div');
-
-
-
-        const accountSelect = document.createElement('select');
-        accountSelect.name = 'account_credit_select[]';
-        accountSelect.required = true;
 
         const newInput = document.createElement('input');
         newInput.type = 'number';
@@ -121,7 +100,9 @@
         newInput.step = '0.01';
         newInput.required = true;
 
-
+        const accountSelect = document.createElement('select');
+        accountSelect.name = 'account_credit_select[]';
+        accountSelect.required = true;
 
         // Create a default option
         const defaultOption = document.createElement('option');
@@ -165,15 +146,6 @@
         newCreditDiv.appendChild(newInput);
         newCreditDiv.appendChild(accountSelect);
         container.appendChild(newCreditDiv);
-    }
-    function removeCreditField() {
-        const container = document.getElementById('credit-container');
-        const debitEntries = container.getElementsByClassName('credit-entry');
-        if (debitEntries.length > 0) {
-            container.removeChild(debitEntries[debitEntries.length - 1]);
-        } else {
-            alert("No credit fields to remove.");
-        }
     }
 
 
