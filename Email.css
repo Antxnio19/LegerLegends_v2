@@ -1,0 +1,62 @@
+:root {
+    --background-color: #2C2F33; /* Dark grey background */
+    --navbar-background: #23272A; /* Darker grey for navbar */
+    --link-color: #73B2FF; /* Teal for links */
+    --link-hover-background: #1F2933; /* Darker grey for link hover */
+    --dropdown-background: #2C2F33; /* Dark grey for dropdown */
+    --dropdown-hover-background: #3A3F47; /* Slightly lighter grey for dropdown hover */
+    --userList-background: #3A3F47; /* Adjusted user list background */
+    --text-color: white; /* White text for contrast */
+    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Darker shadow */
+    --border-radius: 5px; /* Softer border radius */
+}
+/* Table Styling */
+.main-content {
+    padding: 20px;
+}
+
+.emailForm {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white; /* White background for the table */
+}
+
+th, td {
+    border: 1px solid var(--text-color); /* White border */
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: var(--link-color); /* Teal header */
+    color: white; /* White text in header */
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light grey for even rows */
+}
+
+tr:nth-child(odd) {
+    background-color: #e0e0e0; /* Slightly darker light grey for odd rows */
+}
+
+tr:hover {
+    background-color: white; /* Darker grey on hover */
+    color: white; /* Black text on hover */
+}
+
+/* Black text for table data */
+td {
+    color: black; /* Black text in table cells */
+}
+
+/* Additional styles for headings and labels */
+h2, h3, label {
+    color: var(--text-color); /* White text for headings and labels */
+}

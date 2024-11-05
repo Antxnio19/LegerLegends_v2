@@ -3,15 +3,15 @@
     --container-background: #23272A; /* Darker grey for container */
     --input-border: #3A3F47; /* Dark grey border for inputs */
     --navbar-background: #2C2F33; /* Dark grey for navbar */
-    --link-color: #33C3B3; /* Teal for links */
+    --link-color: #73B2FF; /* Teal for links */
     --link-hover-background: #1F2933; /* Dark grey for link hover */
     --dropdown-background: #2C2F33; /* Dark grey for dropdown */
     --dropdown-hover-background: #3A3F47; /* Slightly lighter grey for dropdown hover */
     --text-color: white; /* White text for contrast */
     --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Darker shadow */
     --border-radius: 5px; /* Softer border radius */
-    --button-color: #33C3B3; /* Teal for buttons */
-    --button-hover-color: #29A49A; /* Darker teal for button hover */
+    --button-color: #73B2FF; /* Teal for buttons */
+    --button-hover-color: #599cee; /* Darker teal for button hover */
 }
 
 .admin-action-main {

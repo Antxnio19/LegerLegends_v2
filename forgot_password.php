@@ -44,16 +44,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $row = $result->fetch_assoc();
         $password = $row['Password'];
 
-        // Send email
-        $to = $email;
-        $subject = "Your Password Recovery";
-        $message = "Your password is: " . $password;
-        $headers = "From: noreply@example.com";
+        // SendGrid API key
+        $apiKey = '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';
 
-        if (mail($to, $subject, $message, $headers)) {
+        // Prepare the email data for SendGrid
+        $data = [
+            "personalizations" => [[
+                "to" => [[
+                    "email" => $email,
+                ]],
+                "subject" => "Your Password Recovery",
+            ]],
+            "from" => [
+                "email" => "bportie1@students.kennesaw.edu", // Your verified email
+                "name" => "Ledger Legends" // Your name
+            ],
+            "content" => [[
+                "type" => "text/plain",
+                "value" => "Your password is: " . $password
+            ]],
+        ];
+
+        // Initialize cURL
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://api.sendgrid.com/v3/mail/send");
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "Authorization: Bearer $apiKey",
+            "Content-Type: application/json",
+        ]);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+        // Send the email
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        // Check if the email was sent successfully
+        if ($httpCode == 202) {
             $success_message = "Password has been sent to your email.";
+            eventLogger($userId, $userTypeId, $username, "N/A", "N/A", "email sent");
         } else {
-            $error_message = "Error sending email.";
+            $error_message = "Failed to send email.";
         }
     } else {
         $error_message = "No matching records found. Please check your details and try again.";

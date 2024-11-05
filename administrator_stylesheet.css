@@ -1,7 +1,7 @@
 :root {
     --background-color: #2C2F33; /* Dark grey background */
     --navbar-background: #23272A; /* Darker grey for navbar */
-    --link-color: #33C3B3; /* Teal for links */
+    --link-color: #73B2FF; /* Teal for links */
     --link-hover-background: #1F2933; /* Darker grey for link hover */
     --dropdown-background: #2C2F33; /* Dark grey for dropdown */
     --dropdown-hover-background: #3A3F47; /* Slightly lighter grey for dropdown hover */
@@ -78,17 +78,18 @@ nav {
     background-color: var(--navbar-background);
     padding: 10px;
     box-shadow: var(--box-shadow);
+    gap: 3px; /* Smaller gap between buttons */
 }
 
 .nav-link {
     display: inline-block;
-    padding: 10px;
-    background-color: var(--navbar-background); /* Dark grey for link background */
-    color: white; /* Change text color to white for links */
+    padding: 8px; /* Adjust padding if needed */
+    background-color: var(--navbar-background);
+    color: white;
     text-decoration: none;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
-    margin: 0 10px;
+    margin: 0 3px; /* Reduced margin between links */
 }
 
 .nav-link:hover {
@@ -96,11 +97,10 @@ nav {
     color: white; /* Change text color to white on hover */
 }
 
-/* Dropdown menus */
 .dropdown {
     position: relative;
     display: inline-block;
-    margin: 0 10px;
+    margin: 0 3px; /* Reduced margin between dropdowns */
 }
 
 .dropbtn {

@@ -1,7 +1,7 @@
 :root {
     --background-color: #2C2F33; /* Dark grey background */
     --navbar-background: #23272A; /* Darker grey for navbar */
-    --link-color: #33C3B3; /* Teal for links */
+    --link-color: #73B2FF; /* Teal for links */
     --link-hover-background: #1F2933; /* Darker grey for link hover */
     --text-color: white; /* White text for contrast */
     --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Darker shadow */
