@@ -18,46 +18,48 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$clientName = "Addams & Family Inc."; // This should match an entry in Client_Accounts
+// Initialize totals
 $totalRevenue = 0;
 $totalExpenses = 0;
 $netIncome = 0;
+$clientName = "";
 
-// Fetch income statement data for the specific client
-$ledgerQuery = "
-    SELECT 
-        jel.account AS account_name,
-        SUM(COALESCE(jel.debit, 0)) AS total_debit,
-        SUM(COALESCE(jel.credit, 0)) AS total_credit
-    FROM 
-        Ledger_Transactions lt
-    JOIN 
-        Journal_Entry_Lines jel ON lt.journal_entry_id = jel.journal_entry_id
-    JOIN 
-        Client_Accounts ca ON lt.client_account_id = ca.id
-    WHERE 
-        ca.account_name = ?
-    GROUP BY 
-        jel.account
-";
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['client_name'])) {
+    $clientName = $_POST['client_name'];
 
-$stmt = $conn->prepare($ledgerQuery);
-$stmt->bind_param("s", $clientName);
-$stmt->execute();
-$ledgerResult = $stmt->get_result();
+    // Fetch income statement data for the specific client
+    $query = "
+        SELECT 
+            account_name,
+            SUM(COALESCE(debit, 0)) AS total_debit,
+            SUM(COALESCE(credit, 0)) AS total_credit
+        FROM 
+            Ledger_Transactions
+        WHERE 
+            client_name = ?
+        GROUP BY 
+            account_name
+    ";
 
-if ($ledgerResult->num_rows > 0) {
-    while ($ledgerRow = $ledgerResult->fetch_assoc()) {
-        if ($ledgerRow['account_type'] === 'Revenue') {
-            $totalRevenue += $ledgerRow['total_credit'];
-        } else if ($ledgerRow['account_type'] === 'Expense') {
-            $totalExpenses += $ledgerRow['total_debit'];
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $clientName);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            if ($row['account_name'] === 'Service Revenue') {
+                $totalRevenue += $row['total_credit'];
+            } else {
+                $totalExpenses += $row['total_debit'];
+            }
         }
     }
-}
 
-// Calculate net income
-$netIncome = $totalRevenue - $totalExpenses;
+    // Calculate net income
+    $netIncome = $totalRevenue - $totalExpenses;
+}
 
 ?>
 
@@ -71,6 +73,7 @@ $netIncome = $totalRevenue - $totalExpenses;
     <link rel="icon" type="image/png" href="profile.png">
     
     <title>Income Statement</title>
+
 </head>
 <body>
 
@@ -136,44 +139,51 @@ $netIncome = $totalRevenue - $totalExpenses;
 </div>
 
 <div class="container">
-    <h1 class="title"><?php echo htmlspecialchars($clientName); ?></h1>
+    <h1 class="title"><?php echo $clientName; ?></h1>
     <h2 class="title">Income Statement</h2>
     <h3 class="title">For the Year Ended <?php echo date('F d, Y'); ?></h3>
 
-    <table>
-        <tr>
-            <th>Revenues</th>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Service Revenue</td>
-            <td>$<?php echo number_format($totalRevenue, 2); ?></td>
-        </tr>
-        <tr>
-            <th>Total Revenues</th>
-            <td>$<?php echo number_format($totalRevenue, 2); ?></td>
-        </tr>
-        <tr>
-            <th>Expenses</th>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Insurance Expense</td>
-            <td>$150.00</td>
-        </tr>
-        <tr>
-            <td>Depreciation Expense</td>
-            <td>$500.00</td>
-        </tr>
-        <tr>
-            <th>Total Expenses</th>
-            <td>$<?php echo number_format($totalExpenses, 2); ?></td>
-        </tr>
-        <tr>
-            <th>Net Income (Loss)</th>
-            <td>$<?php echo number_format($netIncome, 2); ?></td>
-        </tr>
-    </table>
+    <form method="post" action="">
+        <input type="text" name="client_name" placeholder="Enter Client Name" required>
+        <button type="submit">Search</button>
+    </form>
+
+    <?php if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($clientName)): ?>
+        <table>
+            <tr>
+                <th>Revenues</th>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Service Revenue</td>
+                <td>$<?php echo number_format($totalRevenue, 2); ?></td>
+            </tr>
+            <tr>
+                <th>Total Revenues</th>
+                <td>$<?php echo number_format($totalRevenue, 2); ?></td>
+            </tr>
+            <tr>
+                <th>Expenses</th>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Insurance Expense</td>
+                <td>$150.00</td>
+            </tr>
+            <tr>
+                <td>Depreciation Expense</td>
+                <td>$500.00</td>
+            </tr>
+            <tr>
+                <th>Total Expenses</th>
+                <td>$<?php echo number_format($totalExpenses, 2); ?></td>
+            </tr>
+            <tr>
+                <th>Net Income (Loss)</th>
+                <td>$<?php echo number_format($netIncome, 2); ?></td>
+            </tr>
+        </table>
+    <?php endif; ?>
 </div>
 
 </body>
@@ -182,4 +192,3 @@ $netIncome = $totalRevenue - $totalExpenses;
 <?php
 $conn->close();
 ?>
-

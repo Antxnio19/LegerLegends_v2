@@ -18,46 +18,63 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$clientName = "Addams & Family Inc."; // This should match an entry in Client_Accounts
+// Initialize values
 $totalRevenue = 0;
 $totalExpenses = 0;
 $netIncome = 0;
+$beginningRetainedEarnings = 0; // Assuming zero for the beginning
+$dividends = 0; // Assuming dividends are zero
+$endRetainedEarnings = 0;
+$clientName = "";
 
-// Fetch income statement data for the specific client
-$ledgerQuery = "
-    SELECT 
-        jel.account AS account_name,
-        SUM(COALESCE(jel.debit, 0)) AS total_debit,
-        SUM(COALESCE(jel.credit, 0)) AS total_credit
-    FROM 
-        Ledger_Transactions lt
-    JOIN 
-        Journal_Entry_Lines jel ON lt.journal_entry_id = jel.journal_entry_id
-    JOIN 
-        Client_Accounts ca ON lt.client_account_id = ca.id
-    WHERE 
-        ca.account_name = ?
-    GROUP BY 
-        jel.account
-";
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['client_account_number'])) {
+    $clientAccountNumber = $_POST['client_account_number'];
 
-$stmt = $conn->prepare($ledgerQuery);
-$stmt->bind_param("s", $clientName);
-$stmt->execute();
-$ledgerResult = $stmt->get_result();
+    // Fetch client name for the specific client account
+    $query = "
+        SELECT 
+            client_name
+        FROM 
+            Client_Accounts
+        WHERE 
+            client_account_number = ?
+    ";
 
-if ($ledgerResult->num_rows > 0) {
-    while ($ledgerRow = $ledgerResult->fetch_assoc()) {
-        if ($ledgerRow['account_type'] === 'Revenue') {
-            $totalRevenue += $ledgerRow['total_credit'];
-        } else if ($ledgerRow['account_type'] === 'Expense') {
-            $totalExpenses += $ledgerRow['total_debit'];
-        }
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $clientAccountNumber);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $clientName = $row['client_name'];
+    }
+
+    // Fetch retained earnings data for the specific client account
+    $query = "
+        SELECT 
+            SUM(CASE WHEN account_name = 'Service Revenue' THEN COALESCE(credit, 0) ELSE 0 END) AS total_revenue,
+            SUM(COALESCE(debit, 0)) AS total_expenses
+        FROM 
+            Ledger_Transactions
+        WHERE 
+            client_account_number = ?
+    ";
+
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $clientAccountNumber);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $totalRevenue = $row['total_revenue'];
+        $totalExpenses = $row['total_expenses'];
+        $netIncome = $totalRevenue - $totalExpenses;
+        $endRetainedEarnings = $beginningRetainedEarnings + $netIncome - $dividends;
     }
 }
-
-// Calculate net income
-$netIncome = $totalRevenue - $totalExpenses;
 
 ?>
 
@@ -70,7 +87,8 @@ $netIncome = $totalRevenue - $totalExpenses;
     <link rel="stylesheet" href="./modals_calculator_calendar.css">
     <link rel="icon" type="image/png" href="profile.png">
     
-    <title>Income Statement</title>
+    <title>Statement of Retained Earnings</title>
+
 </head>
 <body>
 
@@ -136,44 +154,36 @@ $netIncome = $totalRevenue - $totalExpenses;
 </div>
 
 <div class="container">
-    <h1 class="title"><?php echo htmlspecialchars($clientName); ?></h1>
-    <h2 class="title">Income Statement</h2>
-    <h3 class="title">For the Year Ended <?php echo date('F d, Y'); ?></h3>
+    <h1 class="title"><?php echo $clientName; ?></h1>
+    <h2 class="title">Search Client Account</h2>
+    <form method="post" action="">
+        <input type="text" name="client_account_number" placeholder="Enter Client Account Number" required>
+        <button type="submit">Search</button>
+    </form>
 
-    <table>
-        <tr>
-            <th>Revenues</th>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Service Revenue</td>
-            <td>$<?php echo number_format($totalRevenue, 2); ?></td>
-        </tr>
-        <tr>
-            <th>Total Revenues</th>
-            <td>$<?php echo number_format($totalRevenue, 2); ?></td>
-        </tr>
-        <tr>
-            <th>Expenses</th>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Insurance Expense</td>
-            <td>$150.00</td>
-        </tr>
-        <tr>
-            <td>Depreciation Expense</td>
-            <td>$500.00</td>
-        </tr>
-        <tr>
-            <th>Total Expenses</th>
-            <td>$<?php echo number_format($totalExpenses, 2); ?></td>
-        </tr>
-        <tr>
-            <th>Net Income (Loss)</th>
-            <td>$<?php echo number_format($netIncome, 2); ?></td>
-        </tr>
-    </table>
+    <?php if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($clientAccountNumber)): ?>
+        <h2 class="title">Statement of Retained Earnings</h2>
+        <h3 class="title">For the Year Ended <?php echo date('F d, Y'); ?></h3>
+        
+        <table>
+            <tr>
+                <td>Beg Retained Earnings, <?php echo date('n/j/y', strtotime('-1 year')); ?></td>
+                <td>$<?php echo number_format($beginningRetainedEarnings, 2); ?></td>
+            </tr>
+            <tr>
+                <td>Add: Net Income</td>
+                <td>$<?php echo number_format($netIncome, 2); ?></td>
+            </tr>
+            <tr>
+                <td>Less: Dividends</td>
+                <td>$<?php echo number_format($dividends, 2); ?></td>
+            </tr>
+            <tr>
+                <th>End Retained Earnings, <?php echo date('n/j/y'); ?></th>
+                <th class="underline">$<?php echo number_format($endRetainedEarnings, 2); ?></th>
+            </tr>
+        </table>
+    <?php endif; ?>
 </div>
 
 </body>
