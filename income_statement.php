@@ -12,16 +12,16 @@ if ($conn->connect_error) {
 }
 
 // Query to get total revenue by account description
-$queryRevenue = "SELECT account_description, SUM(debit) AS total_revenue 
-                 FROM Journal_Entries 
-                 WHERE account_type = 'revenue' 
-                 GROUP BY account_description";
+$queryRevenue = "SELECT account AS account_description, SUM(credit) AS total_revenue 
+                 FROM Journal_Entry_Lines 
+                 WHERE account_type = 'Revenue' 
+                 GROUP BY account";
 
 // Query to get total expenses by account description
-$queryExpenses = "SELECT account_description, SUM(debit) AS total_expenses 
-                  FROM Journal_Entries 
-                  WHERE account_type = 'expense' 
-                  GROUP BY account_description";
+$queryExpenses = "SELECT account AS account_description, SUM(debit) AS total_expenses 
+                  FROM Journal_Entry_Lines 
+                  WHERE account_type = 'Expense' 
+                  GROUP BY account";
 
 $revenueResult = $conn->query($queryRevenue);
 $expensesResult = $conn->query($queryExpenses);
@@ -95,5 +95,6 @@ $expensesResult = $conn->query($queryExpenses);
 <?php
 $conn->close();
 ?>
+
 
 
