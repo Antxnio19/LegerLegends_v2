@@ -59,6 +59,8 @@ $userId = $_SESSION['Id'];
                 <a href="./create_client_account_admin.php" >Create Account</a>
                 <a href="./view_all_client_accounts.php" >View All Accounts</a>
                 <a href="./view_all_journal_entries.php" >View Journal Entries</a>
+                <a href="./client_income.php" >Income (Statement)</a>
+                <a href="./client_retained_earnings.php" >Retained Earnings (Statement)</a>
             </div>
         </div>
 
