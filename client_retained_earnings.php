@@ -53,7 +53,6 @@ if ($result->num_rows > 0) {
     $netIncome = $totalRevenue - $totalExpenses;
     $endRetainedEarnings = $beginningRetainedEarnings + $netIncome - $dividends;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -66,6 +65,11 @@ if ($result->num_rows > 0) {
     <link rel="icon" type="image/png" href="profile.png">
     
     <title>Statement of Retained Earnings</title>
+    <style>
+        .centered {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <nav>
@@ -129,7 +133,7 @@ if ($result->num_rows > 0) {
         </div>
     </div>
 
-<div class="container">
+<div class="container centered">
     <h1 class="title"><?php echo $clientName; ?></h1>
     <h2 class="title">Statement of Retained Earnings</h2>
     <h3 class="title">For the Year Ended April 30, 2010</h3>
@@ -160,5 +164,3 @@ if ($result->num_rows > 0) {
 <?php
 $conn->close();
 ?>
-
-
