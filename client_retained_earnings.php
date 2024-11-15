@@ -69,98 +69,129 @@ if ($result->num_rows > 0) {
         .centered {
             text-align: center;
         }
+        .right-align {
+            text-align: right;
+        }
+        .double-underline {
+            text-decoration: underline double;
+        }
+        .single-underline {
+            text-decoration: underline;
+        }
     </style>
+    <script>
+        function printPage() {
+            window.print();
+        }
+
+        function downloadPDF() {
+            const element = document.getElementById('printableArea');
+            html2pdf()
+                .from(element)
+                .save('retained_earnings_statement.pdf');
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 <nav>
-        <div class="welcome">
-            <img src="profile.png" alt="Picture" class="picture">
-            <h1 class="title">Ledger Legend Administrator</h1> 
-        </div>
-        <div class="user-profile">
-            <img src="pfp.png" alt="User Picture" class="profile-pic">
-            <span class="username"><?php echo htmlspecialchars($username); ?></span>
-            <a href="./logout.php" class="logout-btn">Logout</a>
-        </div>
-    </nav>
+    <div class="welcome">
+        <img src="profile.png" alt="Picture" class="picture">
+        <h1 class="title">Ledger Legend Administrator</h1> 
+    </div>
+    <div class="user-profile">
+        <img src="pfp.png" alt="User Picture" class="profile-pic">
+        <span class="username"><?php echo htmlspecialchars($username); ?></span>
+        <a href="./logout.php" class="logout-btn">Logout</a>
+    </div>
+</nav>
 
-    <div class="main-bar">
-        <a href="./administrator_home.php" class="nav-link">Home</a>
-        <a href="./it_ticket.php" class="nav-link">IT Ticket</a>
-        <div class="dropdown">
-            <button class="dropbtn nav-link">User Management</button>
-            <div class="dropdown-content">
-                <a href="./create_new_user_admin.php">Create User</a>
-                <a href="./user_roster.php">View Users</a>
-                <a href="./Manage_Users.html">Account Approval</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <button class="dropbtn nav-link">Client Account Management</button>
-            <div class="dropdown-content">
-                <a href="./create_client_account_admin.php">Create Account</a>
-                <a href="./view_all_client_accounts.php">View All Accounts</a>
-                <a href="./view_all_journal_entries.php">View Journal Entries</a>
-                <a href="./client_income.php">Income (Statement)</a>
-                <a href="./client_retained_earnings.php">Retained Earnings (Statement)</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <button class="dropbtn nav-link">Reports</button>
-            <div class="dropdown-content">
-                <a href="#">User Report</a>
-                <a href="./Expired_Passwords_Log.php">Expired Passwords Report</a>
-                <a href="#">Login Attempts Report</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <button class="dropbtn nav-link">Notifications</button>
-            <div class="dropdown-content">
-                <a href="">Password Expiration Alerts</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <button class="dropbtn nav-link">Email Management</button>
-            <div class="dropdown-content">
-                <a href="">Send Email</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <button class="dropbtn nav-link">Settings</button>
-            <div class="dropdown-content">
-                <a href="#">System Settings</a>
-            </div>
+<div class="main-bar">
+    <a href="./administrator_home.php" class="nav-link">Home</a>
+    <a href="./it_ticket.php" class="nav-link">IT Ticket</a>
+    <div class="dropdown">
+        <button class="dropbtn nav-link">User Management</button>
+        <div class="dropdown-content">
+            <a href="./create_new_user_admin.php">Create User</a>
+            <a href="./user_roster.php">View Users</a>
+            <a href="./Manage_Users.html">Account Approval</a>
         </div>
     </div>
+    <div class="dropdown">
+        <button class="dropbtn nav-link">Client Account Management</button>
+        <div class="dropdown-content">
+            <a href="./create_client_account_admin.php">Create Account</a>
+            <a href="./view_all_client_accounts.php">View All Accounts</a>
+            <a href="./view_all_journal_entries.php">View Journal Entries</a>
+            <a href="./client_income.php">Income (Statement)</a>
+            <a href="./client_retained_earnings.php">Retained Earnings (Statement)</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn nav-link">Reports</button>
+        <div class="dropdown-content">
+            <a href="#">User Report</a>
+            <a href="./Expired_Passwords_Log.php">Expired Passwords Report</a>
+            <a href="#">Login Attempts Report</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn nav-link">Notifications</button>
+        <div class="dropdown-content">
+            <a href="">Password Expiration Alerts</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn nav-link">Email Management</button>
+        <div class="dropdown-content">
+            <a href="">Send Email</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn nav-link">Settings</button>
+        <div class="dropdown-content">
+            <a href="#">System Settings</a>
+        </div>
+    </div>
+</div>
 
 <div class="container centered">
     <h1 class="title"><?php echo $clientName; ?></h1>
     <h2 class="title">Statement of Retained Earnings</h2>
     <h3 class="title">For the Year Ended April 30, 2010</h3>
+    
+    <button onclick="printPage()">Print</button>
+    <button onclick="downloadPDF()">Download PDF</button>
         
-    <table>
-        <tr>
-            <td>Beg Retained Earnings, 4/1/10</td>
-            <td>$<?php echo number_format($beginningRetainedEarnings, 2); ?></td>
-        </tr>
-        <tr>
-            <td>Add: Net Income</td>
-            <td>$<?php echo number_format($netIncome, 2); ?></td>
-        </tr>
-        <tr>
-            <td>Less: Dividends</td>
-            <td>$<?php echo number_format($dividends, 2); ?></td>
-        </tr>
-        <tr>
-            <th>End Retained Earnings, 4/30/10</th>
-            <th class="underline">$<?php echo number_format($endRetainedEarnings, 2); ?></th>
-        </tr>
-    </table>
+    <div id="printableArea">
+        <table>
+            <tr>
+                <td>Beg Retained Earnings, 4/1/10</td>
+                <td class="right-align">$<?php echo number_format($beginningRetainedEarnings, 2); ?></td>
+            </tr>
+            <tr>
+                <td>Add: Net Income</td>
+                <!-- <td class="right-align single-underline">$<?php echo number_format($netIncome, 2); ?></td> -->
+            </tr>
+            <tr>
+                <td>Total:</td>
+                <td class="right-align single-underline">$<?php echo number_format($netIncome, 2); ?></td>
+            </tr>
+            <tr>
+                <td>Less: Dividends</td>
+                <!-- <td class="right-align">$<?php echo number_format($dividends, 2); ?></td> -->
+            </tr>
+            <tr>
+                <td>Total:</td>
+                <td class="right-align single-underline">$<?php echo number_format($dividends, 2); ?></td>
+            </tr>
+            <tr>
+                <th>End Retained Earnings, 4/30/10</th>
+                <th class="right-align double-underline">$<?php echo number_format($endRetainedEarnings, 2); ?></th>
+            </tr>
+        </table>
+    </div>
 </div>
 
 </body>
 </html>
-
-<?php
-$conn->close();
-?>
