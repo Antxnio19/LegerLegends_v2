@@ -25,6 +25,25 @@ $queryExpenses = "SELECT account AS account_description, SUM(debit) AS total_exp
 
 $revenueResult = $conn->query($queryRevenue);
 $expensesResult = $conn->query($queryExpenses);
+
+// Calculate total revenue and total expenses
+$totalRevenue = 0;
+$totalExpenses = 0;
+
+if ($revenueResult->num_rows > 0) {
+    while ($row = $revenueResult->fetch_assoc()) {
+        $totalRevenue += $row['total_revenue'];
+    }
+}
+
+if ($expensesResult->num_rows > 0) {
+    while ($row = $expensesResult->fetch_assoc()) {
+        $totalExpenses += $row['total_expenses'];
+    }
+}
+
+// Calculate net income
+$netIncome = $totalRevenue - $totalExpenses;
 ?>
 
 <!DOCTYPE html>
@@ -50,11 +69,23 @@ $expensesResult = $conn->query($queryExpenses);
         </thead>
         <tbody>
             <?php
+            $revenueResult->data_seek(0); // Reset pointer to re-loop through results
+            $hasRevenue = false; // Track if we have any revenue data
             if ($revenueResult->num_rows > 0) {
                 while ($row = $revenueResult->fetch_assoc()) {
+                    if ($row['total_revenue'] > 0) {
+                        $hasRevenue = true;
+                        echo '<tr>
+                                <td>' . htmlspecialchars($row['account_description']) . '</td>
+                                <td>' . htmlspecialchars($row['total_revenue']) . '</td>
+                              </tr>';
+                    }
+                }
+                if ($hasRevenue && $totalRevenue > 0) {
+                    // Display total revenue only if greater than 0
                     echo '<tr>
-                            <td>' . htmlspecialchars($row['account_description']) . '</td>
-                            <td>' . htmlspecialchars($row['total_revenue']) . '</td>
+                            <td><u>Total Revenue</u></td>
+                            <td><u>' . htmlspecialchars($totalRevenue) . '</u></td>
                           </tr>';
                 }
             } else {
@@ -74,11 +105,23 @@ $expensesResult = $conn->query($queryExpenses);
         </thead>
         <tbody>
             <?php
+            $expensesResult->data_seek(0); // Reset pointer to re-loop through results
+            $hasExpenses = false; // Track if we have any expense data
             if ($expensesResult->num_rows > 0) {
                 while ($row = $expensesResult->fetch_assoc()) {
+                    if ($row['total_expenses'] > 0) {
+                        $hasExpenses = true;
+                        echo '<tr>
+                                <td>' . htmlspecialchars($row['account_description']) . '</td>
+                                <td>' . htmlspecialchars($row['total_expenses']) . '</td>
+                              </tr>';
+                    }
+                }
+                if ($hasExpenses && $totalExpenses > 0) {
+                    // Display total expenses only if greater than 0
                     echo '<tr>
-                            <td>' . htmlspecialchars($row['account_description']) . '</td>
-                            <td>' . htmlspecialchars($row['total_expenses']) . '</td>
+                            <td><u>Total Expenses</u></td>
+                            <td><u>' . htmlspecialchars($totalExpenses) . '</u></td>
                           </tr>';
                 }
             } else {
@@ -87,6 +130,24 @@ $expensesResult = $conn->query($queryExpenses);
             ?>
         </tbody>
     </table>
+
+    <?php if ($netIncome > 0): ?>
+    <h2>Net Income</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Net Income</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><u>Net Income</u></td>
+                <td><u><?php echo htmlspecialchars($netIncome); ?></u></td>
+            </tr>
+        </tbody>
+    </table>
+    <?php endif; ?>
 </div>
 
 </body>
@@ -95,6 +156,3 @@ $expensesResult = $conn->query($queryExpenses);
 <?php
 $conn->close();
 ?>
-
-
-
