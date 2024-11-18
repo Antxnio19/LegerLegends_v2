@@ -167,7 +167,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 <div class="main">
-    <div class="container">
+    <div class="container"  style="margin-left: 20%; margin-right: 15%;">
         <h2>Search for Account</h2>
         <form method="GET" action="">
             <input type="number" name="account_id" placeholder="Enter Account ID" required>
@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <?php if ($account): ?>
             <h2>Create New Journal Entry for Account ID: <?php echo htmlspecialchars($account_id); ?></h2>
-            <form method="POST" action="">
+            <form method="POST" action="" style="margin: 10px;">
                 <select name="account_type" style="width: 200px; height: 30px;" required>
                     <option value="Adjusting">Adjusting</option>
                     <option value="Regular" selected>Regular</option>
@@ -214,10 +214,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <option value="Depreciation Expense">Depreciation Expense</option>
                     </select> -->
                 </div>
-                <button type="button" onclick="addDebitField()" style="margin-top: 10px; width: 200px; height: 30px;">Add Debit</button>
-                <button type="button" onclick="removeDebitField()" style="margin-top: 10px; width: 200px; height: 30px;">Remove Debit</button>
+                <button type="button" onclick="addDebitField()" style="margin-top: 10px; width: 200px; height: 30px;">+</button>
+                <button type="button" onclick="removeDebitField()" style="margin-top: 10px; width: 200px; height: 30px;">-</button>
 
-                <div id="credit-container">
+                <div id="credit-container" style="margin-left: 20%">
                     <!-- <input type="number" step="0.01" name="credit[]" placeholder="Credit" required>
                     <select name="account_credit_select[]" required>
                     <option value="">Select Account</option>
@@ -248,8 +248,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <option value="Depreciation Expense">Depreciation Expense</option> 
                     </select> -->
                 </div>
-                <button type="button" onclick="addCreditField()" style="margin-top: 10px; width: 200px; height: 30px;">Add Credit</button>
-                <button type="button" onclick="removeCreditField()" style="margin-top: 10px; width: 200px; height: 30px;">Remove Credit</button>
+                <button type="button" onclick="addCreditField()" style="margin-left:20%; width: 200px; height: 30px; margin-bottom: 1%;">+</button>
+                <button type="button" onclick="removeCreditField()" style="margin-left:20%; width: 200px; height: 30px; margin-bottom: 1%;">-</button>
                 
                 <textarea name="comment" placeholder="Comment"></textarea><br><br>
                 <button type="submit" style="margin-top: 10px; width: 200px; height: 30px;">Create Journal Entry</button>

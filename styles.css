@@ -259,3 +259,11 @@ form .submit-button:hover {
     max-width: 600px; /* Max width for message */
     box-shadow: var(--box-shadow); /* Subtle shadow */
 }
+
+
+.right-align {
+    text-align: right;
+}
+
+
+

@@ -37,6 +37,7 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./administrator_stylesheet.css"> 
     <link rel="stylesheet" href="./it_ticket_stylesheet.css">
+    <link rel="stylesheet" href ="styles.css">
 
 
     <title>All Accounts</title>
@@ -150,8 +151,9 @@ $result = $conn->query($sql);
                                 <td>' . $row['id'] . '</td>
                                 <td>' . htmlspecialchars($row['account_type']) . '</td>
                                 <td>' . htmlspecialchars($row['account_description']) . '</td>
-                                <td>' . htmlspecialchars($row['debit']) . '</td>
-                                <td>' . htmlspecialchars($row['credit']) . '</td>
+                                <td class="right-align">$ ' . number_format((float) $row['debit'], 2, '.', '') . '</td> <!-- Add dollar sign and format -->
+                                <td class="right-align">$ ' . number_format((float) $row['credit'], 2, '.', '') . '</td> <!-- Add dollar sign and format -->
+
                                 <td>' . htmlspecialchars($row['created_at']) . '</td>
                                 <td>' . htmlspecialchars($row['ModifiedBy']) . '</td>
                                 <td>' . htmlspecialchars($row['IsApproved']) . '</td>

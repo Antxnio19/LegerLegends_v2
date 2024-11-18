@@ -107,6 +107,7 @@
     function addCreditField() {
         const container = document.getElementById('credit-container');
         const newCreditDiv = document.createElement('div');
+        newCreditDiv.className = 'credit-entry';
 
 
 
@@ -117,9 +118,15 @@
         const newInput = document.createElement('input');
         newInput.type = 'number';
         newInput.name = 'credit[]';
-        newInput.placeholder = 'Credit';
+        newInput.placeholder = '$ 0.00';
         newInput.step = '0.01';
         newInput.required = true;
+       
+
+
+        newInput.style.textAlign = 'right'; // Right-align the text
+        newInput.style.marginLeft = '5px'; // Space between dollar sign and input
+
 
 
 
