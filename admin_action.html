@@ -48,7 +48,6 @@
             event.preventDefault();
             const userId = document.getElementById('userId').value;
 
-            // Simulate an API call to get user data
             const userData = await fetchUserData(userId);
 
             if (userData) {
@@ -64,12 +63,11 @@
         }
 
         async function fetchUserData(userId) {
-            // Mock user data for demonstration purposes
             const mockDatabase = {
                 '1': { firstName: 'John', lastName: 'Doe', address: '123 Main St', dob: '1990-01-01', position: 'Administrator' },
                 '2': { firstName: 'Jane', lastName: 'Smith', address: '456 Elm St', dob: '1985-05-15', position: 'User' }
             };
-            return mockDatabase[userId] || null; // Return user data or null if not found
+            return mockDatabase[userId] || null;
         }
 
         function resetPassword() {

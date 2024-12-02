@@ -1,13 +1,13 @@
 :root {
-    --background-color: #2C2F33; /* Dark grey background */
-    --navbar-background: #23272A; /* Darker grey for navbar */
-    --link-color: #33C3B3; /* Teal for links */
-    --link-hover-background: #1F2933; /* Darker grey for link hover */
-    --dropdown-background: #2C2F33; /* Dark grey for dropdown */
-    --dropdown-hover-background: #3A3F47; /* Slightly lighter grey for dropdown hover */
-    --text-color: white; /* White text for contrast */
-    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Darker shadow */
-    --border-radius: 5px; /* Softer border radius */
+    --background-color: #2C2F33;
+    --navbar-background: #23272A;
+    --link-color: #73B2FF; 
+    --link-hover-background: #1F2933; 
+    --dropdown-background: #2C2F33;
+    --dropdown-hover-background: #3A3F47; 
+    --text-color: white; 
+    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+    --border-radius: 5px; 
 }
 
 /* Global Styles */
@@ -53,21 +53,21 @@ nav {
 
 .username {
     font-size: 16px;
-    color: var(--text-color); /* White text for username */
+    color: var(--text-color);
     margin-right: 10px;
 }
 
 .logout-btn {
     padding: 10px;
-    background-color: var(--link-color); /* Teal button */
-    color: white; /* White text for logout button */
+    background-color: var(--link-color); 
+    color: white; 
     text-decoration: none;
     border-radius: var(--border-radius);
 }
 
 .logout-btn:hover {
-    background-color: var(--link-hover-background); /* Darker grey on hover */
-    color: white; /* Keep text white on hover */
+    background-color: var(--link-hover-background); 
+    color: white; 
 }
 
 /* Main bar for navigation */
@@ -78,34 +78,34 @@ nav {
     background-color: var(--navbar-background);
     padding: 10px;
     box-shadow: var(--box-shadow);
+    gap: 3px; 
 }
 
 .nav-link {
     display: inline-block;
-    padding: 10px;
-    background-color: var(--navbar-background); /* Dark grey for link background */
-    color: white; /* Change text color to white for links */
+    padding: 8px; 
+    background-color: var(--navbar-background);
+    color: white;
     text-decoration: none;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
-    margin: 0 10px;
+    margin: 0 3px; 
 }
 
 .nav-link:hover {
-    background-color: var(--link-hover-background); /* Darker grey on hover */
-    color: white; /* Change text color to white on hover */
+    background-color: var(--link-hover-background); 
+    color: white; 
 }
 
-/* Dropdown menus */
 .dropdown {
     position: relative;
     display: inline-block;
-    margin: 0 10px;
+    margin: 0 3px; 
 }
 
 .dropbtn {
-    background-color: var(--navbar-background); /* Dark grey button */
-    color: white; /* Change text color to white for dropdown button */
+    background-color: var(--navbar-background); 
+    color: white; 
     padding: 10px;
     border: none;
     cursor: pointer;
@@ -115,7 +115,7 @@ nav {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: var(--dropdown-background); /* Dark grey dropdown background */
+    background-color: var(--dropdown-background); 
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
@@ -123,68 +123,67 @@ nav {
 }
 
 .dropdown-content a {
-    color: var(--text-color); /* White text for dropdown items */
+    color: var(--text-color); 
     padding: 10px;
     text-decoration: none;
     display: block;
 }
 
 .dropdown-content a:hover {
-    background-color: var(--dropdown-hover-background); /* Lighter grey on hover */
+    background-color: var(--dropdown-hover-background); 
 }
 
 .dropdown:hover .dropdown-content {
-    display: block; /* Show dropdown on hover */
+    display: block; 
 }
 
-/* Additional Styles for Titles and Tabs */
 .title {
-    color: white; /* Ensure title is white */
-    font-size: 24px; /* Adjust as necessary */
-    margin-bottom: 10px; /* Space below title */
+    color: white; 
+    font-size: 24px; 
+    margin-bottom: 10px; 
 }
 
 .tab-label {
-    color: white; /* Ensure tab labels are white */
-    padding: 5px 10px; /* Space inside tab labels */
+    color: white; 
+    padding: 5px 10px; 
 }
 
 /* Table Styles */
 table {
-    width: 100%; /* Full width of the container */
-    border-collapse: collapse; /* Remove spacing between cells */
-    margin-top: 20px; /* Space above the table */
-    background-color: white; /* White background for the table */
-    border-radius: var(--border-radius); /* Round corners */
-    box-shadow: var(--box-shadow); /* Add shadow for depth */
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-top: 20px; 
+    background-color: white; 
+    border-radius: var(--border-radius); 
+    box-shadow: var(--box-shadow); 
 }
 
 th, td {
-    padding: 15px; /* Padding inside cells */
-    text-align: left; /* Align text to the left */
-    border-bottom: 1px solid lightgrey; /* Light grey border below each row */
+    padding: 15px; 
+    text-align: left; 
+    border-bottom: 1px solid lightgrey; 
 }
 
 th {
-    background-color: #f0f0f0; /* Light grey background for header */
-    color: #333; /* Darker text color for contrast */
-    font-weight: bold; /* Bold font for header */
+    background-color: #f0f0f0; 
+    color: #333; 
+    font-weight: bold; 
 }
 
 tr:hover {
-    background-color: #f9f9f9; /* Light grey background on row hover */
+    background-color: #f9f9f9; 
 }
 
 .update-button {
-    padding: 8px 12px; /* Padding for button */
-    background-color: var(--link-color); /* Teal background */
-    color: white; /* White text */
-    border: none; /* No border */
-    border-radius: var(--border-radius); /* Round corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Smooth transition */
+    padding: 8px 12px; 
+    background-color: var(--link-color); 
+    color: white; 
+    border: none; 
+    border-radius: var(--border-radius); 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
 }
 
 .update-button:hover {
-    background-color: darken(var(--link-color), 10%); /* Darken on hover */
+    background-color: darken(var(--link-color), 10%); 
 }

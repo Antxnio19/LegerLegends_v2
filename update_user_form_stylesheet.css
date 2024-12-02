@@ -1,0 +1,80 @@
+:root {
+    --background-color: #73B2FF; 
+    --container-background: #23272A; 
+    --input-border: #ccc; 
+    --navbar-background: #ffffff; 
+    --link-color: #73B2FF; 
+    --link-hover-background: #3A3F43; 
+    --dropdown-background: #f9f9f9; 
+    --dropdown-hover-background: #ddd; 
+    --text-color: white; 
+    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    --border-radius: 10px; 
+    --button-color: #73B2FF; 
+    --button-hover-color: #004494; 
+}
+
+.update-main {
+    background-color: var(--background-color); 
+    font-family: Arial, sans-serif; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+}
+
+.update-container {
+    background-color: var(--container-background); 
+    padding: 20px;
+    border-radius: var(--border-radius); 
+    box-shadow: var(--box-shadow); 
+    text-align: center; 
+    width: 350px; 
+    min-height: 400px; 
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-start; 
+    padding-top: 40px; 
+}
+
+h2 {
+    text-align: center; 
+    color: var(--text-color); 
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="date"],
+select {
+    width: 90%; 
+    padding: 8px; 
+    margin: 8px 0; 
+    border: 1px solid var(--input-border); 
+    border-radius: 5px; 
+    box-sizing: border-box; 
+    background-color: #ffffff; 
+    color: black; 
+}
+
+button {
+    width: 95%; 
+    padding: 10px; 
+    background-color: var(--button-color); 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+
+button:hover {
+    background-color: var(--button-hover-color); 
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .update-container {
+        width: 90%; 
+    }
+}

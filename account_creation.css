@@ -1,0 +1,82 @@
+:root {
+    --background-color: #2C2F33;
+    --navbar-background: #23272A;
+    --link-color: #73B2FF;
+    --link-hover-background: #1F2933;
+    --dropdown-background: #2C2F33;
+    --dropdown-hover-background: #3A3F47;
+    --text-color: white;
+    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    --border-radius: 5px;
+}
+
+body {
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: var(--navbar-background);
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+}
+
+h2 {
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form input,
+form textarea,
+form select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+form textarea {
+    resize: none;
+}
+
+form input:focus,
+form textarea:focus,
+form select:focus {
+    border-color: var(--link-color);
+    outline: none;
+}
+
+button {
+    background-color: var(--link-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: darken(var(--link-color), 10%);
+}

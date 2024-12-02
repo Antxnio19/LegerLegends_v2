@@ -1,0 +1,60 @@
+:root {
+    --background-color: #2C2F33;
+    --navbar-background: #23272A;
+    --link-color: #73B2FF; 
+    --link-hover-background: #1F2933; 
+    --dropdown-background: #2C2F33; 
+    --dropdown-hover-background: #3A3F47; 
+    --userList-background: #3A3F47; 
+    --text-color: white; 
+    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+    --border-radius: 5px; 
+}
+/* Table Styling */
+.main-content {
+    padding: 20px;
+}
+
+.emailForm {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white; 
+}
+
+th, td {
+    border: 1px solid var(--text-color); 
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: var(--link-color); 
+    color: white; 
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; 
+}
+
+tr:nth-child(odd) {
+    background-color: #e0e0e0; 
+}
+
+tr:hover {
+    background-color: white; 
+    color: white; 
+}
+
+td {
+    color: black; 
+}
+
+h2, h3, label {
+    color: var(--text-color); 
+}

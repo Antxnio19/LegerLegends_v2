@@ -1,90 +1,82 @@
 <?php
-session_start(); // Start the session at the very beginning
+session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Create connection
+include './EventLogger.php';
+
 $conn = mysqli_connect("localhost", "root", "root", "accounting_db");
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Initialize the error message variable
 $error_message = '';
 
-// Only handle the POST request when the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get user input from POST request
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Check if the user exists, is active, and is not locked out
-    $sql = "SELECT Id, Password, FailedAttempts, LockoutUntil, UserTypeId, IsActive FROM EmployeeAccounts WHERE Username = ?";
+    $sql = "SELECT Id, Password, FailedAttempts, LockoutUntil, UserTypeId, IsActive FROM Table1 WHERE Username = ?";
     $stmt = $conn->prepare($sql);
-    if ($stmt) { // Ensure $stmt was created successfully
+    if ($stmt) { 
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
             $user = $result->fetch_assoc();
-            $userId = $user['Id']; // Fetch the user ID
+            $userId = $user['Id']; 
             $hashedPassword = $user['Password'];
             $failedAttempts = $user['FailedAttempts'];
             $lockoutUntil = $user['LockoutUntil'];
-            $userTypeId = $user['UserTypeId']; // Fetch the user type
-            $isActive = $user['IsActive']; // Fetch the IsActive status
+            $userTypeId = $user['UserTypeId']; 
+            $isActive = $user['IsActive']; 
 
-            // Check if the account is active (IsActive should be 1)
             if ($isActive == 0) {
                 $error_message = "Your account is inactive. Please contact support.";
             } 
-            // Check if the account is locked
             elseif ($failedAttempts >= 3 && strtotime($lockoutUntil) > time()) {
                 $error_message = "Account is locked. Try again after " . date('Y-m-d H:i:s', strtotime($lockoutUntil));
             } 
-            // Verify password
             elseif (password_verify($password, $hashedPassword)) {
-                // Reset failed attempts after a successful login
-                $sql = "UPDATE EmployeeAccounts SET FailedAttempts = 0, LockoutUntil = NULL WHERE Username = ?";
+
+                $sql = "UPDATE Table1 SET FailedAttempts = 0, LockoutUntil = NULL WHERE Username = ?";
                 $stmt = $conn->prepare($sql);
-                if ($stmt) { // Ensure $stmt was created successfully
+                if ($stmt) { 
                     $stmt->bind_param('s', $username);
                     $stmt->execute();
                 }
 
-                // Store the username and userId in session for later use
                 $_SESSION['username'] = $username;
-                $_SESSION['Id'] = $userId; 
+                $_SESSION['Id'] = $userId;
+                $_SESSION['UserTypeId'] = $userTypeId; 
 
-                // Redirect to the specific home page based on user type
                 switch ($userTypeId) {
-                    case '1':
+                    case 'Admin':
                         header('Location: Administrator_home.php');
+                        eventLogger($userId, $userTypeId, null, null, null, "Login Success");
                         break;
-                    case '2':
+                    case 'Accountant':
                         header('Location: Accountant_home.php');
+                        eventLogger($userId, $userTypeId, null, null, null, "Login Success");
                         break;
-                    case '3':
+                    case 'Manager':
                         header('Location: Manager_home.php');
-                        break;
-                    case '4':
-                        header('Location: login.html');
+                        eventLogger($userId, $userTypeId, null, null, null, "Login Success");
                         break;
                     default:
                         $error_message = "Invalid user type.";
+                        break;
                 }
             } 
             else {
-                // Increment failed attempts
                 $failedAttempts++;
                 $lockoutUntil = ($failedAttempts >= 3) ? date('Y-m-d H:i:s', strtotime('+1 day')) : NULL;
 
-                $sql = "UPDATE EmployeeAccounts SET FailedAttempts = ?, LockoutUntil = ? WHERE Username = ?";
+                $sql = "UPDATE Table1 SET FailedAttempts = ?, LockoutUntil = ? WHERE Username = ?";
                 $stmt = $conn->prepare($sql);
-                if ($stmt) { // Ensure $stmt was created successfully
+                if ($stmt) {
                     $stmt->bind_param('iss', $failedAttempts, $lockoutUntil, $username);
                     $stmt->execute();
                 }
@@ -96,7 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error_message = "Sorry, you gave us the wrong information. Try again.";
         }
 
-        // Close the statement
         $stmt->close();
     } 
     else {
@@ -104,7 +95,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Close the connection
 $conn->close();
 ?>
 
@@ -122,7 +112,6 @@ $conn->close();
             <img src="profile.png" alt="Legible Accounting">
         </div>
 
-        <!-- Display the error message if there is one -->
         <?php if (!empty($error_message)): ?>
             <div class="error-message" style="color: red; text-align: center;">
                 <?php echo htmlspecialchars($error_message); ?>
@@ -141,4 +130,3 @@ $conn->close();
     </div>
 </body>
 </html>
-

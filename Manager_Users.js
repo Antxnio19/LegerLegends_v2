@@ -43,12 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
     confirmSuspendBtn.addEventListener('click', () => {
         const suspendDuration = suspendDurationInput.value;
         if (suspendDuration) {
-            // Update the selected row
             const row = selectedRow;
             const statusCell = row.querySelector('.status');
             const checkCell = row.querySelector('.approve-check');
             
-            // Set the status to 'No' and keep the checkmark checked
             statusCell.textContent = 'No';
             checkCell.checked = true;
 

@@ -17,10 +17,8 @@
             <input type="text" id="first_name" name="first_name" placeholder="First Name" required>
             <input type="text" id="last_name" name="last_name" placeholder="Last Name" required>
 
-            <!-- Username field is readonly, populated automatically -->
             <input type="text" id="username" name="username" placeholder="Username" readonly required>
 
-            <!-- Hidden field to pass generated username -->
             <input type="hidden" id="generatedUsername" name="generatedUsername">
 
             <input type="email" id="email" name="email" placeholder="Email" required>
@@ -30,7 +28,6 @@
             <input type="password" id="password" name="password" placeholder="Create Password" required>
             <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
 
-            <!-- Password requirements display -->
             <div id="passwordRequirements">
                 <p id="lengthRequirement" class="invalid">Minimum 8 characters</p>
                 <p id="letterRequirement" class="invalid">Starts with a letter</p>
@@ -38,7 +35,6 @@
                 <p id="specialRequirement" class="invalid">Contains a special character</p>
             </div>
 
-            <!-- Security question dropdown -->
             <select id="security_question" name="security_question" required>
                 <option value="" disabled selected>Select a Security Question</option>
                 <option value="q1">What was your first pet's name?</option>
@@ -55,7 +51,6 @@
             <a href="login.html">Back to Login</a>
         </div>
 
-        <!-- Feedback message for username generation -->
         <p id="usernameFeedback" class="username-generated" style="display:none;">Your username has been generated!</p>
     </div>
 </body>

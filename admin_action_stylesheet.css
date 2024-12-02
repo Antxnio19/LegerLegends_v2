@@ -1,17 +1,17 @@
 :root {
-    --background-color: #2C2F33; /* Dark grey background */
-    --container-background: #23272A; /* Darker grey for container */
-    --input-border: #3A3F47; /* Dark grey border for inputs */
-    --navbar-background: #2C2F33; /* Dark grey for navbar */
-    --link-color: #33C3B3; /* Teal for links */
-    --link-hover-background: #1F2933; /* Dark grey for link hover */
-    --dropdown-background: #2C2F33; /* Dark grey for dropdown */
-    --dropdown-hover-background: #3A3F47; /* Slightly lighter grey for dropdown hover */
-    --text-color: white; /* White text for contrast */
-    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Darker shadow */
-    --border-radius: 5px; /* Softer border radius */
-    --button-color: #33C3B3; /* Teal for buttons */
-    --button-hover-color: #29A49A; /* Darker teal for button hover */
+    --background-color: #2C2F33;
+    --container-background: #23272A;
+    --input-border: #3A3F47;
+    --navbar-background: #2C2F33;
+    --link-color: #73B2FF;
+    --link-hover-background: #1F2933;
+    --dropdown-background: #2C2F33;
+    --dropdown-hover-background: #3A3F47;
+    --text-color: white;
+    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    --border-radius: 5px;
+    --button-color: #73B2FF;
+    --button-hover-color: #599cee;
 }
 
 .admin-action-main {
@@ -23,39 +23,39 @@
 }
 
 .admin-action-container {
-    background-color: var(--container-background); /* Dark grey container */
+    background-color: var(--container-background);
     padding: 20px;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
     text-align: center;
     width: 350px;
-    min-height: 400px; /* Adds minimum height to the container */
+    min-height: 400px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Aligns content to the top */
-    padding-top: 40px; /* Adds top padding to prevent logo cutoff */
+    justify-content: flex-start;
+    padding-top: 40px;
 }
 
 h2 {
     text-align: center;
-    color: var(--text-color); /* White text for headers */
+    color: var(--text-color);
 }
 
 input[type="text"], input[type="password"], input[type="email"], input[type="date"], select {
     width: 90%;
     padding: 8px;
     margin: 8px 0;
-    border: 1px solid var(--input-border); /* Dark grey input borders */
+    border: 1px solid var(--input-border);
     border-radius: 5px;
     box-sizing: border-box;
-    background-color: #1F2933; /* Dark grey input background */
-    color: white; /* White text for input fields */
+    background-color: #1F2933;
+    color: white;
 }
 
 button {
     width: 95%;
     padding: 10px;
-    background-color: var(--button-color); /* Teal button */
+    background-color: var(--button-color);
     color: white;
     border: none;
     border-radius: 5px;
@@ -63,11 +63,11 @@ button {
 }
 
 button:hover {
-    background-color: var(--button-hover-color); /* Darker teal on hover */
+    background-color: var(--button-hover-color);
 }
 
 @media (max-width: 600px) {
     .container {
-        width: 90%; /* Responsive design */
+        width: 90%;
     }
 }

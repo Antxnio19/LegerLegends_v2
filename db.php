@@ -1,14 +1,12 @@
 <?php
-$servername = "localhost"; // Replace with your RDS endpoint
-$username = "root"; // Replace with your DB username
-$password = "root"; // Replace with your DB password
-$dbname = "accounting_db"; // Replace with your database name
+$servername = "localhost"; 
+$username = "sa"; 
+$password = "dcpomc21dcpomc21felka."; 
+$dbname = "your_db_name"; 
 
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+$conn = mysqli_connect("localhost", "sa", "dcpomc21dcpomc21felka.", "your_db_name");
 
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 ?>

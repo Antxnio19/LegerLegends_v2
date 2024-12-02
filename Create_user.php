@@ -2,16 +2,13 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Create connection
 $conn = mysqli_connect("localhost", "root", "root", "accounting_db");
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Create the EmployeeAccounts table if it does not exist --> formerly Table1
-$table_sql = "CREATE TABLE IF NOT EXISTS EmployeeAccounts (
+$table_sql = "CREATE TABLE IF NOT EXISTS Table1 (
     Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     UserTypeId CHAR(10) NOT NULL,
     Username VARCHAR(50) NOT NULL UNIQUE,
@@ -28,7 +25,7 @@ $table_sql = "CREATE TABLE IF NOT EXISTS EmployeeAccounts (
     CreatedDate DATETIME DEFAULT CURRENT_TIMESTAMP,
     ModifiedDate DATETIME ON UPDATE CURRENT_TIMESTAMP,
     ModifiedBy VARCHAR(50),
-    IsActive BOOLEAN DEFAULT FALSE -- Add the IsActive column
+    IsActive BOOLEAN DEFAULT FALSE 
 )";
 
 if (!$conn->query($table_sql)) {
@@ -41,7 +38,7 @@ $last_name = $_POST['last_name'];
 $email = $_POST['email'];
 $dob = $_POST['dob'];
 $address = $_POST['address'];
-$username = $_POST['generatedUsername'];  // Use the generated username from hidden field
+$username = $_POST['generatedUsername'];
 $password = $_POST['password'];
 $security_question = $_POST['security_question'];
 $security_answer = $_POST['security_answer'];
@@ -49,23 +46,19 @@ $security_answer = $_POST['security_answer'];
 // Hash the password
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-// Prepare the SQL statement for insertion, including IsActive set to FALSE
-$in = $conn->prepare("INSERT INTO EmployeeAccounts (UserTypeId, Username, Password, EmailAddress, DateOfBirth, FirstName, LastName, Address, SecurityQuestions, SecurityAnswers, IsActive) 
+$in = $conn->prepare("INSERT INTO Table1 (UserTypeId, Username, Password, EmailAddress, DateOfBirth, FirstName, LastName, Address, SecurityQuestions, SecurityAnswers, IsActive) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-// Bind parameters
-$userTypeId = "Accountant"; // Placeholder for now
-$isActive = 0; // 0 represents FALSE (inactive)
+$userTypeId = "Accountant"; 
+$isActive = 0; 
 $in->bind_param('ssssssssssi', $userTypeId, $username, $hashedPassword, $email, $dob, $first_name, $last_name, $address, $security_question, $security_answer, $isActive);
 
-// Execute the statement
 if ($in->execute()) {
-    header('Location: login.html');  // Redirect to login page after successful insertion
-    exit(); // Add exit to stop script execution after redirection
+    header('Location: login.html');
+    exit();
 } else {
     die("Error inserting data: " . $conn->error);
 }
 
-// Close the connection
 $conn->close();
 ?>

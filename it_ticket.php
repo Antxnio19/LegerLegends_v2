@@ -1,13 +1,11 @@
 <?php
 session_start();
 
-// Check if the user is logged in
 if (!isset($_SESSION['username'])) {
-    header('Location: login.php'); // Redirect to login page if not logged in
+    header('Location: login.php');
     exit();
 }
 
-// Store the username from the session
 $username = $_SESSION['username'];
 $userId = $_SESSION['Id'];
 ?>
@@ -28,62 +26,67 @@ $userId = $_SESSION['Id'];
             <img src="profile.png" alt="Picture" class="picture">
             <h1>Ledger Ledgend Administrator</h1>
         </div>
-        <!-- Profile and logout section -->
         <div class="user-profile">
             <img src="pfp.png" alt="User Picture" class="profile-pic">
-            <span class="username"><?php echo htmlspecialchars($username); ?></span> <!-- Display the dynamic username here -->
+            <span class="username"><?php echo htmlspecialchars($username); ?></span> 
             <a href="./logout.php" class="logout-btn">Logout</a>
         </div>
     </nav>
 
-    <!-- Navigation Bar -->
     <div class="main-bar">
-        <a href="./administrator_home.php" class="nav-link">Home</a>
-        <a href="./it_ticket.php" class="nav-link">IT Ticket</a>
+        <a href="./administrator_home.php" class="nav-link" title="Takes you to the home page">Home</a>
+        <a href="./it_ticket.php" class="nav-link" title="Submit an IT ticket">IT Ticket</a>
 
-        <!-- User Management dropdown -->
         <div class="dropdown">
-            <button class="dropbtn">User Management</button>
+            <button class="dropbtn nav-link" title="Manage user accounts">User Management</button>
             <div class="dropdown-content">
-                <a href="./create_new_user_admin.php">Create User</a>
-                <a href="./user_roaster.php">View Users</a>
-                <a href="./Manage_Users.html">Account Approval</a>
+                <a href="./create_new_user_admin.php" title="Create a new user">Create User</a>
+                <a href="./user_roster.php" title="View existing users">View Users</a>
+                <a href="./Manage_Users.php" title="Approve user accounts">Account Approval</a>
             </div>
         </div>
 
-        <!-- Reports dropdown -->
         <div class="dropdown">
-            <button class="dropbtn">Reports</button>
+            <button class="dropbtn nav-link" title="Manage client accounts">Client Account Management</button>
             <div class="dropdown-content">
-                <a href="#">User Report</a>
-                <a href="./Expired_Passwords_Log.html">Expired Passwords Report</a>
-                <a href="#">Login Attempts Report</a>
+                <a href="./create_client_account_admin.php" title="Create a new client account">Create Account</a>
+                <a href="./view_all_client_accounts.php" title="View all client accounts">Chart of Accounts</a>
+                <a href="./View_some_accounts.php" title="View specific client accounts">Accounts</a>
+                <a href="#" title="Deactivate client accounts">Deactivate Accounts</a>
             </div>
         </div>
 
-        <!-- Notifications dropdown -->
         <div class="dropdown">
-            <button class="dropbtn">Notifications</button>
+            <button class="dropbtn nav-link" title="Generate reports">Reports</button>
             <div class="dropdown-content">
-                <a href="">Password Expiration Alerts</a>
+                <a href="./Expired_Passwords_Log.php" title="View expired passwords report">Expired Passwords Report</a>
+                <a href="./eventlogs.php" title="View event logs">Event logs</a>
             </div>
         </div>
 
-        <!-- Email Management dropdown -->
         <div class="dropdown">
-            <button class="dropbtn">Email Management</button>
+            <button class="dropbtn nav-link" title="Manage notifications">Notifications</button>
             <div class="dropdown-content">
-                <a href="">Send Email</a>
+                <a href="#" title="View password expiration alerts">Password Expiration Alerts</a>
             </div>
         </div>
 
-        <!-- Settings dropdown -->
         <div class="dropdown">
-            <button class="dropbtn">Settings</button>
+            <button class="dropbtn nav-link" title="Manage email communications">Email Management</button>
             <div class="dropdown-content">
-                <a href="#">System Settings</a>
+                <a href="./Email.php" title="Send emails to users">Email Users</a>
             </div>
         </div>
+
+        <div class="dropdown">
+            <button class="dropbtn nav-link" title="Adjust system settings">Settings</button>
+            <div class="dropdown-content">
+                <a href="#" title="Configure system settings">System Settings</a>
+            </div>
+        </div>
+
+        <button id="calculatorBtn" class="nav-link" title="Open the calculator">Calculator</button>
+        <button id="calendarBtn" class="nav-link" title="Open the calendar">Calendar</button>
     </div>
 
     <div class="main-content">

@@ -1,13 +1,13 @@
 :root {
-    --background-color: #2C2F33; /* Dark grey background */
-    --container-background: #23272A; /* Slightly darker grey */
-    --input-border: #33C3B3; /* Teal color for input borders */
-    --button-color: #33C3B3; /* Teal for buttons */
-    --button-hover-color: #29A695; /* Darker teal for hover state */
-    --link-color: #33C3B3; /* Teal for links */
-    --text-color: white; /* White text */
-    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Slightly darker shadow */
-    --border-radius: 5px; /* Softer rounded corners */
+    --background-color: #2C2F33; 
+    --container-background: #23272A; 
+    --input-border: #73B2FF; 
+    --button-color: #73B2FF; 
+    --button-hover-color: #599cee; 
+    --link-color: #73B2FF; 
+    --text-color: white; 
+    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+    --border-radius: 5px; 
 }
 
 /* Main container styling for Create User */
@@ -75,11 +75,11 @@ button:hover {
 }
 
 .invalid {
-    color: #F04747; /* Discord-like red for invalid */
+    color: #F04747; 
 }
 
 .valid {
-    color: #43B581; /* Discord-like green for valid */
+    color: #43B581; 
 }
 
 .username-generated {

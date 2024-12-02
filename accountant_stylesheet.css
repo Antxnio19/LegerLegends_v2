@@ -1,13 +1,13 @@
 :root {
-    --background-color: #2C2F33; /* Dark grey background */
-    --navbar-background: #23272A; /* Darker grey for navbar */
-    --link-color: #33C3B3; /* Teal for links */
-    --link-hover-background: #1F2933; /* Dark grey for hover */
-    --dropdown-background: #2C2F33; /* Dark dropdown background */
-    --dropdown-hover-background: #3A3F47; /* Slightly lighter grey for hover */
-    --text-color: white; /* White text for contrast */
-    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Darker shadow */
-    --border-radius: 5px; /* Softer border radius */
+    --background-color: #2C2F33;
+    --navbar-background: #23272A;
+    --link-color: #73B2FF;
+    --link-hover-background: #1F2933;
+    --dropdown-background: #2C2F33;
+    --dropdown-hover-background: #3A3F47;
+    --text-color: white;
+    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    --border-radius: 5px;
 }
 
 body {
@@ -16,7 +16,7 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    color: var(--text-color); /* Set default text color to white */
+    color: var(--text-color);
 }
 
 nav {
@@ -54,7 +54,7 @@ li {
 
 li a {
     display: inline-block;
-    color: var(--link-color); /* Teal link color */
+    color: var(--link-color);
     text-align: left;
     padding: 10px;
     text-decoration: none;
@@ -62,10 +62,9 @@ li a {
 }
 
 li a:hover {
-    background-color: var(--link-hover-background); /* Dark grey hover background */
+    background-color: var(--link-hover-background);
 }
 
-/* Dropdown menu styles */
 .dropdown {
     background-color: var(--dropdown-background);
     border-radius: var(--border-radius);
@@ -73,5 +72,5 @@ li a:hover {
 }
 
 .dropdown li:hover {
-    background-color: var(--dropdown-hover-background); /* Slightly lighter grey hover */
+    background-color: var(--dropdown-hover-background);
 }

@@ -1,13 +1,13 @@
 :root {
-    --background-color: #2C2F33; /* Dark grey background */
-    --navbar-background: #23272A; /* Darker grey for navbar */
-    --link-color: #33C3B3; /* Teal for links */
-    --link-hover-background: #1F2933; /* Darker grey for link hover */
-    --dropdown-background: #2C2F33; /* Dark grey for dropdown */
-    --dropdown-hover-background: #3A3F47; /* Slightly lighter grey for dropdown hover */
-    --text-color: white; /* White text for contrast */
-    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Darker shadow */
-    --border-radius: 5px; /* Softer border radius */
+    --background-color: #2C2F33; 
+    --navbar-background: #23272A; 
+    --link-color: #73B2FF; 
+    --link-hover-background: #1F2933; 
+    --dropdown-background: #2C2F33; 
+    --dropdown-hover-background: #3A3F47; 
+    --text-color: white; 
+    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+    --border-radius: 5px; 
 }
 
 body {
@@ -66,7 +66,7 @@ nav {
 
 .logout-btn:hover {
     background-color: var(--link-hover-background);
-    color: white; /* Keep text white on hover */
+    color: white; 
 }
 
 /* Main bar for navigation */
@@ -92,7 +92,7 @@ nav {
 
 .nav-link:hover {
     background-color: var(--link-hover-background);
-    color: white; /* Change text color to white on hover */
+    color: white; 
 }
 
 /* Dropdown menus */
@@ -165,13 +165,13 @@ nav {
 .ticket-form input,
 .ticket-form textarea,
 .ticket-form select {
-    width: calc(100% - 22px); /* Full width with padding */
+    width: calc(100% - 22px); 
     padding: 10px;
-    border: 1px solid var(--link-color); /* Teal border */
+    border: 1px solid var(--link-color); 
     border-radius: var(--border-radius);
     margin-bottom: 15px;
-    background-color: #444; /* Darker background for inputs */
-    color: white; /* White text for inputs */
+    background-color: #444; 
+    color: white; 
 }
 
 .ticket-form input:focus,
@@ -182,7 +182,7 @@ nav {
 }
 
 .submit-btn {
-    background-color: var(--link-color); /* Teal submit button */
+    background-color: var(--link-color); 
     color: white;
     padding: 10px 15px;
     border: none;
@@ -192,5 +192,5 @@ nav {
 }
 
 .submit-btn:hover {
-    background-color: var(--link-hover-background); /* Darker grey on hover */
+    background-color: var(--link-hover-background); 
 }

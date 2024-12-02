@@ -1,30 +1,23 @@
 <?php
-// Start session
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Initialize variables
 $error_message = '';
 $success_message = '';
 
-// Create connection
 $conn = mysqli_connect("localhost", "root", "root", "accounting_db");
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Check if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get user input from POST request
     $username = $_POST['username'];
     $email = $_POST['email'];
     $security_question = $_POST['securityQuestion'];
     $security_answer = $_POST['securityAnswer'];
 
-    // Prepare the SQL statement to fetch user data
     $sql = "SELECT Password, EmailAddress FROM Table1 WHERE Username = ? AND EmailAddress = ? AND SecurityQuestions = ? AND SecurityAnswers = ?";
     $stmt = $conn->prepare($sql);
 
@@ -32,38 +25,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Prepare failed: " . $conn->error);
     }
 
-    // Bind parameters
     $stmt->bind_param('ssss', $username, $email, $security_question, $security_answer);
 
-    // Execute the statement
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        // Fetch the password (note: passwords should not be unhashed, this is for example purposes)
         $row = $result->fetch_assoc();
         $password = $row['Password'];
 
-        // Send email
-        $to = $email;
-        $subject = "Your Password Recovery";
-        $message = "Your password is: " . $password;
-        $headers = "From: noreply@example.com";
+        $apiKey = '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';
 
-        if (mail($to, $subject, $message, $headers)) {
+        $data = [
+            "personalizations" => [[
+                "to" => [[
+                    "email" => $email,
+                ]],
+                "subject" => "Your Password Recovery",
+            ]],
+            "from" => [
+                "email" => "bportie1@students.kennesaw.edu",
+                "name" => "Ledger Legends" 
+            ],
+            "content" => [[
+                "type" => "text/plain",
+                "value" => "Your password is: " . $password
+            ]],
+        ];
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://api.sendgrid.com/v3/mail/send");
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "Authorization: Bearer $apiKey",
+            "Content-Type: application/json",
+        ]);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($httpCode == 202) {
             $success_message = "Password has been sent to your email.";
         } else {
-            $error_message = "Error sending email.";
+            $error_message = "Failed to send email.";
         }
     } else {
         $error_message = "No matching records found. Please check your details and try again.";
     }
 
-    // Close the statement
     $stmt->close();
 }
 
-// Close the connection
 $conn->close();
 ?>
 
@@ -82,14 +98,12 @@ $conn->close();
         </div>
         <h2>Forgot Password</h2>
 
-        <!-- Display error message if there is one -->
         <?php if (!empty($error_message)): ?>
             <div class="error-message" style="color: red; text-align: center;">
                 <?php echo htmlspecialchars($error_message); ?>
             </div>
         <?php endif; ?>
 
-        <!-- Display success message if there is one -->
         <?php if (!empty($success_message)): ?>
             <div class="success-message" style="color: green; text-align: center;">
                 <?php echo htmlspecialchars($success_message); ?>

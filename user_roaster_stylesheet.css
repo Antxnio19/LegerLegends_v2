@@ -1,0 +1,283 @@
+:root {
+    --background-color: #2C2F33; 
+    --navbar-background: #23272A; 
+    --link-color: #73B2FF; 
+    --link-hover-background: #1F2933; 
+    --dropdown-background: #2C2F33; 
+    --dropdown-hover-background: #3A3F47; 
+    --text-color: white; 
+    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+    --border-radius: 5px; 
+}
+
+/* Global Styles */
+body {
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--navbar-background);
+}
+
+.welcome {
+    display: flex;
+    align-items: center;
+}
+
+.picture {
+    width: 100px;
+    height: auto;
+    margin-right: 10px;
+}
+
+/* User profile section */
+body {
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--navbar-background);
+}
+
+.welcome {
+    display: flex;
+    align-items: center;
+}
+
+.picture {
+    width: 100px;
+    height: auto;
+    margin-right: 10px;
+}
+
+/* User profile section */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.username {
+    font-size: 16px;
+    color: var(--text-color); 
+    margin-right: 10px;
+}
+
+.logout-btn {
+    padding: 10px;
+    background-color: var(--link-color); 
+    color: white; 
+    text-decoration: none;
+    border-radius: var(--border-radius);
+}
+
+.logout-btn:hover {
+    background-color: var(--link-hover-background); 
+    color: white; 
+}
+
+/* Main bar for navigation */
+.main-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--navbar-background);
+    padding: 10px;
+    box-shadow: var(--box-shadow);
+    gap: 3px; 
+}
+
+.nav-link {
+    display: inline-block;
+    padding: 8px; 
+    background-color: var(--navbar-background);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin: 0 3px; 
+}
+
+.nav-link:hover {
+    background-color: var(--link-hover-background); 
+    color: white; 
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin: 0 3px; 
+}
+
+.dropbtn {
+    background-color: var(--navbar-background); 
+    color: white; 
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--dropdown-background); 
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.dropdown-content a {
+    color: var(--text-color); 
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--dropdown-hover-background); 
+}
+
+.dropdown:hover .dropdown-content {
+    display: block; 
+}
+
+/* Additional Styles for Titles and Tabs */
+.title {
+    color: White; 
+    font-size: 24px; 
+    margin-bottom: 10px; 
+}
+
+.tab-label {
+    color: var(--text-color); 
+    padding: 5px 10px; 
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; 
+    background-color: white; 
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow-x: auto; 
+    table-layout: auto; 
+}
+
+th, td {
+    padding: 10px; 
+    text-align: left; 
+    border-bottom: 1px solid lightgrey; 
+    font-size: 12px;
+}
+
+th {
+    background-color: #f0f0f0; 
+    color: #333; 
+    font-weight: bold; 
+}
+
+tr:hover {
+    background-color: #f9f9f9; 
+}
+
+/* Update Button Styles */
+.update-button {
+    padding: 6px 10px; 
+    background-color: var(--link-color); 
+    color: white; 
+    border: none; 
+    border-radius: var(--border-radius); 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+    font-size: 12px; 
+}
+
+.update-button:hover {
+    background-color: darken(var(--link-color), 10%); 
+}
+
+/* Form Styles */
+.form-container {
+    background-color: var(--navbar-background); 
+    padding: 20px; 
+    margin: 20px auto; 
+    width: 80%; 
+    max-width: 600px; 
+    border-radius: var(--border-radius); 
+    box-shadow: var(--box-shadow);
+}
+
+form {
+    display: flex; 
+    flex-direction: column; 
+}
+
+form label {
+    margin-top: 10px; 
+    font-weight: bold; 
+    color: var(--text-color); 
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="date"],
+form input[type="number"],
+form input[type="password"] {
+    padding: 10px; 
+    margin-top: 5px; 
+    margin-bottom: 15px; 
+    border: 1px solid #ddd; 
+    border-radius: var(--border-radius); 
+    width: 100%; 
+    box-sizing: border-box; 
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="date"]:focus,
+form input[type="number"]:focus,
+form input[type="password"]:focus {
+    border-color: var(--link-color); 
+    outline: none; 
+}
+
+form .submit-button {
+    background-color: var(--link-color); 
+    color: #fff; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: var(--border-radius); 
+    cursor: pointer; 
+    font-size: 16px; 
+    margin-top: 10px; 
+}
+
+form .submit-button:hover {
+    background-color: darken(var(--link-color), 10%); 
+}
